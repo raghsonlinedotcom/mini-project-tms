@@ -23,7 +23,7 @@
 	<body>
 		<h1>Employee Registration Form :</h1>
 		<br>
-		<form id="create" name="create" action="Create" method="post">
+		<form id="create" name="create" action="EmployeeCreate" method="post">
 			<table border="1">
 				<thead>
 					<tr>
@@ -157,7 +157,7 @@
                        		 Manager Name
                     	</td>
                    		<td>
-                       		 <input type="text" id="managerName" name="managerName" placeholder="ex:Raghavan" size="100"  maxlength="20" required >
+                       		 <input type="text" id="managerName" name="managerName" placeholder="ex:Raghavan" size="100"  maxlength="20"  >
                    		</td>
 	                </tr>
 	                <tr>
@@ -166,7 +166,7 @@
                     	</td>
                    		<td>
                        		 <input type="number" id="managerId" name="managerId" 
-                       		 min="1" max="999" step="1"  placeholder="Ex:140" size="3"  maxlength="3" required>
+                       		 min="1" max="999" step="1"  placeholder="Ex:140" size="3"  maxlength="3" >
                    		</td>
 	                </tr>
 					<tr>
