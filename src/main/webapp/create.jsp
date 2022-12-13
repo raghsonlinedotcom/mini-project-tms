@@ -21,9 +21,9 @@
 		 </script>
 	</head>
 	<body>
-		<h1>Employee-RegisterationForm :</h1>
+		<h1>Employee Registration Form :</h1>
 		<br>
-		<form id="register" name="register" action="check.jsp" method="post">
+		<form id="create" name="create" action="Create" method="post">
 			<table border="1">
 				<thead>
 					<tr>
@@ -44,18 +44,18 @@
 						<td>First Name</td>
 						<td>
 							<input type="text" id="firstName" name="firstName"  
-								placeholder="Ex:ABC" size="20" maxlength="20" required>
+								placeholder="Ex:Arun" size="20" maxlength="20" required>
 						</td>
 					</tr>
 					<tr>
 						<td>Last Name</td>
 						<td>
 							<input type="text" id="lastName" name="lastName"  
-								placeholder="Ex:XYZ" size="20"   maxlength="20"required >
+								placeholder="Ex:Gubbala" size="20"   maxlength="20"required >
 						</td>
 					</tr>
 					<tr>
-						<td>Date-Of-Birth</td>
+						<td>Date Of Birth</td>
 						<td>
 							<input type="date" id="dob" name="dob" 
 							min="18" max="52" required/>
@@ -69,9 +69,9 @@
 	                    </td>
                 	</tr>
 					<tr>
-						<td>Aadhaar Id</td>
+						<td>AadharId</td>
 						<td>
-							<input type="number" id="AadhaarId" name="AadhaarId" size="12" 
+							<input type="number" id="aadharId" name="aadharId" size="12" 
 								placeholder="ex:123456789012" maxlength="12" required>
 						</td>
 					</tr>
@@ -81,7 +81,7 @@
                     	</td>
                    		<td>
                        		 <select name="bloodGroup" id="bloodGroup" required>
-                       		  	<option value='' selected disabled hidden>Select an Option</option>
+                       		  	<option value='' selected >Select an Option</option>
 			                    <option value="A +ve">A +ve</option>
 			                    <option value="O +ve">O +ve</option>
 			                    <option value="B +ve">B +ve</option>
@@ -134,11 +134,11 @@
 						<td>Skill Sets</td>
 						<td>
 						<textarea rows="4" cols="50"  id="skillSets" name="skillSets" 
-								placeholder="ex:java,mysql,html,css" size="100" maxlength="100" required>
+								placeholder="ex:java,mysql,html,css" maxlength="100" required>
 						</textarea>
 						</td>
 					<tr>
-						<td>Date-Of-Joinig</td>
+						<td>Date Of Joining</td>
 						<td>
 							<input type="date" id="doj" name="doj"
 								required/>
@@ -157,7 +157,7 @@
                        		 Manager Name
                     	</td>
                    		<td>
-                       		 <input type="text" id="managerName" name="managerName" placeholder="ex:abc" size="100"  maxlength="20" required >
+                       		 <input type="text" id="managerName" name="managerName" placeholder="ex:Raghavan" size="100"  maxlength="20" required >
                    		</td>
 	                </tr>
 	                <tr>
@@ -166,7 +166,7 @@
                     	</td>
                    		<td>
                        		 <input type="number" id="managerId" name="managerId" 
-                       		 min="1" max="999" step="1"  placeholder="Ex:123" size="3"  maxlength="3" required>
+                       		 min="1" max="999" step="1"  placeholder="Ex:140" size="3"  maxlength="3" required>
                    		</td>
 	                </tr>
 					<tr>
