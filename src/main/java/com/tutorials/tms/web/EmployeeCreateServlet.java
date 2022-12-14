@@ -37,7 +37,7 @@ public class EmployeeCreateServlet extends HttpServlet {
 			HttpServletResponse response) 
 			throws ServletException, IOException 
 	{
-		System.out.println("RegisterServlet - doPost() invoked");
+		System.out.println("EmployeeCreateServlet - doPost() invoked");
 		
 		//response.setContentType("text/html");
 		//response.getWriter().println("RegisterServlet invoked!");
@@ -46,6 +46,8 @@ public class EmployeeCreateServlet extends HttpServlet {
 		Employee employee= new Employee();
 		
 		String emp_idStr = request.getParameter("employeeId");
+		System.out.println("Param - empId : [" + emp_idStr + "]");
+		
 		if(null==emp_idStr) {
 			//TODO Revisit this later
 			throw new ServletException("Missing employeeId value, can't Create the records!");
@@ -74,6 +76,7 @@ public class EmployeeCreateServlet extends HttpServlet {
 		String manager_name = String.valueOf(request.getParameter("managerName"));
 		
 		String manager_idStr = request.getParameter("managerId");
+		System.out.println("Param - managerId : [" + manager_idStr + "]");
 		
         int manager_id = manager_idStr!=null ? Integer.parseInt(manager_idStr) : 0;
 		

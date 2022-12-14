@@ -40,9 +40,9 @@ public class Employee {
 	
 	private String hobbies;
 	
-	private String manager_name;
+	private String managerName;
 	
-	private int manager_id;
+	private int managerId;
 	
 	
 	/**
@@ -64,7 +64,7 @@ public class Employee {
 	 * @param date_of_joining
 	 * @param hobbies
 	 * @param manager_name
-	 * @param manager_id
+	 * @param managerId
 	 */
 	public Employee() {
 		
@@ -92,18 +92,13 @@ public class Employee {
 		this.skillsets = skillsets;
 		this.date_of_joining = date_of_joining;
 		this.hobbies = hobbies;
-		this.manager_name = manager_name;
-		this.manager_id = manager_id;
+		this.managerName = manager_name;
+		this.managerId = manager_id;
 	}
-
-
-
-
 
 	public int getEmp_id() {
 		return emp_id;
 	}
-
 
 	public void setEmp_id(int emp_id) {
 		this.emp_id = emp_id;
@@ -278,25 +273,25 @@ public class Employee {
 
 
 	public String getManager_name() {
-		return manager_name;
+		return managerName;
 	}
 
 
 
 	public void setManager_name(String manager_name) {
-		this.manager_name = manager_name;
+		this.managerName = manager_name;
 	}
 
 
 
 	public int getManager_id() {
-		return manager_id;
+		return managerId;
 	}
 
 
 
 	public void setManager_id(int manager_id) {
-		this.manager_id = manager_id;
+		this.managerId = manager_id;
 	}
 
 
@@ -323,8 +318,8 @@ public class Employee {
 					+ ", skillsets=" + skillsets 
 					+ ", date_of_joining=" + date_of_joining
 					+ ", hobbies=" + hobbies 
-					+ ", manager_name=" + manager_name 
-					+ ", manager_id=" + manager_id;
+					+ ", manager_name=" + managerName 
+					+ ", managerId=" + managerId;
 		}
 
 
