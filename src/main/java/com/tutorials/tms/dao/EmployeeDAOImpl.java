@@ -1,10 +1,7 @@
 package com.tutorials.tms.dao;
 
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 import com.tutorials.tms.bo.Employee;
 import com.tutorials.tms.db.DBConnection;
@@ -33,8 +30,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		
 		PreparedStatement ps = null;
 		int rowsAdded = 0;
-		
-		ResultSet rs = null;
 		
 		ps = conn.prepareStatement(sql);
 		

@@ -22,7 +22,7 @@
 		 </script>
 	</head>
 	<body>
-		<h1>Employee Registration Form :</h1>
+		<h1>Employee Registration Form</h1>
 		<br>
 		<form id="create" name="create" action="EmployeeCreate" method="post">
 			<table border="1">
