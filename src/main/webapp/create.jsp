@@ -5,6 +5,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>TMS | Register</title>
+		<link rel="stylesheet" href="style.css"/>
 		<script type="text/javascript">
 		 function validate changeGender()
 	      {
@@ -33,9 +34,9 @@
 				</thead>
 				<tbody>	
 					<tr>
-						<td>Employee Id</td>
+						<td>Id</td>
 						<td>
-							<input type="number" id="employeeId" name="employeeId" size="3" 
+							<input type="number" id="id" name="id" size="3" 
 							     min="1" max="999" step="1"
 								placeholder="ex:121" required   >
 						</td>
@@ -58,7 +59,7 @@
 						<td>Date Of Birth</td>
 						<td>
 							<input type="date" id="dob" name="dob" 
-							min="18" max="52" required/>
+							min="1960-01-01" max="2004-01-01" required/>
 						</td>
 					</tr>
 					<tr>
@@ -148,15 +149,7 @@
                        		 Hobbies
                     	</td>
                    		<td>
-                       		 <input type="text" id="hobbies" name="hobbies" placeholder="ex:Singing,Dancing,etc" size="100"  maxlength="100" required >
-                   		</td>
-	                </tr>
-	                <tr>
-	                	<td>
-                       		 Manager Name
-                    	</td>
-                   		<td>
-                       		 <input type="text" id="managerName" name="managerName" placeholder="ex:Raghavan" size="100"  maxlength="20"  >
+                       		 <input type="text" id="hobbies" name="hobbies" placeholder="ex:Singing,Dancing,etc" size="100"  maxlength="100" >
                    		</td>
 	                </tr>
 	                <tr>

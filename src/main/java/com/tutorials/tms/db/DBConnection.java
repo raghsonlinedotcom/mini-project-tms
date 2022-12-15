@@ -8,9 +8,9 @@ public class DBConnection
 {
 	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/TMS";
 	
-	private static final String JDBC_USER = "raghs";
+	private static final String JDBC_USER = "root";
 	
-	private static final String JDBC_PASS = "RaghsMySQL12#";
+	private static final String JDBC_PASS = "Milvik@137";
 	
 	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	

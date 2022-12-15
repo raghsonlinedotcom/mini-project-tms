@@ -5,8 +5,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>MEMS | Home Page</title>
+		<link rel="stylesheet" href="style.css"/>
 	</head>
 	<body>
 		<h1> Welcome to TMS - Team Management System </h1>
+		<div>Click on <a href="create.jsp" style="color: green">Register</a></div>
 	</body>
 </html>
