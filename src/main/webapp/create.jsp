@@ -134,8 +134,7 @@
 						<td>Skill Sets</td>
 						<td>
 						<textarea rows="4" cols="50"  id="skillSets" name="skillSets" 
-								placeholder="ex:java,mysql,html,css" maxlength="100" required>
-						</textarea>
+								placeholder="ex:java,mysql,html,css" maxlength="100" required></textarea>
 						</td>
 					<tr>
 						<td>Date Of Joining</td>
@@ -165,8 +164,14 @@
                        		 Manager Id
                     	</td>
                    		<td>
-                       		 <input type="number" id="managerId" name="managerId" 
-                       		 min="1" max="999" step="1"  placeholder="Ex:140" size="3"  maxlength="3" >
+                       		<select id="managerId" name="managerId">
+                       			<!-- <option id="-1" value="--Select--">--- Select ---</option>
+                       			<option id="1" value="1" selected>Raghavan</option>
+                       			<option id="2" value="2">Dev</option>
+                       			<option id="3" value="3">Balaji</option> -->
+                       			<option id="1" value="0">N/A</option>
+                       			<option id="1" value="1" selected>Raghavan</option>
+                       		</select>
                    		</td>
 	                </tr>
 					<tr>
