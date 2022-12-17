@@ -4,13 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.tutorials.tms.util.PropertyUtil;
+
 public class DBConnection 
 {
 	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/TMS";
 	
-	private static final String JDBC_USER = "root";
+	private static final String JDBC_USER = PropertyUtil.getPropertyValue("jdbc.user.name");
 	
-	private static final String JDBC_PASS = "root";
+	private static final String JDBC_PASS = PropertyUtil.getPropertyValue("jdbc.user.pass");
 	
 	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	
@@ -29,7 +31,7 @@ public class DBConnection
 	public static Connection getConn() 
 		throws SQLException, ClassNotFoundException
 	{
-		if(null==conn) {
+		if(null==conn || conn.isClosed()) {
 			createConn();
 		}
 		
