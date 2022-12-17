@@ -108,7 +108,7 @@
 	                </tr>
 	                <tr>
 	                    <td>Password</td>
-	                    <td><input type="password" id="password" name="password" size="15"  placeholder="password" maxlength="15" required></td>
+	                    <td><input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" size="15"  placeholder="password" maxlength="15" required></td>
 	                </tr>
 					<tr>
 						<td>Primary Contact Number</td>

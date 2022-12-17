@@ -10,7 +10,7 @@ public class DBConnection
 	
 	private static final String JDBC_USER = "root";
 	
-	private static final String JDBC_PASS = "Milvik@137";
+	private static final String JDBC_PASS = "root";
 	
 	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	
