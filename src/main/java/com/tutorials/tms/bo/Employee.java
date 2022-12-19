@@ -8,6 +8,8 @@ public class Employee {
 
 	private int id;
 
+	private String empId;
+	
 	private String firstName;
 	
 	private String lastName;
@@ -47,10 +49,11 @@ public class Employee {
 	}
 	
 	
-	public Employee(int id, String firstName, String lastName, String officialEmail,
+	public Employee(int id,String empId, String firstName, String lastName, String officialEmail,
 			String primaryContactNo,Date dateOfJoining,  int managerId) {
 		super();
 		this.id = id;
+		this.empId = empId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.officialEmail=officialEmail;
@@ -65,6 +68,17 @@ public class Employee {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+ 
+	
+
+	public String getEmpId() {
+		return empId;
+	}
+
+
+	public void setEmpId(String empId) {
+		this.empId = empId;
 	}
 
 	public String getFirstName() {
@@ -210,6 +224,7 @@ public class Employee {
 		return "Employee ["
 				+ ", hashCode()=" + hashCode()
 				+ "id=" + id 
+				+ "empId=" + empId 
 				+ ", firstName=" + firstName
 				+ ", lastName=" + lastName
 				+ ", officialEmail=" + officialEmail 
@@ -217,6 +232,7 @@ public class Employee {
 				+ ", dateOfJoining=" + dateOfJoining
 				+ ", managerId=" + managerId;
 	}
+
 
 	
 }

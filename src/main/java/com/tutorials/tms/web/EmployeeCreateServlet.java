@@ -45,15 +45,9 @@ public class EmployeeCreateServlet extends HttpServlet {
 		//1. Collect the input data
 		Employee employee= new Employee();
 		
-		String idStr = request.getParameter("id");
-		if(null==idStr) {
-			//TODO Revisit this later
-			throw new ServletException("Missing employeeId value, can't Create the records!");
-		}
 		
-		int id = Integer.parseInt(idStr);
-		
-		
+	
+		String empId = String.valueOf(request.getParameter("empId"));
 		String firstName = String.valueOf(request.getParameter("firstName"));
 		String lastName = String.valueOf(request.getParameter("lastName"));
 		Date  dateOfBirth = Date.valueOf(request.getParameter("dob"));
@@ -79,7 +73,7 @@ public class EmployeeCreateServlet extends HttpServlet {
         int managerid = manageridStr!=null ? Integer.parseInt(manageridStr) : 0;
 
 		//2. Prepare the BO object
-        employee.setId(id); 
+        employee.setEmpId(empId); 
         employee.setFirstName(firstName); 
         employee.setLastName(lastName);
         employee.setDateOfBirth(dateOfBirth);
@@ -100,7 +94,7 @@ public class EmployeeCreateServlet extends HttpServlet {
         
 		//3. Save it into the Database
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
-		int rowsAdded = -1;
+		int lastInsertedId = -1;
 		String errorMsg = null;
 		Exception exceptionObj = null;
 		/* MEMS-18, MEMS-19 */
@@ -110,7 +104,7 @@ public class EmployeeCreateServlet extends HttpServlet {
 		boolean isError = false;
 		
 		try {
-			rowsAdded = employeeDAO.createEmployee(employee);
+			lastInsertedId = employeeDAO.createEmployee(employee);
 		} catch(ClassNotFoundException classNotFoundException) { 
 			isError = true;
 			exceptionObj = classNotFoundException;				
@@ -143,7 +137,7 @@ public class EmployeeCreateServlet extends HttpServlet {
 		String message = null;
 		String flag = null;
 		
-		if(rowsAdded<=0) { /* Error */
+		if(lastInsertedId<=0) { /* Error */
 			message = "Error while registering the Employee. "; 
 			
 			if(exceptionObj instanceof ClassNotFoundException) {
@@ -154,10 +148,10 @@ public class EmployeeCreateServlet extends HttpServlet {
 				message = message + " Reason : " + errorMsg;
 			}			
 		} else { /* Success */ 
-			message = "Registration successful.";
+			message = "Registration successful. Your Id  is : " + lastInsertedId;
 		}
 		
-		System.out.println("RowsAdded Id : " +rowsAdded);
+		System.out.println("Last Inserted Id : " +lastInsertedId);
 		request.setAttribute("message", message);
 		request.setAttribute("flag", flag);
 	
