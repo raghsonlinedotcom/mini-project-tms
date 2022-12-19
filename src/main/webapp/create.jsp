@@ -83,14 +83,14 @@
                    		<td>
                        		 <select name="bloodGroup" id="bloodGroup" required>
                        		  	<option value='' selected >Select an Option</option>
-			                    <option value="A +ve">A +ve</option>
-			                    <option value="O +ve">O +ve</option>
-			                    <option value="B +ve">B +ve</option>
-			                    <option value="AB +ve">AB +ve</option>
-			                    <option value="A -ve">A -ve</option>
-			                    <option value="O -ve">O -ve</option>
-			                    <option value="B -ve">B -ve</option>
-			                    <option value="AB -ve">AB -ve</option> 
+			                    <option value="A +ve">A+ve</option>
+			                    <option value="O +ve">O+ve</option>
+			                    <option value="B +ve">B+ve</option>
+			                    <option value="AB +ve">AB+ve</option>
+			                    <option value="A -ve">A-ve</option>
+			                    <option value="O -ve">O-ve</option>
+			                    <option value="B -ve">B-ve</option>
+			                    <option value="AB -ve">AB-ve</option> 
 			                </select>
                    		</td>
 	                </tr>
