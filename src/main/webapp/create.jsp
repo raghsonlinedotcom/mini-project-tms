@@ -1,3 +1,4 @@
+<%@page import="com.tutorials.tms.util.AppUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,6 +25,9 @@
 	<body>
 		<h1>Employee Registration Form</h1>
 		<br>
+		<%
+			boolean isAppDevMode = AppUtil.isAppDevMode;
+		%>
 		<form id="create" name="create" action="EmployeeCreate" method="post">
 			<table border="1">
 				<thead>
@@ -34,127 +38,172 @@
 				</thead>
 				<tbody>	
 					<tr>
-						<td>EmpId</td>
+						<td>EmployeeId <span class="required">*</span></td>
 						<td>
-							<input type="text" id="empId" name="empId" size="3" 
-							     min="1" max="999" step="1"
-								placeholder="ex:121" required   >
+							<input type="text" id="empId" name="empId" size="10" maxlength="10" 
+								placeholder="ex:121" required 
+								value='<%= isAppDevMode ? "137" : "" %>' >
 						</td>
 					</tr>
 					<tr>
-						<td>First Name</td>
+						<td>First Name <span class="required">*</span></td>
 						<td>
 							<input type="text" id="firstName" name="firstName"  
-								placeholder="Ex:Arun" size="20" maxlength="20" required>
+								placeholder="Ex:Arun" size="20" maxlength="20" 
+								value='<%= isAppDevMode ? "Arun" : "" %>' 
+								required>
 						</td>
 					</tr>
 					<tr>
-						<td>Last Name</td>
+						<td>Last Name <span class="required">*</span></td>
 						<td>
 							<input type="text" id="lastName" name="lastName"  
-								placeholder="Ex:Gubbala" size="20"   maxlength="20"required >
+								placeholder="Ex:Gubbala" size="20"   
+								maxlength="20" 
+								value='<%= isAppDevMode ? "Gubbala" : "" %>' 
+								required >
 						</td>
 					</tr>
 					<tr>
-						<td>Date Of Birth</td>
+						<td>Date Of Birth <span class="required">*</span></td>
 						<td>
 							<input type="date" id="dob" name="dob" 
-							min="1960-01-01" max="2004-01-01" required/>
+								min="1960-01-01" max="2004-01-01"  
+								value='<%= isAppDevMode ? "1999-11-13" : "" %>'
+								required/>
 						</td>
 					</tr>
 					<tr>
-	                    <td>Gender</td>
+	                    <td>Gender <span class="required">*</span></td>
 	                    <td>
-	                    	<input type="radio" id="gender" name="gender" value="M" required onclick="changeGender();">Male
-     						<input type="radio" id="gender" name="gender" value="F" onclick="changeGender();">Female
+	                    	<input type="radio" id="gender" name="gender" 
+	                    		value="M" required onclick="changeGender();"
+	                    		<%= isAppDevMode ? "checked" : "" %>
+	                    		>Male
+     						<input type="radio" id="gender" name="gender" 
+     							value="F" onclick="changeGender();">Female
 	                    </td>
                 	</tr>
 					<tr>
-						<td>AadharId</td>
+						<td>AadharId <span class="required">*</span></td>
 						<td>
 							<input type="number" id="aadharId" name="aadharId" size="12" 
-								placeholder="ex:123456789012" maxlength="12" required>
+								placeholder="ex:123456789012" maxlength="12"
+								value='<%= isAppDevMode ? "123456789012" : "" %>' 
+								required>
 						</td>
 					</tr>
 	                <tr>
 	                	<td>
-                       		 BloodGroup
+                       		 BloodGroup <span class="required">*</span>
                     	</td>
                    		<td>
                        		 <select name="bloodGroup" id="bloodGroup" required>
                        		  	<option value='' selected >Select an Option</option>
-			                    <option value="A +ve">A+ve</option>
-			                    <option value="O +ve">O+ve</option>
-			                    <option value="B +ve">B+ve</option>
-			                    <option value="AB +ve">AB+ve</option>
-			                    <option value="A -ve">A-ve</option>
-			                    <option value="O -ve">O-ve</option>
-			                    <option value="B -ve">B-ve</option>
-			                    <option value="AB -ve">AB-ve</option> 
+			                    <option value="A+ve" <%= isAppDevMode ? "selected" : "" %> >A+ve</option>
+			                    <option value="O+ve">O+ve</option>
+			                    <option value="B+ve">B+ve</option>
+			                    <option value="AB+ve">AB+ve</option>
+			                    <option value="A-ve">A-ve</option>
+			                    <option value="O-ve">O-ve</option>
+			                    <option value="B-ve">B-ve</option>
+			                    <option value="AB-ve">AB-ve</option> 
 			                </select>
                    		</td>
 	                </tr>
 	                <tr>
-	                    <td>City</td>
-	                    <td><input type="text" id="city" name="city" placeholder="city" size="20"   maxlength="20" required></td>
+	                    <td>City <span class="required">*</span></td>
+	                    <td>
+	                    	<input type="text" id="city" name="city" placeholder="city" 
+	                    	size="20"   maxlength="20" 
+	                    	value='<%= isAppDevMode ? "Kakinada" : "" %>'
+	                    	required>
+	                    </td>
 	                </tr>
 					<tr>
-	                    <td>PersonalEmail</td>
-	                    <td><input type="Email" id="persoalEmail" name="persoalEmail" size="40"  placeholder="Ex:abc@gmail.com"  maxlength="40" required></td>
+	                    <td>PersonalEmail <span class="required">*</span></td>
+	                    <td>
+	                    	<input type="Email" id="persoalEmail" name="persoalEmail" 
+		                    size="40"  placeholder="Ex:abc@gmail.com" 
+		                    value='<%= isAppDevMode ? "arun@gmail.com" : "" %>'  
+		                    maxlength="40" required>
+	                    </td>
 	                </tr>
 	                <tr>
-	                    <td>OfficialEmail</td>
-	                    <td><input type="Email" id="officialEmail" name="officialEmail" size="40"  placeholder="Ex:abc.de@milvik.se" maxlength="40" required></td>
+	                    <td>OfficialEmail <span class="required">*</span></td>
+	                    <td><input type="Email" id="officialEmail" name="officialEmail" 
+	                    size="40"  placeholder="Ex:abc.de@milvik.se"  
+	                    value='<%= isAppDevMode ? "123456789012" : "" %>' 
+	                    maxlength="40" required>
+	                    </td>
 	                </tr>
 	                <tr>
-	                    <td>Password</td>
-	                    <td><input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" size="15"  placeholder="password" maxlength="15" required></td>
+	                    <td>Password <span class="required">*</span></td>
+	                    <td>
+	                    	<input type="password" id="password" name="password" 
+	                    	pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" size="15" 
+	                    	value='<%= isAppDevMode ? "arun@milvik.se" : "" %>' 
+	                    	placeholder="password" maxlength="15" 
+	                    	required>
+	                    </td>
 	                </tr>
 					<tr>
-						<td>Primary Contact Number</td>
+						<td>Primary Contact Number <span class="required">*</span></td>
 						<td>
-							<input type="number" id="primaryContactNumber" name="primaryContactNumber" 
-								placeholder="ex:1234567890" size="10"  maxlength="10" required >
+							<input type="number" id="primaryContactNumber" 
+								name="primaryContactNumber" 
+								placeholder="ex:1234567890" size="10"  maxlength="10" 
+								value='<%= isAppDevMode ? "7288822559" : "" %>'
+								required >
 						</td>
 					</tr>
 					<tr>
 						<td>Secondary Contact Number</td>
 						<td>
-							<input type="number" id="secondaryContactNumber" name="secondaryContactNumber" 
+							<input type="number" id="secondaryContactNumber" 
+								name="secondaryContactNumber" 
 								placeholder="ex:1234567890" size="10"  maxlength="10" >
 						</td>
 					</tr>
 					<tr>
-						<td>Highest Qualification</td>
+						<td>Highest Qualification <span class="required">*</span></td>
 						<td>
-							<input type="text" id="highestQualification" name="highestQualification" 
-								placeholder="ex:Master's" required size="35" maxlength="35">
+							<input type="text" id="highestQualification" 
+								name="highestQualification" 
+								placeholder="ex:Master's" required size="35" 
+								value='<%= isAppDevMode ? "BTech" : "" %>' 
+								maxlength="35">
 						</td>
 					</tr>
 					<tr>
-						<td>Skill Sets</td>
+						<td>Skill Sets <span class="required">*</span></td>
 						<td>
 						<textarea rows="4" cols="50"  id="skillSets" name="skillSets" 
-								placeholder="ex:java,mysql,html,css" maxlength="100" required></textarea>
+								placeholder="ex:java,mysql,html,css" maxlength="100"								  
+								required><%= isAppDevMode ? "Java, SQL, HTML, CSS" : "" %>
+						</textarea>
 						</td>
 					<tr>
-						<td>Date Of Joining</td>
+						<td>Date Of Joining <span class="required">*</span></td>
 						<td>
-							<input type="date" id="doj" name="doj"
+							<input type="date" id="doj" name="doj" 
+								value='<%= isAppDevMode ? "2022-04-13" : "" %>'
 								required/>
 						</td>
 					</tr>
 					<tr>
 	                	<td>
-                       		 Hobbies
+                       		 Hobbies 
                     	</td>
                    		<td>
-                       		 <input type="text" id="hobbies" name="hobbies" placeholder="ex:Singing,Dancing,etc" size="100"  maxlength="100" >
+                       		 <input type="text" id="hobbies" name="hobbies" 
+                       		 	placeholder="ex:Singing,Dancing,etc" 
+                       		 	size="100" maxlength="100" >
                    		</td>
 	                </tr>
 	                <tr>
 	                	<td>
-                       		 Manager Id
+                       		 Manager Id <span class="required">*</span>
                     	</td>
                    		<td>
                        		<select id="managerId" name="managerId">

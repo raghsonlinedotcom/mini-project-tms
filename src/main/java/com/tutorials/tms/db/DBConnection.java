@@ -8,18 +8,15 @@ import com.tutorials.tms.util.PropertyUtil;
 
 public class DBConnection 
 {
-	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/TMS";
+	private static final String JDBC_URL = PropertyUtil.getDBPropertyValue("jdbc.url");
 	
-	private static final String JDBC_USER = PropertyUtil.getPropertyValue("jdbc.user.name");
+	private static final String JDBC_USER = PropertyUtil.getDBPropertyValue("jdbc.user.name");
 	
-	private static final String JDBC_PASS = PropertyUtil.getPropertyValue("jdbc.user.pass");
+	private static final String JDBC_PASS = PropertyUtil.getDBPropertyValue("jdbc.user.pass");
 	
 	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	
 	private static Connection conn = null;
-	
-	//static String connURL = "jdbc:mysql://localhost:3306/jdbcTest";
-
 	
 	private static void createConn() 
 		throws SQLException, ClassNotFoundException

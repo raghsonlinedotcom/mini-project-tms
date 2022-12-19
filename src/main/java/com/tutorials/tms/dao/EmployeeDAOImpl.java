@@ -76,10 +76,6 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		
 		System.out.println("Rows Added : "+ rowsAdded);
 		System.out.println("Last Inserted Id : "+ lastInsertedId);
-		conn.close();
-		return lastInsertedId;
-	}
-	
 		
 		//BEST PRACTICE! Added to avoid the resource leakage. 
 		//TODO : It has got a different overhead such that we may 
@@ -87,10 +83,11 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		// as we directly get the connection from the Database.
 		//However, this can be resolved using a Connection Pooling,
 		//which we can see later. 
+		conn.close();
+		
+		return lastInsertedId;
+	}
 	
-
-	
-
 	@Override
 	public int getCount() throws Exception 
 	{
