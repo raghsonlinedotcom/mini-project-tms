@@ -2,8 +2,6 @@
 
 * {
 	font-family: "Lucida Grande", "Verdana";
-	font-family:"Times New Roman","Verdana";
-	font-size: 18px;
 	color: navy;
 }
 
@@ -25,13 +23,4 @@ table thead {
 
 .center {
 	text-align: center;
-}
-
-input,select,textarea{
-     
-      background-color: rgb(188, 243, 244);
-}
-
-.required {
-  color: red;
 }

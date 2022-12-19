@@ -25,7 +25,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		Connection conn = DBConnection.getConn();
 
 		// 2. Prepare the SQL Query and Statement Object
-		String sql = "INSERT INTO EMPLOYEE(ID, FIRST_NAME, LAST_NAME,DATE_OF_BIRTH, GENDER,"
+		String sql = "INSERT INTO EMPLOYEE(EMP_ID, FIRST_NAME, LAST_NAME,DATE_OF_BIRTH, GENDER,"
 				+ "AADHAR_ID, BLOOD_GROUP, CITY, PERSONAL_EMAIL, OFFICIAL_EMAIL, " + 
 				"PASSWORD, PRIMARY_CONTACT_NO, SECONDARY_CONTACT_NO, HIGHEST_QUALIFICATION, " + 
 				"SKILLSETS, DATE_OF_JOINING, HOBBIES, " + "MANAGER_ID)"
@@ -33,11 +33,13 @@ public class EmployeeDAOImpl implements EmployeeDAO
 
 		PreparedStatement ps = null;
 		int rowsAdded = 0;
+		int lastInsertedId = 0;
+		ResultSet rs = null;
 
 		ps = conn.prepareStatement(sql);
 
 		// 3. Set/ Bind Values to the Prepared Statement
-		ps.setInt(1, employee.getId());
+		ps.setString(1, employee.getEmpId());
 		ps.setString(2, employee.getFirstName());
 		ps.setString(3, employee.getLastName());
 		ps.setDate(4, (java.sql.Date) employee.getDateOfBirth());
@@ -64,7 +66,20 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		// 4. Execute the Statement
 		rowsAdded = ps.executeUpdate();
 
-		System.out.println("Rows Added : " + rowsAdded);
+		rs = ps.executeQuery("SELECT LAST_INSERT_ID()");
+
+	    if (rs.next()) {
+	    	lastInsertedId = rs.getInt(1);
+	    } else {
+	        System.err.println("There was no record inserted in this session!");
+	    }
+		
+		System.out.println("Rows Added : "+ rowsAdded);
+		System.out.println("Last Inserted Id : "+ lastInsertedId);
+		conn.close();
+		return lastInsertedId;
+	}
+	
 		
 		//BEST PRACTICE! Added to avoid the resource leakage. 
 		//TODO : It has got a different overhead such that we may 
@@ -72,10 +87,9 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		// as we directly get the connection from the Database.
 		//However, this can be resolved using a Connection Pooling,
 		//which we can see later. 
-		conn.close();
+	
 
-		return rowsAdded;
-	}
+	
 
 	@Override
 	public int getCount() throws Exception 
