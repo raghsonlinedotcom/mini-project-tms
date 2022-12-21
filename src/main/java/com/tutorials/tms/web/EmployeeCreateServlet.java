@@ -11,23 +11,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.tutorials.tms.bo.Employee;
+import org.apache.log4j.Logger;
+
+import com.tutorials.tms.bo.EmployeeBO;
 import com.tutorials.tms.dao.EmployeeDAO;
 import com.tutorials.tms.dao.EmployeeDAOImpl;
+import com.tutorials.tms.util.AppUtil;
 
 /**
  * Servlet implementation class EmployeeCreateServlet
  */
 @WebServlet({ "/EmployeeCreateServlet", "/EmployeeCreate" })
-public class EmployeeCreateServlet extends HttpServlet {
+public class EmployeeCreateServlet extends HttpServlet 
+{
 	private static final long serialVersionUID = 1L;
+	
+	Logger logger = Logger.getLogger(this.getClass());
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public EmployeeCreateServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -37,13 +42,13 @@ public class EmployeeCreateServlet extends HttpServlet {
 			HttpServletResponse response) 
 			throws ServletException, IOException 
 	{
-		System.out.println("EmployeeCreateServlet - doPost() invoked");
+		logger.info("EmployeeCreateServlet - doPost() invoked");
 		
 		//response.setContentType("text/html");
 		//response.getWriter().println("RegisterServlet invoked!");
 		
 		//1. Collect the input data
-		Employee employee= new Employee();
+		EmployeeBO employeeBO= new EmployeeBO();
 		
 		
 	
@@ -68,29 +73,29 @@ public class EmployeeCreateServlet extends HttpServlet {
 	
 		
 		String manageridStr = request.getParameter("managerId");
-		System.out.println("Param - managerId : [" + manageridStr + "]");
+		logger.info("Param - managerId : [" + manageridStr + "]");
 		
         int managerid = manageridStr!=null ? Integer.parseInt(manageridStr) : 0;
 
 		//2. Prepare the BO object
-        employee.setEmpId(empId); 
-        employee.setFirstName(firstName); 
-        employee.setLastName(lastName);
-        employee.setDateOfBirth(dateOfBirth);
-        employee.setGender(gender.charAt(0));
-        employee.setAadharId(aadharId);
-        employee.setBloodGroup(bloodGroup);
-        employee.setCity(city);
-        employee.setPersonalEmail(personaleEmail);
-        employee.setOfficialEmail(officialEmail);
-        employee.setPassword(password);
-        employee.setPrimaryContactNo(primaryContactNo);
-        employee.setSecondaryContactNo(secondaryContactNo);
-        employee.setHighestQualification(highestQualification);  
-        employee.setSkillsets(skillsets);
-        employee.setDateOfJoining(dateOfJoining);
-        employee.setHobbies(hobbies);
-        employee.setManagerId(managerid);
+        employeeBO.setEmpId(empId); 
+        employeeBO.setFirstName(firstName); 
+        employeeBO.setLastName(lastName);
+        employeeBO.setDateOfBirth(dateOfBirth);
+        employeeBO.setGender(gender.charAt(0));
+        employeeBO.setAadharId(aadharId);
+        employeeBO.setBloodGroup(bloodGroup);
+        employeeBO.setCity(city);
+        employeeBO.setPersonalEmail(personaleEmail);
+        employeeBO.setOfficialEmail(officialEmail);
+        employeeBO.setPassword(password);
+        employeeBO.setPrimaryContactNo(primaryContactNo);
+        employeeBO.setSecondaryContactNo(secondaryContactNo);
+        employeeBO.setHighestQualification(highestQualification);  
+        employeeBO.setSkillsets(skillsets);
+        employeeBO.setDateOfJoining(dateOfJoining);
+        employeeBO.setHobbies(hobbies);
+        employeeBO.setManagerId(managerid);
         
 		//3. Save it into the Database
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
@@ -104,7 +109,7 @@ public class EmployeeCreateServlet extends HttpServlet {
 		boolean isError = false;
 		
 		try {
-			lastInsertedId = employeeDAO.createEmployee(employee);
+			lastInsertedId = employeeDAO.createEmployee(employeeBO);
 		} catch(ClassNotFoundException classNotFoundException) { 
 			isError = true;
 			exceptionObj = classNotFoundException;				
@@ -122,15 +127,16 @@ public class EmployeeCreateServlet extends HttpServlet {
 	
 		if(isError) 
 		{
-			System.err.println("Exception while registering the Employee");
+			logger.error("Exception while registering the EmployeeBO");
 			errorMsg = exceptionObj.getMessage();
-			System.err.println("Error Message : " + errorMsg);	
+			logger.error("Error Message : " + errorMsg);	
 			if(exceptionObj instanceof SQLException) {
-				System.err.println("Error Code : " + sqlErrorCode);
-				System.err.println("SQL State : " + sqlState);
+				logger.error("Error Code : " + sqlErrorCode);
+				logger.error("SQL State : " + sqlState);
 			}
-			//TODO ONLY for Development Purposes, remove it in PROD
-			exceptionObj.printStackTrace();
+			if(AppUtil.isAppDevMode) {
+				exceptionObj.printStackTrace();
+			}
 		}
 		
 	
@@ -138,7 +144,7 @@ public class EmployeeCreateServlet extends HttpServlet {
 		String flag = null;
 		
 		if(lastInsertedId<=0) { /* Error */
-			message = "Error while registering the Employee. "; 
+			message = "Error while registering the EmployeeBO. "; 
 			
 			if(exceptionObj instanceof ClassNotFoundException) {
 				message = "Error connecting with the Database. Please contact Admin.";
@@ -151,11 +157,11 @@ public class EmployeeCreateServlet extends HttpServlet {
 			message = "Registration successful. Your Id  is : " + lastInsertedId;
 		}
 		
-		System.out.println("Last Inserted Id : " +lastInsertedId);
+		logger.info("Last Inserted Id : " +lastInsertedId);
 		request.setAttribute("message", message);
 		request.setAttribute("flag", flag);
 	
-		request.setAttribute("employeeForm", employee);
+		request.setAttribute("employeeForm", employeeBO);
 		
 		
 		response.getWriter().println(message);

@@ -133,7 +133,7 @@
 	                    <td>OfficialEmail <span class="required">*</span></td>
 	                    <td><input type="Email" id="officialEmail" name="officialEmail" 
 	                    size="40"  placeholder="Ex:abc.de@milvik.se"  
-	                    value='<%= isAppDevMode ? "123456789012" : "" %>' 
+	                    value='<%= isAppDevMode ? "arun@office.com" : "" %>' 
 	                    maxlength="40" required>
 	                    </td>
 	                </tr>
@@ -142,7 +142,7 @@
 	                    <td>
 	                    	<input type="password" id="password" name="password" 
 	                    	pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" size="15" 
-	                    	value='<%= isAppDevMode ? "arun@milvik.se" : "" %>' 
+	                    	value='<%= isAppDevMode ? "Arun@123" : "" %>' 
 	                    	placeholder="password" maxlength="15" 
 	                    	required>
 	                    </td>

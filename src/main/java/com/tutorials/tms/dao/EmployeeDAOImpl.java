@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import com.tutorials.tms.bo.Employee;
+import org.apache.log4j.Logger;
+
+import com.tutorials.tms.bo.EmployeeBO;
 import com.tutorials.tms.db.DBConnection;
 
 /**
@@ -14,12 +16,13 @@ import com.tutorials.tms.db.DBConnection;
  */
 public class EmployeeDAOImpl implements EmployeeDAO 
 {
+	Logger logger = Logger.getLogger(EmployeeDAOImpl.class);
 
 	@Override
-	public int createEmployee(Employee employee) 
+	public int createEmployee(EmployeeBO employeeBO) 
 	throws Exception 
 	{
-		System.out.println("EmployeeDAOImpl - createEmployee() invoked");
+		logger.info("EmployeeDAOImpl - createEmployee() invoked");
 		
 		// 1. Obtain the DB Connection
 		Connection conn = DBConnection.getConn();
@@ -39,28 +42,28 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		ps = conn.prepareStatement(sql);
 
 		// 3. Set/ Bind Values to the Prepared Statement
-		ps.setString(1, employee.getEmpId());
-		ps.setString(2, employee.getFirstName());
-		ps.setString(3, employee.getLastName());
-		ps.setDate(4, (java.sql.Date) employee.getDateOfBirth());
-		ps.setString(5, "" + employee.getGender());
-		ps.setString(6, employee.getAadharId());
-		ps.setString(7, employee.getBloodGroup());
-		ps.setString(8, employee.getCity());
-		ps.setString(9, employee.getPersonalEmail());
-		ps.setString(10, employee.getOfficialEmail());
-		ps.setString(11, employee.getPassword());
-		ps.setString(12, employee.getPrimaryContactNo());
-		ps.setString(13, employee.getSecondaryContactNo());
-		ps.setString(14, employee.getHighestQualification());
-		ps.setString(15, employee.getSkillsets());
-		ps.setDate(16, (java.sql.Date) employee.getDateOfJoining());
-		ps.setString(17, employee.getHobbies());
+		ps.setString(1, employeeBO.getEmpId());
+		ps.setString(2, employeeBO.getFirstName());
+		ps.setString(3, employeeBO.getLastName());
+		ps.setDate(4, (java.sql.Date) employeeBO.getDateOfBirth());
+		ps.setString(5, "" + employeeBO.getGender());
+		ps.setString(6, employeeBO.getAadharId());
+		ps.setString(7, employeeBO.getBloodGroup());
+		ps.setString(8, employeeBO.getCity());
+		ps.setString(9, employeeBO.getPersonalEmail());
+		ps.setString(10, employeeBO.getOfficialEmail());
+		ps.setString(11, employeeBO.getPassword());
+		ps.setString(12, employeeBO.getPrimaryContactNo());
+		ps.setString(13, employeeBO.getSecondaryContactNo());
+		ps.setString(14, employeeBO.getHighestQualification());
+		ps.setString(15, employeeBO.getSkillsets());
+		ps.setDate(16, (java.sql.Date) employeeBO.getDateOfJoining());
+		ps.setString(17, employeeBO.getHobbies());
 
-		if (employee.getManagerId() == 0) { /* No Manager */
+		if (employeeBO.getManagerId() == 0) { /* No Manager */
 			ps.setObject(18, null);
 		} else {
-			ps.setInt(18, employee.getManagerId());
+			ps.setInt(18, employeeBO.getManagerId());
 		}
 
 		// 4. Execute the Statement
@@ -71,11 +74,11 @@ public class EmployeeDAOImpl implements EmployeeDAO
 	    if (rs.next()) {
 	    	lastInsertedId = rs.getInt(1);
 	    } else {
-	        System.err.println("There was no record inserted in this session!");
+	        logger.error("There was no record inserted in this session!");
 	    }
 		
-		System.out.println("Rows Added : "+ rowsAdded);
-		System.out.println("Last Inserted Id : "+ lastInsertedId);
+		logger.info("Rows Added : "+ rowsAdded);
+		logger.info("Last Inserted Id : "+ lastInsertedId);
 		
 		//BEST PRACTICE! Added to avoid the resource leakage. 
 		//TODO : It has got a different overhead such that we may 
@@ -91,7 +94,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 	@Override
 	public int getCount() throws Exception 
 	{
-		System.out.println("EmployeeDAOImpl - getCount() invoked");
+		logger.info("EmployeeDAOImpl - getCount() invoked");
 		
 		int count = 0;
 		
@@ -112,7 +115,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			count = rs.getInt("COUNT");
 		}
 		
-		System.out.println("No of employees : " + count);
+		logger.info("No of employees : " + count);
 		
 		//6. Most Important - Close the Connection
 		if(null!=conn) {

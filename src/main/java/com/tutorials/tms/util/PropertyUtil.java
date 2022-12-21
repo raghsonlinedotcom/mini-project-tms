@@ -57,13 +57,15 @@ public class PropertyUtil {
 		}catch(FileNotFoundException fnfException) {
 			System.err.println("Exception while accessing the config file - " + propFileName);
 			System.err.println("Error Message : " + fnfException.getMessage());
-			//TODO; Remove it in Prod, use it only in Dev
-			fnfException.printStackTrace();
+			if(AppUtil.isAppDevMode) {
+				fnfException.printStackTrace();
+			}
 		} catch (IOException exception) {
 			System.err.println("Exception while loading the properties");
 			System.err.println("Error Message : " + exception.getMessage());
-			//TODO; Remove it in Prod, use it only in Dev
-			exception.printStackTrace();
+			if(AppUtil.isAppDevMode) {
+				exception.printStackTrace();
+			}
 		}
 		
 		return _properties;
