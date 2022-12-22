@@ -1,9 +1,16 @@
 package com.tutorials.tms.junit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.sql.Date;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,10 +25,40 @@ import com.tutorials.tms.util.AppUtil;
  */
 public class EmployeeDAOTest 
 {
+	static int empId;
 
-	/**
-	 * @param args
-	 */
+	@BeforeEach
+	public void before()
+	{
+		empId = 1;
+		System.out.println("Before..., empId = " + empId);
+		//TODO: Conditionally insert  Balaji -record (EMP ID #81)
+	}
+	
+	@BeforeAll
+	public static void beforeAll()
+	{
+		empId = 0;
+		System.out.println("BeforeAll..., empId = " + empId);
+		//TODO: Conditionally insert  Raghavan -record  (EMP ID #140)
+	}
+	
+	@AfterEach
+	public void after()
+	{
+		empId = -1;
+		System.out.println("after..., empId = " + empId);
+		//TODO: Conditionally delete Balaji -record 
+	}
+	
+	@AfterAll
+	public static void afterAll()
+	{
+		empId = -2;
+		System.out.println("afterAll, empId = " + empId);
+		//TODO: Conditionally delete Raghavan -record 
+	}
+	
 	public static void main(String[] args) 
 	{
 		EmployeeDAOTest testObj = new EmployeeDAOTest();
@@ -93,14 +130,12 @@ public class EmployeeDAOTest
 		}
 	}
 	
-	@Test
-	@DisplayName("Creation of an Employee")
-	public void createEmployee()
+	public EmployeeBO prepareEmployeeBO()
 	{
 		EmployeeBO employeeBO = new EmployeeBO();
+				
 		Date dob = new Date(1986-9-13);
 		Date doj = new Date(2014-01-01);
-		employeeBO = new EmployeeBO();
 
         employeeBO.setEmpId("81");
         employeeBO.setFirstName("Balaji"); 
@@ -121,22 +156,162 @@ public class EmployeeDAOTest
         employeeBO.setHobbies("Cycling, Coding");
         employeeBO.setManagerId(140);
         
+        return employeeBO;
+	}
+	
+	@Test
+	@DisplayName("Creation of an Employee - based on the count")
+	public void createEmployee1()
+	{
+		final EmployeeBO employeeBO = prepareEmployeeBO();
+	
         EmployeeDAO employeeDAO = new EmployeeDAOImpl();
-        int lastInsertedId = 0;
         
-		try {
-			int count = employeeDAO.getCount();
-	        assertTrue(count > 0);	
-			lastInsertedId = employeeDAO.createEmployee(employeeBO);
-			assertTrue(lastInsertedId > 0);
-			assertTrue(employeeDAO.getCount() > count);			
+		int count =0;
+		
+        try
+		{
+			count = employeeDAO.getCount();
+	        assertTrue(count > 0);
 		} catch (Exception exception) {
 			System.err.println("Exception while creating an EmployeeBO");
 			System.err.println("Error Message : " + exception.getMessage());
 			if(AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
-			fail("Employee creation failed - " + exception.getMessage());
+			fail("Employee getCount() failed - " + exception.getMessage());
 		}
+		
+        /* --------------- Conditionally decide---------------- */
+        if( count ==1) /* Only one employee in the table so far */
+        { 
+        	verifyCreationSuccess(employeeDAO, employeeBO);
+        } 
+        else /* the count is >1, that means this record is existing already */
+        { 
+        	verifyCreationFailure(employeeDAO, employeeBO);
+        }
+	}
+	
+	@Test
+	@DisplayName("Creation of an Employee - based on the employee data")
+	public void createEmployee2()
+	{
+		final EmployeeBO employeeBO = prepareEmployeeBO();
+		
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        
+		int count =0;
+		
+        try
+		{
+			count = employeeDAO.getCount();
+	        assertTrue(count > 0);
+		} catch (Exception exception) {
+			System.err.println("Exception while creating an EmployeeBO");
+			System.err.println("Error Message : " + exception.getMessage());
+			if(AppUtil.isAppDevMode) {
+				exception.printStackTrace();
+			}
+			fail("Employee getCount() failed - " + exception.getMessage());
+		}
+        
+        /* Check if the employee is existing in DB or not */
+        EmployeeBO targetEmployee = null;
+        
+        try {
+        	targetEmployee = employeeDAO.getEmployeeByEmpId(employeeBO.getEmpId());	
+			System.out.println("targetEmployee : " + targetEmployee);
+			assertNotNull(employeeBO);
+		}catch (Exception exception) {
+			System.err.println("Exception while fetching an Employee with the EmpId - " + empId);
+			System.err.println("Error Message : " + exception.getMessage());
+			if(AppUtil.isAppDevMode) {
+				exception.printStackTrace();
+			}
+			fail("Employee getEmployeeByEmpId() failed - " + exception.getMessage());
+		}
+        
+        if(null==targetEmployee) /* The target employee does NOT exist */ 
+        { 
+        	verifyCreationSuccess(employeeDAO, employeeBO);
+        } 
+        else /* The target employee exists, so we can assert a Throws/Exception */
+        { 
+        	verifyCreationFailure(employeeDAO, employeeBO);
+        }
+	}
+	
+	public void verifyCreationSuccess(EmployeeDAO employeeDAO, EmployeeBO employeeBO)
+	{
+		System.out.println("verifyCreationSuccess() invoked");
+		
+		int lastInsertedId = 0;
+		int count = 0;
+		
+		try {
+    		lastInsertedId = employeeDAO.createEmployee(employeeBO);
+    		assertTrue(lastInsertedId > 1);
+    		/* You can do this as well, provided you run this in the beginning */
+    		/* Issue: What if the test is executed in the middle, and NOT just in the beginning always? */
+    		//assertTrue(lastInsertedId ==2); 
+    		
+			assertTrue(employeeDAO.getCount() > count);	
+		} catch (Exception exception) {
+			System.err.println("Exception while creating an EmployeeBO");
+			System.err.println("Error Message : " + exception.getMessage());
+			if(AppUtil.isAppDevMode) {
+				exception.printStackTrace();
+			}
+			fail("Employee createEmployee() failed - " + exception.getMessage());
+		}
+	}
+	
+	public void verifyCreationFailure(EmployeeDAO employeeDAO, EmployeeBO employeeBO)
+	{
+		System.out.println("verifyCreationFailure() invoked");
+		
+    	Exception thrown = Assertions.assertThrows(Exception.class, () -> {
+			int lastInsertedIdLocal = employeeDAO.createEmployee(employeeBO);
+			System.out.println("lastInsertedIdLocal : " + lastInsertedIdLocal);
+		});
+		System.err.println(thrown.getMessage());
+		//assertTrue(lastInsertedId > 0);
+		Assertions.assertEquals("Duplicate entry '" + employeeBO.getEmpId() 
+				+ "' for key 'EMP_ID'", thrown.getMessage());
+	}
+	
+	@Test
+	public void getEmployeeByEmpId()
+	{
+		System.out.println("getEmployeeByEmpId()  invoked");
+		getEmployeeByEmpId("81");
+	}
+	
+	public void getEmployeeByEmpId(String empId)
+	{
+		System.out.println("getEmployeeByEmpId()  invoked - empId:" +empId);
+		
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+		EmployeeBO employeeBO = null;
+		int count = 0;
+		
+		try {
+			employeeBO = employeeDAO.getEmployeeByEmpId(empId);	
+			System.out.println("employeeBO : " + employeeBO);
+			count = employeeDAO.getCount();
+			System.out.println("Count : " + count);
+		}catch (Exception exception) {
+			System.err.println("Exception while fetching an Employee with the EmpId - " + empId);
+			System.err.println("Error Message : " + exception.getMessage());
+			if(AppUtil.isAppDevMode) {
+				exception.printStackTrace();
+			}
+			fail("Employee getEmployeeByEmpId() failed - " + exception.getMessage());
+		}
+		
+		if(count > 1) {
+			assertNotNull(employeeBO);
+		} 
 	}
 }

@@ -7,4 +7,6 @@ public interface EmployeeDAO {
 	public abstract int createEmployee(EmployeeBO employeeBO) throws Exception;
 	
 	public abstract int getCount() throws Exception;
+	
+	public abstract EmployeeBO getEmployeeByEmpId(String empId) throws Exception;
 }
