@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,10 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.tutorials.tms.bo.EmailConfigBO;
 import com.tutorials.tms.bo.EmployeeBO;
 import com.tutorials.tms.dao.EmployeeDAO;
 import com.tutorials.tms.dao.EmployeeDAOImpl;
 import com.tutorials.tms.util.AppUtil;
+import com.tutorials.tms.util.EmailConfigUtil;
+import com.tutorials.tms.util.EmailUtil;
 
 /**
  * Servlet implementation class EmployeeCreateServlet
@@ -27,6 +32,8 @@ public class EmployeeCreateServlet extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	
 	Logger logger = Logger.getLogger(this.getClass());
+	
+	boolean validationError = false;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -48,17 +55,32 @@ public class EmployeeCreateServlet extends HttpServlet
 		//response.getWriter().println("RegisterServlet invoked!");
 		
 		//1. Collect the input data
+		String errorMsgUI = "<ul>";
+		
+		String empId = String.valueOf(request.getParameter("empId"));
+		logger.info("Param - empId : [" + empId + "]");
+		
 		EmployeeBO employeeBO= new EmployeeBO();
 		
+		/*if(null==empId || empId.trim().length()<=0) {		
+			logger.error("EmpId cannot be null");
+			employeeBO.setEmpId("");
+			errorMsgUI += addError("Employee Id cannot be null");
+		}*/
+		errorMsgUI = validateField(employeeBO, empId, "empId", errorMsgUI);
 		
-	
-		String empId = String.valueOf(request.getParameter("empId"));
 		String firstName = String.valueOf(request.getParameter("firstName"));
+		logger.info("Param - firstName : [" + firstName + "]");
+		errorMsgUI = validateField(employeeBO, firstName, "firstName", errorMsgUI);
+		
 		String lastName = String.valueOf(request.getParameter("lastName"));
+		logger.info("Param - lastName : [" + lastName + "]");
+		errorMsgUI = validateField(employeeBO, lastName, "lastName", errorMsgUI);
+		
 		Date  dateOfBirth = Date.valueOf(request.getParameter("dob"));
 		String gender = String.valueOf(request.getParameter("gender"));
 		String aadharId = String.valueOf(request.getParameter("aadharId"));
-		String  bloodGroup= String.valueOf(request.getParameter("bloodGroup"));
+		String bloodGroup= String.valueOf(request.getParameter("bloodGroup"));
 		String city = String.valueOf(request.getParameter("city"));
 		String personaleEmail = String.valueOf(request.getParameter("persoalEmail"));
 		String officialEmail = String.valueOf(request.getParameter("officialEmail"));
@@ -76,6 +98,15 @@ public class EmployeeCreateServlet extends HttpServlet
 		logger.info("Param - managerId : [" + manageridStr + "]");
 		
         int managerid = manageridStr!=null ? Integer.parseInt(manageridStr) : 0;
+        
+        if(validationError) {
+        	errorMsgUI += "</ul>";
+        	request.setAttribute("errorMsgUI", errorMsgUI);
+        	request.setAttribute("employeeForm", employeeBO);
+        	validationError = false;
+        	request.getRequestDispatcher("create.jsp").forward(request, response);
+        	return;
+        }
 
 		//2. Prepare the BO object
         employeeBO.setEmpId(empId); 
@@ -100,7 +131,7 @@ public class EmployeeCreateServlet extends HttpServlet
 		//3. Save it into the Database
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		int lastInsertedId = -1;
-		String errorMsg = null;
+		String errorMsg = "<ul>";
 		Exception exceptionObj = null;
 		/* MEMS-18, MEMS-19 */
 		int sqlErrorCode = -1;
@@ -137,9 +168,31 @@ public class EmployeeCreateServlet extends HttpServlet
 			if(AppUtil.isAppDevMode) {
 				exceptionObj.printStackTrace();
 			}
+		} 
+		else /* Successfully registered, you can send a confirmation email */
+		{ 
+			EmailConfigBO emailConfigBO = EmailConfigUtil.loadEmailConfigForTMS();
+			emailConfigBO.setEmailTo(employeeBO.getOfficialEmail());
+			try {
+				new EmailUtil().sendMail(emailConfigBO);
+				logger.info("Email has been successfully sent to [" + emailConfigBO.getEmailTo() + "]");
+			} catch (AddressException addressException) {
+				logger.error("AddressException while sending an email to the employee");
+				String errorMsg2 = addressException.getMessage();
+				logger.error("Error Message : " + errorMsg2);
+				if(AppUtil.isAppDevMode) {
+					addressException.printStackTrace();
+				}
+			} catch (MessagingException messagingException) {
+				logger.error("Exception while sending an email to the employee");
+				String errorMsg3 = messagingException.getMessage();
+				logger.error("Error Message : " + errorMsg3);
+				if(AppUtil.isAppDevMode) {
+					messagingException.printStackTrace();
+				}
+			}
 		}
 		
-	
 		String message = null;
 		String flag = null;
 		
@@ -159,13 +212,41 @@ public class EmployeeCreateServlet extends HttpServlet
 		
 		logger.info("Last Inserted Id : " +lastInsertedId);
 		request.setAttribute("message", message);
-		request.setAttribute("flag", flag);
+		request.setAttribute("flag", flag);request.setAttribute("employeeForm", employeeBO);
+		
+		response.getWriter().println(message);	
+	}
 	
-		request.setAttribute("employeeForm", employeeBO);
+	private String addError(String errorMsg) {
+		return "<li>" + errorMsg + "</li>";
+	}
+	
+	public String validateField(EmployeeBO employeeBO, String value, String fieldName, String errorMsgUI) {
+		if(null==value || value.trim().length()<=0) {	
+			validationError = true;
+			logger.error(fieldName + " cannot be null");			
+			errorMsgUI += addError(fieldName + " cannot be null");
+		} 
 		
+		setField(employeeBO, fieldName, value);
 		
-		response.getWriter().println(message);
-		
+		return errorMsgUI;
+	}
+	
+	public void setField(EmployeeBO employeeBO, String fieldName, String value)
+	{
+		switch(fieldName) 
+		{
+			case "empId":
+				employeeBO.setEmpId(value);
+				break;
+			case "firstName":
+				employeeBO.setFirstName(value);
+				break;
+			case "lastName" :
+				employeeBO.setLastName(value);
+				break;
+		}
 	}
 
 }
