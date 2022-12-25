@@ -20,9 +20,13 @@ public class PropertyUtil {
 	
 	private static Properties _dbProperties = new Properties();
 	
+	private static Properties _emailProperties = new Properties();
+	
 	private static final String PROPS_FILE_NAME = "config.properties";
 	
 	private static final String DB_PROPS_FILE_NAME = "dbconfig.properties";
+	
+	private static final String EMAIL_PROPS_FILE_NAME = "emailconfig.properties";
 	
 	public static final String KEY_APP_MODE = "app.mode";
 	
@@ -33,6 +37,7 @@ public class PropertyUtil {
 	public static void loadProps() {
 		_properties = loadProps(PROPS_FILE_NAME);
 		_dbProperties = loadProps(DB_PROPS_FILE_NAME);
+		_emailProperties = loadProps(EMAIL_PROPS_FILE_NAME);
 	}
 	
 	public static Properties getProps() {
@@ -57,13 +62,15 @@ public class PropertyUtil {
 		}catch(FileNotFoundException fnfException) {
 			System.err.println("Exception while accessing the config file - " + propFileName);
 			System.err.println("Error Message : " + fnfException.getMessage());
-			//TODO; Remove it in Prod, use it only in Dev
-			fnfException.printStackTrace();
+			if(AppUtil.isAppDevMode) {
+				fnfException.printStackTrace();
+			}
 		} catch (IOException exception) {
 			System.err.println("Exception while loading the properties");
 			System.err.println("Error Message : " + exception.getMessage());
-			//TODO; Remove it in Prod, use it only in Dev
-			exception.printStackTrace();
+			if(AppUtil.isAppDevMode) {
+				exception.printStackTrace();
+			}
 		}
 		
 		return _properties;
@@ -88,5 +95,10 @@ public class PropertyUtil {
 	public static String getDBPropertyValue(String key)
 	{
 		return _dbProperties.getProperty(key);
+	}
+	
+	public static String getEmailPropertyValue(String key)
+	{
+		return _emailProperties.getProperty(key);
 	}
 }
