@@ -131,7 +131,7 @@
 						N/A
 					</td>
 					<td>
-						<a href="https://raghsonlinedotcom.atlassian.net/projects/TMS/versions/10001/tab/release-report-all-issues">
+						<a href="https://raghsonlinedotcom.atlassian.net/projects/TMS/versions/10002/tab/release-report-all-issues">
 							Jira Release Ref. for Release 3
 						</a>
 					</td>
