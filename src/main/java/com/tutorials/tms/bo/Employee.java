@@ -8,7 +8,7 @@ public class Employee {
 
 	private int id;
 
-	private String empId;
+	private int empId;
 	
 	private String firstName;
 	
@@ -49,7 +49,7 @@ public class Employee {
 	}
 	
 	
-	public Employee(int id,String empId, String firstName, String lastName, String officialEmail,
+	public Employee(int id,int empId, String firstName, String lastName, String officialEmail,
 			String primaryContactNo,Date dateOfJoining,  int managerId) {
 		super();
 		this.id = id;
@@ -72,12 +72,12 @@ public class Employee {
  
 	
 
-	public String getEmpId() {
+	public int getEmpId() {
 		return empId;
 	}
 
 
-	public void setEmpId(String empId) {
+	public void setEmpId(int empId) {
 		this.empId = empId;
 	}
 

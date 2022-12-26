@@ -137,7 +137,7 @@ public class EmployeeDAOTest
 		Date dob = new Date(1986-9-13);
 		Date doj = new Date(2014-01-01);
 
-        employeeBO.setEmpId("81");
+        employeeBO.setEmpId(81);
         employeeBO.setFirstName("Balaji"); 
         employeeBO.setLastName("Jayavelu");
         employeeBO.setDateOfBirth(dob);
@@ -278,17 +278,17 @@ public class EmployeeDAOTest
 		System.err.println(thrown.getMessage());
 		//assertTrue(lastInsertedId > 0);
 		Assertions.assertEquals("Duplicate entry '" + employeeBO.getEmpId() 
-				+ "' for key 'EMP_ID'", thrown.getMessage());
+				+ "' for key 'employee.EMP_ID'", thrown.getMessage());
 	}
 	
 	@Test
 	public void getEmployeeByEmpId()
 	{
 		System.out.println("getEmployeeByEmpId()  invoked");
-		getEmployeeByEmpId("81");
+		getEmployeeByEmpId(81);
 	}
 	
-	public void getEmployeeByEmpId(String empId)
+	public void getEmployeeByEmpId(int empId)
 	{
 		System.out.println("getEmployeeByEmpId()  invoked - empId:" +empId);
 		

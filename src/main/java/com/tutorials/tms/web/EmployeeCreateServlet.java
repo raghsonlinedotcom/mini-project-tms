@@ -57,7 +57,10 @@ public class EmployeeCreateServlet extends HttpServlet
 		//1. Collect the input data
 		String errorMsgUI = "<ul>";
 		
-		String empId = String.valueOf(request.getParameter("empId"));
+		String empIdStr = request.getParameter("empId");
+		int empId = empIdStr!=null ? Integer.parseInt(empIdStr) : 0;
+		
+		//String empId = String.valueOf(request.getParameter("empId"));
 		logger.info("Param - empId : [" + empId + "]");
 		
 		EmployeeBO employeeBO= new EmployeeBO();
@@ -232,14 +235,23 @@ public class EmployeeCreateServlet extends HttpServlet
 		
 		return errorMsgUI;
 	}
+	//Method OverLoading
+	public String validateField(EmployeeBO employeeBO, int value, String fieldName, String errorMsgUI) {
+		if(value==0) {	
+			validationError = true;
+			logger.error(fieldName + " cannot be Zero(0)");			
+			errorMsgUI += addError(fieldName + " cannot be Zero(0)");
+		} 
+		
+		setField(employeeBO, fieldName, value);
+		
+		return errorMsgUI;
+	}
 	
-	public void setField(EmployeeBO employeeBO, String fieldName, String value)
+	public void setField(EmployeeBO employeeBO, String fieldName ,String value)
 	{
 		switch(fieldName) 
 		{
-			case "empId":
-				employeeBO.setEmpId(value);
-				break;
 			case "firstName":
 				employeeBO.setFirstName(value);
 				break;
@@ -248,5 +260,15 @@ public class EmployeeCreateServlet extends HttpServlet
 				break;
 		}
 	}
-
-}
+	//Method OverLoading
+	public void setField(EmployeeBO employeeBO, String fieldName ,int value)
+	{
+		switch(fieldName) 
+		{
+			case "empId":
+				employeeBO.setEmpId(value);
+				break;
+			
+		}
+	}
+	}

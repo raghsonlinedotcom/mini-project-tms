@@ -42,7 +42,7 @@ class EmployeeBOTestJUnit {
         employeeBO.setDateOfJoining(doj);
         employeeBO.setHobbies("Cycling, Coding");
         employeeBO.setManagerId(140);
-        employeeBO.setEmpId("81");
+        employeeBO.setEmpId(81);
         
         assertNotNull(employeeBO);
         assertEquals("82", employeeBO.getEmpId());

@@ -8,5 +8,5 @@ public interface EmployeeDAO {
 	
 	public abstract int getCount() throws Exception;
 	
-	public abstract EmployeeBO getEmployeeByEmpId(String empId) throws Exception;
+	public abstract EmployeeBO getEmployeeByEmpId(int empId) throws Exception;
 }

@@ -44,9 +44,9 @@ class EmployeeBOJUnitTest {
         employeeBO.setDateOfJoining(doj);
         employeeBO.setHobbies("Cycling, Coding");
         employeeBO.setManagerId(140);
-        employeeBO.setEmpId("81");
+        employeeBO.setEmpId(81);
         
         assertNotNull(employeeBO);
-        assertEquals("81", employeeBO.getEmpId());
+        assertEquals(81, employeeBO.getEmpId());
 	}
 }

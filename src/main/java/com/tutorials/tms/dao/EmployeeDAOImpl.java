@@ -43,7 +43,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		ps = conn.prepareStatement(sql);
 
 		// 3. Set/ Bind Values to the Prepared Statement
-		ps.setString(1, employeeBO.getEmpId());
+		ps.setInt(1, employeeBO.getEmpId());
 		ps.setString(2, employeeBO.getFirstName());
 		ps.setString(3, employeeBO.getLastName());
 		ps.setDate(4, (java.sql.Date) employeeBO.getDateOfBirth());
@@ -127,7 +127,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 	}
 
 	@Deprecated
-	public EmployeeBO unUsedGetEmployeeByEmpId(String empId) 
+	public EmployeeBO unUsedGetEmployeeByEmpId(int empId) 
 	throws Exception 
 	{
 		logger.info("EmployeeDAOImpl - getEmployeeByEmpId() invoked, empId="+empId);
@@ -145,7 +145,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		PreparedStatement pStmt = conn.prepareStatement(query);
 		
 		//4. Set the arguments/parameter to the PreparedStatement
-		pStmt.setString(1, empId);
+		pStmt.setInt(1, empId);
 		
 		//5. Execute the Statement 
 		ResultSet rs = pStmt.executeQuery(query);
@@ -156,7 +156,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			employeeBO = new EmployeeBO();
 			
 			employeeBO.setId(rs.getInt("ID")); 
-			employeeBO.setEmpId(rs.getString("EMP_ID"));
+			employeeBO.setEmpId(rs.getInt("EMP_ID"));
 	        employeeBO.setFirstName(rs.getString("FIRST_NAME")); 
 	        employeeBO.setLastName(rs.getString("LAST_NAME"));
 	        employeeBO.setDateOfBirth(rs.getDate("DATE_OF_BIRTH"));
@@ -187,7 +187,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 	}
 	
 	@Override
-	public EmployeeBO getEmployeeByEmpId(String idParam)
+	public EmployeeBO getEmployeeByEmpId(int idParam)
 	{
 		System.out.println("EmployeeDAOImpl --- getEmployeeById - idParam :: " + idParam);
 		
@@ -207,7 +207,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			
 			stmt = conn.prepareStatement(sql);
 
-			stmt.setString(1, idParam);
+			stmt.setInt(1, idParam);
 
 			rs = stmt.executeQuery();
 		
@@ -217,7 +217,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				employeeBO = new EmployeeBO();
 
 				employeeBO.setId(rs.getInt("ID"));
-				employeeBO.setEmpId(rs.getString("EMP_ID"));
+				employeeBO.setEmpId(rs.getInt("EMP_ID"));
 			}
 		}catch(SQLException sqlException) {
 			System.err.println("SQLException occurred while reading the data from the Database Table");
