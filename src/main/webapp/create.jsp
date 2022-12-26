@@ -59,7 +59,7 @@
 		<form id="create" name="create" action="EmployeeCreate" method="post" >
 			<table class="table table-striped table-hover table-bordered 
 				table-responsive caption-top">
-  			<caption>Registration Details</caption>
+  				<caption>Registration Details</caption>
 				<thead>
 					<tr>
 						<th>Field</th>
