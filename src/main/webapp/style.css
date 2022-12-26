@@ -42,7 +42,7 @@ input,select,textarea{
 	border: 1px solid red;
 }
 
-.footer {
+.footer-old {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -52,15 +52,9 @@ input,select,textarea{
   background-color: #f5f5f5;
 }
 
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-body > .container {
-  padding: 60px 15px 0;
-}
-
-.footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
-}
+/* https://stackoverflow.com/questions/40512604/bootstrap-table-is-not-responsive */
+.table{
+   display: block !important;
+   overflow-x: auto !important;
+   width: 100% !important;
+ }
