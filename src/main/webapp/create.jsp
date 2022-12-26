@@ -39,7 +39,7 @@
 		<%
 			boolean isAppDevMode = AppUtil.isAppDevMode;
 		
-			String empId = ""; /* Default, for PROD */
+			int empId = 0; /* Default, for PROD */
 			String firstName = "";
 			String lastName = "";
 					
@@ -51,7 +51,7 @@
 			}
 			else if(isAppDevMode) /* If no error, but Dev Mode, then use this */
 			{
-				empId = "137";
+				empId = 137;
 				firstName = "Arun";
 				lastName = "Prasad";
 			}
@@ -70,8 +70,8 @@
 					<tr>
 						<td>EmployeeId <span class="required">*</span></td>
 						<td>
-							<input type="text" class="form-control" id="empId" 
-								name="empId" size="10" maxlength="10" 
+							<input type="number" class="form-control" id="empId" 
+								name="empId" size="10" min = "1"
 								placeholder="121" required size="20"
 								value='<%= empId %>' >									
 						</td>
