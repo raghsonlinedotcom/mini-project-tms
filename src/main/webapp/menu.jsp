@@ -21,7 +21,7 @@
 		           Employee
 		         </a>
 		         <ul class="dropdown-menu">
-		           <li><a class="dropdown-item" href="#">View Details</a></li>
+		           <li><a class="dropdown-item" href="ViewMyDetails">View Details</a></li>
 		           <li><a class="dropdown-item" href="#">Edit Details</a></li>
 		           <li><hr class="dropdown-divider"></li>
 		           <li><a class="dropdown-item" href="#">Apply Leave</a></li>

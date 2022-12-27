@@ -97,7 +97,7 @@
 							<input type="submit" name="Edit" Value="Edit"/>
 						</form>-->
 						<a href="editdetails.jsp">Edit</a> &nbsp;&nbsp;
-						
+	
 					</td>
 				</tr>			
 			</tbody>
