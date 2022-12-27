@@ -28,17 +28,7 @@ public class LoginServlet extends HttpServlet {
 		super();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-
-	}
-
-	/**
+		/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -62,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		// Authenticate/Validate
-		String url = null;
+		
 		if (null != errorMessage) {
 			request.setAttribute("errorMessage", errorMessage);
 			request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -71,15 +61,20 @@ public class LoginServlet extends HttpServlet {
 
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		try {
-			employeeBO = employeeDAO.getEmployeeByEmpId(empId);
+			employeeBO = employeeDAO.verifyEmployee(empId, password);
 		} catch (Exception exception) {
+			logger.error("Exception while fetching an Employee with the EmpId, Password - " + empId + password);
+			logger.error("Error Message : " + exception.getMessage());
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
 		}
-		logger.info(employeeBO);
+		
+		logger.info("Employee BO Object fetched from Database " +employeeBO);
 		String message = null;
-		if (null != employeeBO) {
+		String url = null;
+		if(null!=employeeBO)
+		{
 			if (empId == employeeBO.getEmpId() && password.equals(employeeBO.getPassword())) {
 				System.out.println("[INFO] Credentials matched!");
 				url = "/index.jsp";
@@ -87,18 +82,14 @@ public class LoginServlet extends HttpServlet {
 				request.setAttribute("message", message);
 				request.getSession().setAttribute("employeeBO", employeeBO);
 			}
+		}
 
 			else {
 				System.out.println("[ERR] Credentials Mismatch!");
 				url = "/login.jsp";
 				request.setAttribute("errorMessage", "Invalid Credentials. Try again!");
 			}
-
-		} else {
-			System.out.println("[ERR] Credentials Mismatch!");
-			url = "/login.jsp";
-			request.setAttribute("errorMessage", "No Employee exists with the given Employee Id. Try again!");
-		}
+			
 		this.getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 

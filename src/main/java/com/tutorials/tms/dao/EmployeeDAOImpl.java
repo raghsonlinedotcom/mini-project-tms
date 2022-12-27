@@ -157,23 +157,23 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			
 			employeeBO.setId(rs.getInt("ID")); 
 			employeeBO.setEmpId(rs.getInt("EMP_ID"));
-	        employeeBO.setFirstName(rs.getString("FIRST_NAME")); 
-	        employeeBO.setLastName(rs.getString("LAST_NAME"));
-	        employeeBO.setDateOfBirth(rs.getDate("DATE_OF_BIRTH"));
-	        employeeBO.setGender(rs.getString("GENDER").charAt(0));
-	        employeeBO.setAadharId(rs.getString("AADHAR_ID"));
-	        employeeBO.setBloodGroup(rs.getString("BLOOD_GROUP"));
-	        employeeBO.setCity(rs.getString("CITY"));
-	        employeeBO.setPersonalEmail(rs.getString("PERSONAL_EMAIL"));
-	        employeeBO.setOfficialEmail(rs.getString("OFFICIAL_EMAIL"));
-	        employeeBO.setPassword(rs.getString("PASSWORD"));
-	        employeeBO.setPrimaryContactNo(rs.getString("PRIMARY_CONTACT_NO"));
-	        employeeBO.setSecondaryContactNo(rs.getString("SECONDARY_CONTACT_NO"));
-	        employeeBO.setHighestQualification(rs.getString("HIGHEST_QUALIFICATION"));  
-	        employeeBO.setSkillsets(rs.getString("SKILLSETS"));
-	        employeeBO.setDateOfJoining(rs.getDate("DATE_OF_JOINING"));
-	        employeeBO.setHobbies(rs.getString("HOBBIES"));
-	        employeeBO.setManagerId(rs.getInt("MANAGER_ID"));
+	        	employeeBO.setFirstName(rs.getString("FIRST_NAME")); 
+	        	employeeBO.setLastName(rs.getString("LAST_NAME"));
+	        	employeeBO.setDateOfBirth(rs.getDate("DATE_OF_BIRTH"));
+	        	employeeBO.setGender(rs.getString("GENDER").charAt(0));
+	        	employeeBO.setAadharId(rs.getString("AADHAR_ID"));
+	        	employeeBO.setBloodGroup(rs.getString("BLOOD_GROUP"));
+	        	employeeBO.setCity(rs.getString("CITY"));
+	        	employeeBO.setPersonalEmail(rs.getString("PERSONAL_EMAIL"));
+	        	employeeBO.setOfficialEmail(rs.getString("OFFICIAL_EMAIL"));
+	        	employeeBO.setPassword(rs.getString("PASSWORD"));
+	        	employeeBO.setPrimaryContactNo(rs.getString("PRIMARY_CONTACT_NO"));
+	        	employeeBO.setSecondaryContactNo(rs.getString("SECONDARY_CONTACT_NO"));
+	        	employeeBO.setHighestQualification(rs.getString("HIGHEST_QUALIFICATION"));  
+	        	employeeBO.setSkillsets(rs.getString("SKILLSETS"));
+	        	employeeBO.setDateOfJoining(rs.getDate("DATE_OF_JOINING"));
+	        	employeeBO.setHobbies(rs.getString("HOBBIES"));
+	        	employeeBO.setManagerId(rs.getInt("MANAGER_ID"));
 		}
 		
 		logger.info("EmployeeBO : " + employeeBO);
@@ -219,22 +219,22 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				employeeBO.setId(rs.getInt("ID"));
 				employeeBO.setEmpId(rs.getInt("EMP_ID"));
 				employeeBO.setFirstName(rs.getString("FIRST_NAME")); 
-		        employeeBO.setLastName(rs.getString("LAST_NAME"));
-		        employeeBO.setDateOfBirth(rs.getDate("DATE_OF_BIRTH"));
-		        employeeBO.setGender(rs.getString("GENDER").charAt(0));
-		        employeeBO.setAadharId(rs.getString("AADHAR_ID"));
-		        employeeBO.setBloodGroup(rs.getString("BLOOD_GROUP"));
-		        employeeBO.setCity(rs.getString("CITY"));
-		        employeeBO.setPersonalEmail(rs.getString("PERSONAL_EMAIL"));
-		        employeeBO.setOfficialEmail(rs.getString("OFFICIAL_EMAIL"));
-		        employeeBO.setPassword(rs.getString("PASSWORD"));
-		        employeeBO.setPrimaryContactNo(rs.getString("PRIMARY_CONTACT_NO"));
-		        employeeBO.setSecondaryContactNo(rs.getString("SECONDARY_CONTACT_NO"));
-		        employeeBO.setHighestQualification(rs.getString("HIGHEST_QUALIFICATION"));  
-		        employeeBO.setSkillsets(rs.getString("SKILLSETS"));
-		        employeeBO.setDateOfJoining(rs.getDate("DATE_OF_JOINING"));
-		        employeeBO.setHobbies(rs.getString("HOBBIES"));
-		        employeeBO.setManagerId(rs.getInt("MANAGER_ID"));
+		        	employeeBO.setLastName(rs.getString("LAST_NAME"));
+		        	employeeBO.setDateOfBirth(rs.getDate("DATE_OF_BIRTH"));
+		        	employeeBO.setGender(rs.getString("GENDER").charAt(0));
+		        	employeeBO.setAadharId(rs.getString("AADHAR_ID"));
+		        	employeeBO.setBloodGroup(rs.getString("BLOOD_GROUP"));
+		        	employeeBO.setCity(rs.getString("CITY"));
+		        	employeeBO.setPersonalEmail(rs.getString("PERSONAL_EMAIL"));
+		        	employeeBO.setOfficialEmail(rs.getString("OFFICIAL_EMAIL"));
+		        	employeeBO.setPassword(rs.getString("PASSWORD"));
+		        	employeeBO.setPrimaryContactNo(rs.getString("PRIMARY_CONTACT_NO"));
+		        	employeeBO.setSecondaryContactNo(rs.getString("SECONDARY_CONTACT_NO"));
+		        	employeeBO.setHighestQualification(rs.getString("HIGHEST_QUALIFICATION"));  
+		        	employeeBO.setSkillsets(rs.getString("SKILLSETS"));
+		        	employeeBO.setDateOfJoining(rs.getDate("DATE_OF_JOINING"));
+		        	employeeBO.setHobbies(rs.getString("HOBBIES"));
+		        	employeeBO.setManagerId(rs.getInt("MANAGER_ID"));
 			}
 		}catch(SQLException sqlException) {
 			System.err.println("SQLException occurred while reading the data from the Database Table");
@@ -264,4 +264,82 @@ public class EmployeeDAOImpl implements EmployeeDAO
 
 		return employeeBO;
 	}
+	
+	public EmployeeBO verifyEmployee(int idParam, String passwordParam)
+	{
+		System.out.println("EmployeeDAOImpl --- verifyEmployee - idParam, passwordParam :: " + idParam + "," + passwordParam);
+		
+		String sql = "SELECT * FROM EMPLOYEE WHERE EMP_ID=? && PASSWORD =?";
+
+		System.out.println("SQL Query :: " + sql);
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		EmployeeBO employeeBO = null;
+		Connection conn = null;
+		
+		try {
+			
+			conn = DBConnection.getConn();
+			
+			stmt = conn.prepareStatement(sql);
+
+			stmt.setInt(1, idParam);
+			stmt.setString(2, passwordParam);
+			rs = stmt.executeQuery();
+		
+			while(rs.next()) { //read one full row's data - one column at a time
+
+				// makes sense to create an object, so that we don't waste the memory allotted to an Object.
+				employeeBO = new EmployeeBO();
+				employeeBO.setId(rs.getInt("ID"));
+				employeeBO.setEmpId(rs.getInt("EMP_ID"));
+				employeeBO.setFirstName(rs.getString("FIRST_NAME")); 
+		        	employeeBO.setLastName(rs.getString("LAST_NAME"));
+		        	employeeBO.setDateOfBirth(rs.getDate("DATE_OF_BIRTH"));
+		        	employeeBO.setGender(rs.getString("GENDER").charAt(0));
+		        	employeeBO.setAadharId(rs.getString("AADHAR_ID"));
+		        	employeeBO.setBloodGroup(rs.getString("BLOOD_GROUP"));
+		        	employeeBO.setCity(rs.getString("CITY"));
+		        	employeeBO.setPersonalEmail(rs.getString("PERSONAL_EMAIL"));
+		        	employeeBO.setOfficialEmail(rs.getString("OFFICIAL_EMAIL"));
+		        	employeeBO.setPassword(rs.getString("PASSWORD"));
+		        	employeeBO.setPrimaryContactNo(rs.getString("PRIMARY_CONTACT_NO"));
+		        	employeeBO.setSecondaryContactNo(rs.getString("SECONDARY_CONTACT_NO"));
+		        	employeeBO.setHighestQualification(rs.getString("HIGHEST_QUALIFICATION"));  
+		        	employeeBO.setSkillsets(rs.getString("SKILLSETS"));
+		        	employeeBO.setDateOfJoining(rs.getDate("DATE_OF_JOINING"));
+		        	employeeBO.setHobbies(rs.getString("HOBBIES"));
+		        	employeeBO.setManagerId(rs.getInt("MANAGER_ID"));
+			}
+		}catch(SQLException sqlException) {
+			System.err.println("SQLException occurred while reading the data from the Database Table");
+			System.err.println("Message : " + sqlException.getMessage());
+		}catch(Exception exception) {
+			System.err.println("Exception occurred while reading the data from the Database Table");
+			System.err.println("Message : " + exception.getMessage());
+		}finally {
+			try {
+				if(null!=rs) rs.close();
+				if(null!=stmt) stmt.close();
+				if(null!=conn) conn.close();
+			}catch(SQLException sqlException) {
+				System.err.println("Exception occurred while reading the data from the Database Table");
+				System.err.println("Message : " + sqlException.getMessage());
+			}finally {
+				try {
+					if(null!=rs) rs.close();
+					if(null!=stmt) stmt.close();
+					if(null!=conn) conn.close();
+				}catch(SQLException sqlException) {
+					System.err.println("Exception occurred while closing the JDBC Resources");
+					System.err.println("Message : " + sqlException.getMessage());
+				}
+			}
+		}
+
+		return employeeBO;
+	}
+
 }

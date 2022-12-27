@@ -9,4 +9,6 @@ public interface EmployeeDAO {
 	public abstract int getCount() throws Exception;
 	
 	public abstract EmployeeBO getEmployeeByEmpId(int empId) throws Exception;
+	
+	public abstract EmployeeBO verifyEmployee(int empId, String password) throws Exception;
 }
