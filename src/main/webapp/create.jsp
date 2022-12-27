@@ -184,7 +184,7 @@
 	                    <td>PersonalEmail <span class="required">*</span></td>
 	                    <td>
 	                    	<input type="Email" class="form-control" 
-	                    	id="persoalEmail" name="persoalEmail" 
+	                    	id="personalEmail" name="personalEmail" 
 		                    size="40"  placeholder="abc@gmail.com" 
 		                    value='<%= isAppDevMode ? "arun@gmail.com" : "" %>'  
 		                    maxlength="40" required>

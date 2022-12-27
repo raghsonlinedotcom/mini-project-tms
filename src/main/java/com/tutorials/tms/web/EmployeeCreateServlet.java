@@ -85,7 +85,7 @@ public class EmployeeCreateServlet extends HttpServlet
 		String aadharId = String.valueOf(request.getParameter("aadharId"));
 		String bloodGroup= String.valueOf(request.getParameter("bloodGroup"));
 		String city = String.valueOf(request.getParameter("city"));
-		String personaleEmail = String.valueOf(request.getParameter("persoalEmail"));
+		String personalEmail = String.valueOf(request.getParameter("personalEmail"));
 		String officialEmail = String.valueOf(request.getParameter("officialEmail"));
 		String password = String.valueOf(request.getParameter("password"));
 		String primaryContactNo = String.valueOf(request.getParameter("primaryContactNumber"));
@@ -120,7 +120,7 @@ public class EmployeeCreateServlet extends HttpServlet
         employeeBO.setAadharId(aadharId);
         employeeBO.setBloodGroup(bloodGroup);
         employeeBO.setCity(city);
-        employeeBO.setPersonalEmail(personaleEmail);
+        employeeBO.setPersonalEmail(personalEmail);
         employeeBO.setOfficialEmail(officialEmail);
         employeeBO.setPassword(password);
         employeeBO.setPrimaryContactNo(primaryContactNo);
