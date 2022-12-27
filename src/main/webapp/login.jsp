@@ -11,27 +11,26 @@
 	href="<%=request.getContextPath()%>/lib/bootstrap-5.2.3-dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="style.css" />
+<link href="sticky-footer-navbar.css" rel="stylesheet">
 </head>
 <body class="log">
 
-	<%
-	String errorMessage = (String) request.getAttribute("errorMessage");
-	String message = (String) request.getAttribute("message");
-
-	if (null != errorMessage) {
-	%>
-	<div class="errorMsg"><%=errorMessage%></div>
-	<%
-	} else {
-	if (null != message) {
-	%>
-	<div class=successMsg><%=message%></div>
-	<%
-	}
-	}
-	%>
-
-
+		<%
+			String errorMessage = (String) request.getAttribute("errorMessage");
+			String message = (String) request.getAttribute("message");
+		
+			if(null!=errorMessage) {
+		%>
+				<div class="errorMsg"><%= errorMessage %></div>
+		<%
+			} else {
+				if(null!=message) {
+		%>	
+				<div class=successMsg><%= message %></div>
+		<%	
+				}
+			}
+		%>	
 	<h2>Login</h2>
 
 	<form id="loginForm" name="LoginForm" method="post" action="Login">
@@ -57,7 +56,7 @@
 					<td>Password</td>
 					<td><input type="password" class="form-control" id="password"
 						name="password" size="15" placeholder="password" maxlength="15"
-						required aria-describedby="pwdPattern"></td>
+						required></td>
 				</tr>
 
 				<tr>
@@ -77,3 +76,4 @@
 
 </body>
 </html>
+<%@include file="footer.jsp" %>

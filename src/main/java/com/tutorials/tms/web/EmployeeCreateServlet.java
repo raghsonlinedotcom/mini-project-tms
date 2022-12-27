@@ -56,21 +56,21 @@ public class EmployeeCreateServlet extends HttpServlet
 		
 		//1. Collect the input data
 		String errorMsgUI = "<ul>";
-		
+		EmployeeBO employeeBO= new EmployeeBO();
 		String empIdStr = request.getParameter("empId");
 		int empId = empIdStr!=null ? Integer.parseInt(empIdStr) : 0;
 		
 		//String empId = String.valueOf(request.getParameter("empId"));
 		logger.info("Param - empId : [" + empId + "]");
-		
-		EmployeeBO employeeBO= new EmployeeBO();
+		errorMsgUI = validateField(employeeBO, empId, "empId", errorMsgUI);
+	
 		
 		/*if(null==empId || empId.trim().length()<=0) {		
 			logger.error("EmpId cannot be null");
 			employeeBO.setEmpId("");
 			errorMsgUI += addError("Employee Id cannot be null");
 		}*/
-		errorMsgUI = validateField(employeeBO, empId, "empId", errorMsgUI);
+		
 		
 		String firstName = String.valueOf(request.getParameter("firstName"));
 		logger.info("Param - firstName : [" + firstName + "]");
