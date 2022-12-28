@@ -1,4 +1,5 @@
 		<!-- Fixed navbar -->
+		 
 		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="#">TMS</a>
@@ -22,7 +23,7 @@
 		         </a>
 		         <ul class="dropdown-menu">
 		           <li><a class="dropdown-item" href="ViewMyDetails">View Details</a></li>
-		           <li><a class="dropdown-item" href="#">Edit Details</a></li>
+		           <li><a class="dropdown-item" href="">Edit Details</a></li>
 		           <li><hr class="dropdown-divider"></li>
 		           <li><a class="dropdown-item" href="#">Apply Leave</a></li>
 		         </ul>
@@ -50,6 +51,12 @@
 		       </li>-->
 		       <li class="nav-item">
 		         <a class="nav-link" href="logout.jsp">Logout</a>
+		       </li>
+		        <li class="nav-item">
+		         <a class="nav-link" href="viewmydetails.jsp">ViewMyDetails</a>
+		       </li>
+		        <li class="nav-item">
+		         <a class="nav-link" href="editmydetails.jsp">EditMyDetails</a>
 		       </li>
 		      </ul>
 		      <form class="d-flex" role="search">

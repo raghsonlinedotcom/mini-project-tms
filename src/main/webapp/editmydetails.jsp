@@ -12,7 +12,6 @@
 				out.println("Id parameter passed is : " + empId);
 			}
 		
-			
 			EmployeeBO employeeBO= null;
 			
 			
@@ -83,13 +82,12 @@
 							<tr>
 								<td>Date Of Birth</td>
 								<td>
-									<input disabled type="date" class="form-control"  id="dob" name="dob" 
+									<input  type="date" class="form-control"  id="dob" name="dob" 
 										min="1960-01-01" max="2004-01-01"  
 										placeholder="Your dob" value="${employeeBO.dateOfBirth}"
 										required/>
 								</td>
 							</tr>
-							
 						<tr>
 						<td>Gender</td>
 						<td>
@@ -178,8 +176,7 @@
 							<input type="number" class="form-control" 
 								id="secondaryContactNumber" 
 								name="secondaryContactNumber" 
-								placeholder="your number" size="10"  maxlength="10" value="${employeeBO.secondaryContactNo}"
-								required />
+								placeholder="your number" size="10"  maxlength="10" value="${employeeBO.secondaryContactNo}"/>
 		
 						</td>
 					</tr>
@@ -199,7 +196,6 @@
 							<textarea class="form-control" rows="4" cols="50"  
 								id="skillSets" name="skillSets" placeholder="your skill set" maxlength="100"								  
 								required>${employeeBO.skillsets}</textarea> 
-	
 						</td>
 					</tr>
 					
@@ -237,8 +233,7 @@
 								
 						</td>
 					</tr>
-					
-					<tr>
+				
 							<tr>
 								<td colspan="2">
 									<input type="submit" name="Update" Value="Update"/>

@@ -1,6 +1,7 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="com.tutorials.tms.bo.EmployeeBO"%>
+<%@page import="com.tutorials.tms.util.AppUtil"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,8 +32,16 @@
 				}
 			}
 		%>	
+		<%
+			if (!AppUtil.isAppReady) {
+		%>
+			<span class="required"> The Application is not yet ready. Please
+				contact Admin. </span>
+		<%
+			} else {
+		%>
 	<h2>Login</h2>
-
+	
 	<form id="loginForm" name="LoginForm" method="post" action="Login">
 		<table
 			class="table table-striped table-hover table-bordered 
@@ -49,7 +58,7 @@
 					<td>EmployeeId</td>
 					<td><input type="number" class="form-control" id="empId"
 						name="empId" size="10" min="1" placeholder="Enter the employeeId"
-						required size="20"></td>
+						required size="20" ></td>
 				</tr>
 
 				<tr>
@@ -63,8 +72,6 @@
 					<td colspan="2"><input type="submit" name="Login"
 						Value="Login" /> <input type="reset" name="Reset" Value="Reset" />
 
-
-
 					</td>
 
 				</tr>
@@ -72,8 +79,9 @@
 		</table>
 	</form>
 
-
-
 </body>
 </html>
+	<%
+	}
+	%>
 <%@include file="footer.jsp" %>
