@@ -30,16 +30,6 @@
 	<br />
 	<br />
 	<div class="row">
-		<div class="col-6">
-			You can click <a href="create.jsp">here</a> to register / add a new
-			employee.
-		</div>
-		<div class="col-6">Should be moved to the Signup page later, once
-			the login feature is developed.</div>
-	</div>
-	<br />
-	<br />
-	<div class="row">
 	<div class="col-6">The frequently accessed link for the active
 		development and tracking of projects can be found below.</div>
 	<div class="col-6">
