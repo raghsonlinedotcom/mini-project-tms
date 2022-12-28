@@ -33,11 +33,16 @@ public class LoginServlet extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException 
+	{
 		logger.info("LoginServlet invoked!");
+		
 		response.setContentType("text/html");
+		
 		String errorMessage = null;
+		
 		EmployeeBO employeeBO = new EmployeeBO();
+		
 		// 1. Get the Employee Id
 		String empIdStr = request.getParameter("empId");
 		int empId = empIdStr != "" ? Integer.parseInt(empIdStr) : 0;
@@ -73,22 +78,23 @@ public class LoginServlet extends HttpServlet {
 		logger.info("Employee BO Object fetched from Database " +employeeBO);
 		String message = null;
 		String url = null;
+		
 		if(null!=employeeBO)
 		{
 			if (empId == employeeBO.getEmpId() && password.equals(employeeBO.getPassword())) {
 				System.out.println("[INFO] Credentials matched!");
 				url = "/index.jsp";
-				message = "Welcome " + employeeBO.getFirstName();
+				message = "Welcome <b>" + employeeBO.getFirstName() + " " + employeeBO.getLastName() + "</b>";
 				request.setAttribute("message", message);
 				request.getSession().setAttribute("employeeBO", employeeBO);
 			}
 		}
-
-			else {
-				System.out.println("[ERR] Credentials Mismatch!");
-				url = "/login.jsp";
-				request.setAttribute("errorMessage", "Invalid Credentials. Try again!");
-			}
+		else
+		{
+			System.out.println("[ERR] Credentials Mismatch!");
+			url = "/login.jsp";
+			request.setAttribute("errorMessage", "Invalid Credentials. Try again!");
+		}
 			
 		this.getServletContext().getRequestDispatcher(url).forward(request, response);
 	}

@@ -1,4 +1,4 @@
-<%@include file="header.jsp" %>
+<%@include file="../inc/header.jsp" %>
 	<h3 class="text-center">Technology Stack</h3>
 	<p class="lead">
 		The technology stack used for developing this <b>TMS</b> Web application are given below
@@ -193,4 +193,4 @@
 		</table>
 	</div>
 
-<%@include file="footer.jsp" %>
+<%@include file="../inc/footer.jsp" %>

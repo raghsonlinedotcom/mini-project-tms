@@ -278,7 +278,7 @@ public class EmployeeDAOTest
 		System.err.println(thrown.getMessage());
 		//assertTrue(lastInsertedId > 0);
 		Assertions.assertEquals("Duplicate entry '" + employeeBO.getEmpId() 
-				+ "' for key 'employee.EMP_ID'", thrown.getMessage());
+				+ "' for key 'EMP_ID'", thrown.getMessage());
 	}
 	
 	@Test
@@ -294,13 +294,10 @@ public class EmployeeDAOTest
 		
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		EmployeeBO employeeBO = null;
-		int count = 0;
 		
 		try {
 			employeeBO = employeeDAO.getEmployeeByEmpId(empId);	
 			System.out.println("employeeBO : " + employeeBO);
-			count = employeeDAO.getCount();
-			System.out.println("Count : " + count);
 		}catch (Exception exception) {
 			System.err.println("Exception while fetching an Employee with the EmpId - " + empId);
 			System.err.println("Error Message : " + exception.getMessage());
@@ -309,9 +306,7 @@ public class EmployeeDAOTest
 			}
 			fail("Employee getEmployeeByEmpId() failed - " + exception.getMessage());
 		}
-		
-		if(count > 1) {
-			assertNotNull(employeeBO);
-		} 
+
+		assertNotNull(employeeBO);
 	}
 }

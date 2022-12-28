@@ -2,7 +2,7 @@
 			</main>
 		<footer class="footer mt-auto py-3 panel-footer panel-custom">
 		  <div class="container">
-		    <span class="text-muted">&copy; Raghavan alias Saravanan Muthu | V 3.0 - Last Modified on 26 Dec 2022, Monday</span>
+		    <span class="text-muted">&copy; Raghavan alias Saravanan Muthu | V 4.0 - Last Modified on 28 Dec 2022, Wednesday</span>
 		  </div>
 		</footer>	
 		<!-- JavaScript Bundle with Popper -->

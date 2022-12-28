@@ -12,30 +12,26 @@ import com.tutorials.tms.util.AppUtil;
 class EmployeeViewJUnitTest {
 
 	@Test
-	public void testEmployeeViewByEmpId() {
-		
-		System.out.println("EmployeeViewJUnitTest - Invoked");
-		
+	public void testEmployeeViewByEmpId() 
+	{
+		System.out.println("EmployeeViewJUnitTest - Invoked");	
 		testEmployeeViewByEmpId(140);
 	}
 	
-	public void testEmployeeViewByEmpId(int empId) {
-		
-        System.out.println("testEmployeeViewByEmpId()  invoked - empId: " + empId);
+	public void testEmployeeViewByEmpId(int empId) 
+	{
+        System.out.println("testEmployeeViewByEmpId() invoked - empId: " + empId);
 		
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		EmployeeBO employeeBO = null;
-		int count = 0;
 		
 		try {
 			employeeBO = employeeDAO.getEmployeeByEmpId(empId);	
-			if(employeeBO == null)
+			System.out.println("EmployeeBO : " + employeeBO);
+			if(null==employeeBO)
 			{
-				System.out.println("There is NO Matching Records For the Given empId = " + empId);
-			}else
-			System.out.println("employeeBO : " + employeeBO);
-			count = employeeDAO.getCount();
-			System.out.println("Count : " + count);
+				System.out.println("There is NO Matching Record For the given empId : " + empId);
+			}
 		}catch (Exception exception) {
 			System.err.println("Exception while fetching an Employee with the EmpId - " + empId);
 			System.err.println("Error Message : " + exception.getMessage());
@@ -45,9 +41,12 @@ class EmployeeViewJUnitTest {
 			fail("Employee getEmployeeByEmpId() failed - " + exception.getMessage());
 		}
 		
-		if(count > 1) {
-			assertNotNull(employeeBO);
-		} 
-		
+		assertNotNull(employeeBO);
+		assertNotNull(employeeBO.getEmpId());
+		assertNotNull(employeeBO.getFirstName());
+		assertNotNull(employeeBO.getLastName());
+		assertNotNull(employeeBO.getOfficialEmail());
+		assertNotNull(employeeBO.getAadharId());
+		assertNotNull(employeeBO.getManagerId());
 	}
 }

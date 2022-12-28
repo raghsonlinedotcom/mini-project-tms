@@ -1,4 +1,4 @@
-<%@include file="header.jsp" %>
+<%@include file="../inc/header.jsp" %>
 	<h3 class="text-center">Commands</h3>
 	<p class="lead">
 		A list of frequently used commands for a quick reference is given below.
@@ -46,4 +46,4 @@
 			</div>
 		</div>				
 	</div>
-<%@include file="footer.jsp" %>
+<%@include file="../inc/footer.jsp" %>

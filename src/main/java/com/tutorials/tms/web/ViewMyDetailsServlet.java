@@ -17,8 +17,10 @@ import com.tutorials.tms.bo.EmployeeBO;
  * Servlet implementation class ViewServlet
  */
 @WebServlet({ "/ViewMyDetailsServlet", "/ViewMyDetails" })
-public class ViewMyDetailsServlet extends HttpServlet {
+public class ViewMyDetailsServlet extends HttpServlet 
+{
 	private static final long serialVersionUID = 1L;
+	
 	Logger logger = Logger.getLogger(this.getClass());
 
 	/**
@@ -33,7 +35,8 @@ public class ViewMyDetailsServlet extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException 
+	{
 		System.out.println("ViewMyDetailsServlet - doGet() invoked");
 
 		// 1. Get the Employee Data from the session
@@ -50,6 +53,6 @@ public class ViewMyDetailsServlet extends HttpServlet {
 		request.setAttribute("employeeBO", employeeBO);
 
 		// 3. Forward / Delegate the control/flow the required JSP Page
-		request.getRequestDispatcher("viewmydetails.jsp").forward(request, response);
+		request.getRequestDispatcher("member/view.jsp").forward(request, response);
 	}
 }

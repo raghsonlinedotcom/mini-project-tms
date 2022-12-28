@@ -1,11 +1,12 @@
-package test;
+package com.tutorials.tms.dao;
 
 import com.tutorials.tms.bo.EmployeeBO;
 import com.tutorials.tms.dao.EmployeeDAO;
 import com.tutorials.tms.dao.EmployeeDAOImpl;
 import com.tutorials.tms.util.AppUtil;
 
-public class EmployeeLoginTest {
+public class EmployeeLoginTest 
+{
 
 	/**
 	 * @param args
@@ -29,8 +30,6 @@ public class EmployeeLoginTest {
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
-
 		}
 	}
-
 }

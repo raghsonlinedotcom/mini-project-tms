@@ -1,8 +1,6 @@
 package com.tutorials.tms.bo;
 
-import java.sql.Date;
-
-//import java.util.Date;
+import java.util.Date;
 
 public class EmployeeBO {
 
@@ -16,7 +14,7 @@ public class EmployeeBO {
 
 	private Date dateOfBirth;
 
-	private char  gender;
+	private char gender;
 	
 	private String aadharId;
 
@@ -44,13 +42,14 @@ public class EmployeeBO {
 
 	private int managerId;
 
-	
 	public EmployeeBO() {
 	}
 	
-	
-	public EmployeeBO(int id,int empId, String firstName, String lastName, String officialEmail,
-			String primaryContactNo,Date dateOfJoining,  int managerId) {
+	public EmployeeBO(int id,int empId, String firstName, 
+			String lastName, String officialEmail,
+			String primaryContactNo,Date dateOfJoining,  
+			int managerId) 
+	{
 		super();
 		this.id = id;
 		this.empId = empId;
@@ -222,7 +221,7 @@ public class EmployeeBO {
 	public String toString() 
 	{
 		return "EmployeeBO ["
-				+ ", hashCode()=" + hashCode()
+				+ "hashCode()=" + hashCode()
 				+ ", id=" + id 
 				+ ", empId=" + empId 
 				+ ", firstName=" + firstName

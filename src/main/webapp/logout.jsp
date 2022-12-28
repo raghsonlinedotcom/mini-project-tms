@@ -1,4 +1,4 @@
-<%@include file="header.jsp" %>
+<%@include file="inc/header.jsp" %>
 
 	<br/><br/>
 	<div class="card">
@@ -12,4 +12,4 @@
 	  </div>
 	</div>
 
-<%@include file="footer.jsp" %>
+<%@include file="inc/footer.jsp" %>

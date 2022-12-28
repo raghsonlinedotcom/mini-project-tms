@@ -1,10 +1,9 @@
 <%@page import="com.tutorials.tms.bo.EmployeeBO"%>
-<%@include file="header.jsp" %>
+<%@include file="../inc/header.jsp" %>
 
 		<h1>Edit Profile</h1>
 		
 		<%
-			
 			Object empIdParam = request.getParameter("empId");
 			int empId = -1;
 			if(null!=empIdParam) {
@@ -246,4 +245,4 @@
 		<% 		
 			}
 		%>
-<%@include file="footer.jsp" %>
+<%@include file="../inc/footer.jsp" %>

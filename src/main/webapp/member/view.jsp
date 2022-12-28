@@ -1,5 +1,5 @@
 <%@ page import="java.util.List, java.util.ArrayList,com.tutorials.tms.bo.EmployeeBO" %>
-<%@include file="header.jsp" %>
+<%@include file="../inc/header.jsp" %>
 
 		<h1>View Employee</h1>
 		<%
@@ -94,7 +94,7 @@
 						<!-- <form id="editForm" name="EditForm" action="Edit" action="post">
 							<input type="submit" name="Edit" Value="Edit"/>
 						</form>-->
-						<a href="editmydetails.jsp">Edit</a> &nbsp;&nbsp;
+						<a href="<%=request.getContextPath()%>/member/edit.jsp">Edit</a> &nbsp;&nbsp;
 	
 					</td>
 				</tr>			
@@ -108,4 +108,4 @@
 			}
 		%>
 
-<%@include file="footer.jsp" %>
+<%@include file="../inc/footer.jsp" %>

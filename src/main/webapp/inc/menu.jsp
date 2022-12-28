@@ -1,5 +1,4 @@
 		<!-- Fixed navbar -->
-		 
 		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="#">TMS</a>
@@ -12,7 +11,7 @@
 		          <a class="nav-link active" aria-current="page" href="index.jsp">Home</a>
 		        </li>
 		  		<li class="nav-item">
-		        	<a class="nav-link" href="create.jsp">Register</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/create.jsp">Register</a>
 		        </li>
 		  		<!-- <li class="nav-item">
 		        	<a class="nav-link" href="sticky-footer/sticky-footer.html">Sticky Footer</a>
@@ -22,41 +21,35 @@
 		           Employee
 		         </a>
 		         <ul class="dropdown-menu">
-		           <li><a class="dropdown-item" href="ViewMyDetails">View Details</a></li>
+		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/ViewMyDetails">View Details</a></li>
 		           <li><a class="dropdown-item" href="">Edit Details</a></li>
 		           <li><hr class="dropdown-divider"></li>
 		           <li><a class="dropdown-item" href="#">Apply Leave</a></li>
 		         </ul>
 		       </li>
 		       <li class="nav-item">
-		        	<a class="nav-link" href="techstack.jsp">Tech. Stack</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/techstack.jsp">Tech. Stack</a>
 		        </li>
 		       <li class="nav-item">
-		        	<a class="nav-link" href="issues.jsp">Issues</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/issues.jsp">Issues</a>
 		        </li>		
 		        <li class="nav-item">
-		        	<a class="nav-link" href="commands.jsp">Commands</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/commands.jsp">Commands</a>
 		        </li>        
 		       <li class="nav-item">
-		        	<a class="nav-link" href="team.jsp">Members</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/team.jsp">Members</a>
 		        </li>
 		       <li class="nav-item">
-		        	<a class="nav-link" href="version.jsp">Version History</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/version.jsp">Version History</a>
 		        </li>		        		        
 		       <li class="nav-item">
-		        	<a class="nav-link" href="references.jsp">References</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/references.jsp">References</a>
 		        </li>		        
 		       <!-- <li class="nav-item">
 		         <a class="nav-link disabled">Disabled</a>
 		       </li>-->
 		       <li class="nav-item">
-		         <a class="nav-link" href="logout.jsp">Logout</a>
-		       </li>
-		        <li class="nav-item">
-		         <a class="nav-link" href="viewmydetails.jsp">ViewMyDetails</a>
-		       </li>
-		        <li class="nav-item">
-		         <a class="nav-link" href="editmydetails.jsp">EditMyDetails</a>
+		         <a class="nav-link" href="<%=request.getContextPath()%>/Logout">Logout</a>
 		       </li>
 		      </ul>
 		      <form class="d-flex" role="search">

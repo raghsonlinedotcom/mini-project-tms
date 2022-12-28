@@ -1,4 +1,4 @@
-<%@include file="header.jsp" %>
+<%@include file="../inc/header.jsp" %>
 	<h3 class="text-center">References</h3>
 	<p class="lead">
 		The useful / helpful links while developing this application are shared below for a future reference.
@@ -51,7 +51,7 @@
 						</ul>							
 					</td>
 				</tr>
-																																	<tr>
+				<tr>																												<tr>
 					<td>
 						Bootstrap Tables NOT responsive
 					</td>
@@ -75,4 +75,4 @@
 		</table>
 	</div>
 
-<%@include file="footer.jsp" %>
+<%@include file="../inc/footer.jsp" %>

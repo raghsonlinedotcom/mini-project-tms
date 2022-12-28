@@ -1,7 +1,20 @@
 <%@page import="com.tutorials.tms.bo.EmployeeBO"%>
-<%@include file="header.jsp" %>
 <%@page import="com.tutorials.tms.util.AppUtil"%>
-		<script type="text/javascript">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.tutorials.tms.util.AppUtil"%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>TMS | Registration Page</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="<%=request.getContextPath()%>/lib/bootstrap-5.2.3-dist/css/bootstrap.min.css"
+			rel="stylesheet">
+	   	<!--  custom CSS should come later  -->
+	    <link rel="stylesheet" href="<%=request.getContextPath()%>/inc/style.css"/>
+	    <!-- Custom styles for this template -->
+    	<link rel="stylesheet" href="<%=request.getContextPath()%>/inc/sticky-footer-navbar.css"/>
+    	<script type="text/javascript">
 		 function changeGender()
 	      {
 	        var gender = document.getElementsByName('gender');
@@ -15,21 +28,48 @@
 	        console.log("(generic) selected gender : " + genderValue);
 	      }
 		 </script>
-		 <%
-		 	String errorMsg = (String) request.getAttribute("errorMsgUI");
-		 	EmployeeBO employeeBO = (EmployeeBO) request.getAttribute("employeeForm");
-		 	
-			boolean isValidationError = false;
+	</head>
+	<body class="d-flex flex-column h-100">
+		<!-- Begin page content -->
+		<main class="flex-shrink-0">
+			<div class="container"> <!--  Container Div Start -->
+			<%
+				//we send the parameter as 'message' only even for the error message. 
+				// for the successful cases it is redirected to the `login.jsp` page
+				String errorMessage = (String) request.getAttribute("message");
 			
-		 	if(null!=errorMsg) 
-		 	{
-		 		isValidationError = true;
-		 %>
-		 		<h3>Validation Error(s)</h3>
-		 		<div class="errorMsg"><%= errorMsg %></div>
-		 <% 
-		 	}
-		 %>
+				if(null!=errorMessage) {
+			%>					
+					<div class="row">
+						<div class="col-12" align="center">
+							<div class="alert alert-danger" role="alert">
+							  	<%= errorMessage %>
+							</div>
+						</div>
+					</div>						
+			<%
+				}
+			
+			 	String errorMsg = (String) request.getAttribute("errorMsgUI");
+			 	EmployeeBO employeeBO = (EmployeeBO) request.getAttribute("employeeForm");
+			 	
+				boolean isValidationError = false;
+				
+			 	if(null!=errorMsg) 
+			 	{
+			 		isValidationError = true;
+			 %>
+			 		<h3>Validation Error(s)</h3>
+					<div class="row">
+						<div class="col-12" align="center">
+							<div class="alert alert-danger" role="alert">
+							  	<%= errorMsg %>
+							</div>
+						</div>
+					</div>			 		
+			 <% 
+			 	}
+			 %>
 		<h2>Employee Registration Form</h2>
 		<p class="lead">
 		 	Please fill the necessary details to register yourself. 
@@ -109,7 +149,7 @@
 	                    <td>	                    	
      						<div class="form-check">
 							  <input class="form-check-input" type="radio" name="gender" 
-							  		id="genderM" onclick="changeGender();"
+							  		id="genderM" value="M" onclick="changeGender();"
 							  		<%= isAppDevMode ? " checked" : "" %>>
 							  <label class="form-check-label" for="genderM">
 							    Male
@@ -117,29 +157,11 @@
 							</div>
 							<div class="form-check">
 							  <input class="form-check-input" type="radio" name="gender" 
-							  		id="genderF" onclick="changeGender();">
+							  		id="genderF" value="F" onclick="changeGender();">
 							  <label class="form-check-label" for="genderF">
 							    Female
 							  </label>
 							</div>
-							
-							<!-- <div class="input-group mb-3">
-							  <div class="input-group-text">
-							    <input class="form-check-input mt-0" type="checkbox" 
-							    	value="" aria-label="Checkbox for following text input">
-							  </div>
-							  <input type="text" class="form-control" 
-							  	aria-label="Text input with checkbox">
-							</div>
-							
-							<div class="input-group">
-							  <div class="input-group-text">
-							    <input class="form-check-input mt-0" type="radio" value="" 
-							    	aria-label="Radio button for following text input">
-							  </div>
-							  <input type="text" class="form-control" 
-							  	aria-label="Text input with radio button">
-							</div>-->
 	                    </td>
                 	</tr>
 					<tr>
@@ -250,14 +272,7 @@
 						<textarea class="form-control" rows="4" cols="50"  
 								id="skillSets" name="skillSets" 
 								placeholder="Java, MySQL, HTML, CSS" maxlength="100"								  
-								required><%= isAppDevMode ? "Java, SQL, HTML, CSS" : "" %></textarea>
-						<!-- <div class="input-group">
-						  <span class="input-group-text">Skillsets</span> 
-						  <textarea class="form-control" aria-label="With textarea" 
-						  		rows="4" cols="50"  id="skillSets" name="skillSets" 
-								placeholder="java,mysql,html,css" maxlength="100"								  
-								required></textarea>
-						</div>-->
+								required><%= isAppDevMode ? "Java, SQL, HTML, CSS" : "" %></textarea>						
 						</td>
 					<tr>
 						<td>Date Of Joining <span class="required">*</span></td>
@@ -290,23 +305,18 @@
                    		<td>
                        		<select class="form-select" aria-label=".select example"
                        			id="managerId" name="managerId">
-                       			<!-- <option id="-1" value="--Select--">--- Select ---</option>
-                       			<option id="1" value="1" selected>Raghavan</option>
-                       			<option id="2" value="2">Dev</option>
-                       			<option id="3" value="3">Balaji</option> -->
                        			<option id="1" value="0">N/A</option>
                        			<option id="1" value="1" selected>Raghavan</option>
                        		</select>
                    		</td>
 	                </tr>
 					<tr>
-						<td colspan="2">
-							<!-- <input type="submit" name="Create" Value="Create"/> -->
-							<input class="btn btn-primary" type="submit" value="Create">
-							<input class="btn btn-outline-danger" type="reset" value="Reset">
+						<td colspan="2">							
+							<input class="btn btn-primary" type="submit" value="Create"/>
+							<input class="btn btn-outline-danger" type="reset" value="Reset"/>
 						</td>
 					</tr>				
 				</tbody>
 			</table>
 		</form>
-<%@include file="footer.jsp" %>
+<%@include file="inc/footer.jsp" %>

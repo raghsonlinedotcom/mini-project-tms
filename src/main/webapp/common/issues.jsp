@@ -1,5 +1,5 @@
 
-<%@include file="header.jsp" %>
+<%@include file="../inc/header.jsp" %>
 	<h3 class="text-center">Known Issues</h3>
 	<p class="lead">
 		A list of known bugs/issues in the Application are listed below.
@@ -117,4 +117,4 @@
 		</table>
 	</div>
 
-<%@include file="footer.jsp" %>
+<%@include file="../inc/footer.jsp" %>

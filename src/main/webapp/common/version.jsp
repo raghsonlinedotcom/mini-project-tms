@@ -1,4 +1,4 @@
-<%@include file="header.jsp" %>
+<%@include file="../inc/header.jsp" %>
 	<h3 class="text-center">Version History</h3>
 	<p class="lead">
 		A list of the version this Application has been developed under.
@@ -140,4 +140,4 @@
 		</table>
 	</div>
 
-<%@include file="footer.jsp" %>
+<%@include file="../inc/footer.jsp" %>

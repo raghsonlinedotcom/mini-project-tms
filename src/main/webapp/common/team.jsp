@@ -1,4 +1,4 @@
-<%@include file="header.jsp" %>
+<%@include file="../inc/header.jsp" %>
 	<h3 class="text-center">References</h3>
 	<p class="lead">
 		The team members who were involved in developing this Application are listed below.
@@ -103,4 +103,4 @@
 		</table>
 	</div>
 
-<%@include file="footer.jsp" %>
+<%@include file="../inc/footer.jsp" %>

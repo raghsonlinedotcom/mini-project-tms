@@ -1,48 +1,45 @@
-<%@include file="header.jsp"%>
+<%@include file="inc/header.jsp"%>
 <%@page import="com.tutorials.tms.util.AppUtil"%>
 <%
-String message = (String) request.getAttribute("message");
-if (null != message) {
+	String message = (String) request.getAttribute("message");
+	if (null != message) 
+	{
 %>
-<div class=successMsg><%=message%></div>
+		<div class="row">
+			<div class="col-12" align="center">
+				<div class="alert alert-primary" role="alert">
+				  	<%= message %>
+				</div>
+			</div>
+		</div>
 <%
-}
+	}
 %>
-
-<%
-if (!AppUtil.isAppReady) {
-%>
-<span class="required"> The Application is not yet ready. Please
-	contact Admin. </span>
-<%
-} else {
-%>
-<div class="row">
-	<div class="col-12">
-		<h1 class="mt-5">Team Management System</h1>
-		<p class="lead text-center">A simple Java based Web Application to
-			manage a Team.</p>
+	<div class="row">
+		<div class="col-12">
+			<h1 class="mt-5">Team Management System</h1>
+			<p class="lead text-center">A simple Java based Web Application to
+				manage a Team.</p>
+		</div>
 	</div>
-</div>
-<br />
-<br />
-<div class="row">
-	<div class="col-12">Click on the menu items on top for the
-		different features.</div>
-</div>
-<br />
-<br />
-<div class="row">
-	<div class="col-6">
-		You can click <a href="create.jsp">here</a> to register / add a new
-		employee.
+	<br />
+	<div class="row">
+		<div class="col-12">Click on the menu items on top for the
+			different features.</div>
 	</div>
-	<div class="col-6">Should be moved to the Signup page later, once
-		the login feature is developed.</div>
-</div>
-<br />
-<br />
-<div class="row">
+	<br />
+	<br />
+	<div class="row">
+		<div class="col-6">
+			You can click <a href="create.jsp">here</a> to register / add a new
+			employee.
+		</div>
+		<div class="col-6">Should be moved to the Signup page later, once
+			the login feature is developed.</div>
+	</div>
+	<br />
+	<br />
+	<div class="row">
 	<div class="col-6">The frequently accessed link for the active
 		development and tracking of projects can be found below.</div>
 	<div class="col-6">
@@ -72,7 +69,5 @@ if (!AppUtil.isAppReady) {
 		</ul>
 	</div>
 </div>
-<%
-}
-%>
-<%@include file="footer.jsp"%>
+
+<%@include file="inc/footer.jsp"%>

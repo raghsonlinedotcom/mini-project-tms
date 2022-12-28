@@ -198,6 +198,7 @@ public class EmployeeCreateServlet extends HttpServlet
 		
 		String message = null;
 		String flag = null;
+		String url = null;
 		
 		if(lastInsertedId<=0) { /* Error */
 			message = "Error while registering the EmployeeBO. "; 
@@ -208,16 +209,21 @@ public class EmployeeCreateServlet extends HttpServlet
 				message = message + "User already exists";
 			} else {
 				message = message + " Reason : " + errorMsg;
-			}			
+			}		
+			url = "create.jsp";
 		} else { /* Success */ 
 			message = "Registration successful. Your Id  is : " + lastInsertedId;
+			url = "login.jsp";
 		}
 		
 		logger.info("Last Inserted Id : " +lastInsertedId);
+		logger.info("url : " +url);
+		logger.info("message : " + message);
 		request.setAttribute("message", message);
-		request.setAttribute("flag", flag);request.setAttribute("employeeForm", employeeBO);
-		
-		response.getWriter().println(message);	
+		request.setAttribute("flag", flag);
+		request.setAttribute("employeeForm", employeeBO);
+			
+		request.getRequestDispatcher(url).forward(request, response);		
 	}
 	
 	private String addError(String errorMsg) {

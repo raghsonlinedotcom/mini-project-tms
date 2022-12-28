@@ -62,9 +62,9 @@
 	      }
 	    </style>
 	   	<!--  custom CSS should come later  -->
-	    <link rel="stylesheet" href="style.css"/>
+	    <link rel="stylesheet" href="<%=request.getContextPath()%>/inc/style.css"/>
 	    <!-- Custom styles for this template -->
-    	<link href="sticky-footer-navbar.css" rel="stylesheet">
+    	<link rel="stylesheet" href="<%=request.getContextPath()%>/inc/sticky-footer-navbar.css"/>
 	</head>
 	<body class="d-flex flex-column h-100">
 	    <header>
@@ -73,4 +73,10 @@
 		<!-- Begin page content -->
 		<main class="flex-shrink-0">
 			<div class="container"> <!--  Container Div Start -->
+			<%
+				if(null==session.getAttribute("employeeBO")) {
+					request.setAttribute("errorMessage",  "Unauthorized Access. Please login");
+					request.getRequestDispatcher("login.jsp").forward(request, response);
+				}
+			%>
 	    	
