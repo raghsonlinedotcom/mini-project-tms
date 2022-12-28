@@ -19,12 +19,14 @@
 			
 			if(null==employeeBO) {
 				employeeBO = (EmployeeBO) session.getAttribute("employeeBO");	
-			}			
+			}		
 		%>
 		<%
 			String message = (String) request.getAttribute("message");			
 			
 			String exceptionMsg = (String) request.getAttribute("exceptionMsg");
+			
+			String errorMsg = (String) request.getAttribute("errorMsg");
 			
 			if(null!=message) {
 		%>
@@ -37,13 +39,19 @@
 		<%
 			}
 			
+			if(null!=errorMsg) {
+		%>
+				<div class="errorMsg">${errorMsg}</div>
+		<%
+			}
+			
 			if(null==employeeBO) {
 		%>
 				<div class="errorMsg">No Employee available to edit!</div>
 		<%		
 			} else {
 		%>	
-				<form id="updateForm" name="UpdateForm" action="UpdateProfile" method="post">
+				<form id="updateForm" name="UpdateForm" action="<%=request.getContextPath()%>/UpdateEmployee" method="post">
 					<table class="table table-striped table-hover table-bordered 
 					table-responsive caption-top">
 						
@@ -81,7 +89,7 @@
 							<tr>
 								<td>Date Of Birth</td>
 								<td>
-									<input  type="date" class="form-control"  id="dob" name="dob" 
+									<input readonly  type="date" class="form-control"  id="dob" name="dob" 
 										min="1960-01-01" max="2004-01-01"  
 										placeholder="Your dob" value="${employeeBO.dateOfBirth}"
 										required/>
@@ -90,13 +98,13 @@
 						<tr>
 						<td>Gender</td>
 						<td>
-						<input disabled type="radio" name="gender" id="genderM" value="M" 
+						<input readonly type="radio" name="gender" id="genderM" value="M" 
 									<%
                                         if(employeeBO.getGender()=='M') {
                                             out.println(" checked");
                                         }
                                     %>>M
-						<input disabled type="radio" name="gender" id="genderF" value="F"
+						<input readonly type="radio" name="gender" id="genderF" value="F"
 									<%
                                         if(employeeBO.getGender()=='F') {
                                             out.println(" checked");
@@ -107,7 +115,7 @@
 							<tr>
 								<td>AadharId </td>
 								<td>
-										<input disabled  type="number" class="form-control" id="aadharId" name="aadharId" size="12" 
+										<input readonly  type="number" class="form-control" id="aadharId" name="aadharId" size="12" 
 										placeholder="Your AadharId" 
 										value="${employeeBO.aadharId}" required/>
 								</td>
@@ -115,17 +123,17 @@
 							<tr>
 						<td> BloodGroup </td>
 						<td>
-							<select disabled  class="form-select" aria-label=".select example"
+							<select class="form-select" aria-label=".select example"
                        		 		name="bloodGroup" id="bloodGroup" required>
                        		  	<option value="${employeeBO.bloodGroup}">${employeeBO.bloodGroup}</option>
-			                    <option value="A+ve" >A+ve</option>
-			                    <option value="O+ve">O+ve</option>
-			                    <option value="B+ve">B+ve</option>
-			                    <option value="AB+ve">AB+ve</option>
-			                    <option value="A-ve">A-ve</option>
-			                    <option value="O-ve">O-ve</option>
-			                    <option value="B-ve">B-ve</option>
-			                    <option value="AB-ve">AB-ve</option> 
+			                    <option value="A+ve" disabled >A+ve</option>
+			                    <option value="O+ve" disabled>O+ve</option>
+			                    <option value="B+ve" disabled>B+ve</option>
+			                    <option value="AB+ve" disabled>AB+ve</option>
+			                    <option value="A-ve" disabled>A-ve</option>
+			                    <option value="O-ve" disabled>O-ve</option>
+			                    <option value="B-ve" disabled>B-ve</option>
+			                    <option value="AB-ve" disabled>AB-ve</option> 
 			                </select>
 			               
 						</td>
@@ -143,7 +151,7 @@
 						<td>PersonalEmail</td>
 						<td>
 							<input type="Email" class="form-control" 
-	                    	id="persoalEmail" name="persoalEmail" 
+	                    	id="persoalEmail" name="personalEmail" 
 		                    size="40"  placeholder="your email"  value="${employeeBO.personalEmail}"
 								required />
 							
@@ -152,7 +160,7 @@
 					<tr>
 						<td>OfficialEmail</td>
 						<td>
-							<input  disabled type="Email" class="form-control" 
+							<input  readonly type="Email" class="form-control" 
 	                    id="officialEmail" name="officialEmail" 
 	                    size="40"    maxlength="40" placeholder="your email"  value="${employeeBO.officialEmail}"
 								required />
@@ -201,7 +209,7 @@
 					<tr>
 						<td>Date Of Joining </td>
 						<td>
-							<input  disabled type="date" class="form-control" 
+							<input  readonly type="date" class="form-control" 
 								id="doj" name="doj"  value="${employeeBO.dateOfJoining}"
 								required />
 						</td>
@@ -223,11 +231,11 @@
 					<tr>
 						<td> Manager Id </td>
 						<td>
-							<select  disabled class="form-select" aria-label=".select example"
+							<select class="form-select" aria-label=".select example"
                        			id="managerId" name="managerId"required>
                        			<option value="${employeeBO.managerId}">${employeeBO.managerId}</option>
-                       			<option id="1" value="0">N/A</option>
-                       			<option id="1" value="1" selected>Raghavan</option>
+                       			<option id="1" value="0" disabled >N/A</option>
+                       			<option id="1" value="1" disabled>Raghavan</option>
                        		</select>
 								
 						</td>

@@ -11,4 +11,6 @@ public interface EmployeeDAO {
 	public abstract EmployeeBO getEmployeeByEmpId(int empId) throws Exception;
 	
 	public abstract EmployeeBO verifyEmployee(int empId, String password) throws Exception;
+	
+	public abstract int updateEmployee(EmployeeBO employeeBO) throws Exception;
 }

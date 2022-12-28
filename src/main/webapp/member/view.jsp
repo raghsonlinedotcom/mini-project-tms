@@ -103,7 +103,7 @@
 		<%
 			} else {
 		%>
-				<div class=errorMsg>No matching records for the given Id - ${param.id}.</div>
+				<div class=errorMsg>No matching records for the given Id - ${param.empId}.</div>
 		<%
 			}
 		%>
