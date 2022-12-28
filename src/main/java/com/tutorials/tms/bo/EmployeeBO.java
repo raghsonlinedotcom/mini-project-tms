@@ -222,14 +222,14 @@ public class EmployeeBO {
 	public String toString() 
 	{
 		return "EmployeeBO ["
-				+ ", hashCode()=" + hashCode()
-				+ ", id=" + id 
-				+ ", empId=" + empId 
-				+ ", firstName=" + firstName
-				+ ", lastName=" + lastName
-				+ ", officialEmail=" + officialEmail 
-				+ ", primaryContactNo="+  primaryContactNo
-				+ ", dateOfJoining=" + dateOfJoining
-				+ ", managerId=" + managerId;
+				+ "hashCode = " + hashCode()
+				+ ", id = " + id 
+				+ ", empId = " + empId 
+				+ ", firstName = " + firstName
+				+ ", lastName = " + lastName
+				+ ", officialEmail = " + officialEmail 
+				+ ", primaryContactNo = "+  primaryContactNo
+				+ ", dateOfJoining = " + dateOfJoining
+				+ ", managerId = " + managerId;
 	}	
 }
