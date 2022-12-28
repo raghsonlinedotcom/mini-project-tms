@@ -109,7 +109,7 @@
 	                    <td>	                    	
      						<div class="form-check">
 							  <input class="form-check-input" type="radio" name="gender" 
-							  		id="genderM" onclick="changeGender();"
+							  		id="genderM" value="M" onclick="changeGender();"
 							  		<%= isAppDevMode ? " checked" : "" %>>
 							  <label class="form-check-label" for="genderM">
 							    Male
@@ -117,7 +117,7 @@
 							</div>
 							<div class="form-check">
 							  <input class="form-check-input" type="radio" name="gender" 
-							  		id="genderF" onclick="changeGender();">
+							  		id="genderF" value="F" onclick="changeGender();">
 							  <label class="form-check-label" for="genderF">
 							    Female
 							  </label>
