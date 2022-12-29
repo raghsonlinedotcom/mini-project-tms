@@ -137,7 +137,7 @@ public class EmployeeDAOTest
 		Date dob = new Date(1986-9-13);
 		Date doj = new Date(2014-01-01);
 
-        employeeBO.setEmpId("81");
+        employeeBO.setEmpId(81);
         employeeBO.setFirstName("Balaji"); 
         employeeBO.setLastName("Jayavelu");
         employeeBO.setDateOfBirth(dob);
@@ -285,22 +285,19 @@ public class EmployeeDAOTest
 	public void getEmployeeByEmpId()
 	{
 		System.out.println("getEmployeeByEmpId()  invoked");
-		getEmployeeByEmpId("81");
+		getEmployeeByEmpId(81);
 	}
 	
-	public void getEmployeeByEmpId(String empId)
+	public void getEmployeeByEmpId(int empId)
 	{
 		System.out.println("getEmployeeByEmpId()  invoked - empId:" +empId);
 		
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		EmployeeBO employeeBO = null;
-		int count = 0;
 		
 		try {
 			employeeBO = employeeDAO.getEmployeeByEmpId(empId);	
 			System.out.println("employeeBO : " + employeeBO);
-			count = employeeDAO.getCount();
-			System.out.println("Count : " + count);
 		}catch (Exception exception) {
 			System.err.println("Exception while fetching an Employee with the EmpId - " + empId);
 			System.err.println("Error Message : " + exception.getMessage());
@@ -309,9 +306,7 @@ public class EmployeeDAOTest
 			}
 			fail("Employee getEmployeeByEmpId() failed - " + exception.getMessage());
 		}
-		
-		if(count > 1) {
-			assertNotNull(employeeBO);
-		} 
+
+		assertNotNull(employeeBO);
 	}
 }

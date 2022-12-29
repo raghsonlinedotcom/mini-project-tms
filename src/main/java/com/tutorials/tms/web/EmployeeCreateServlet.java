@@ -56,18 +56,21 @@ public class EmployeeCreateServlet extends HttpServlet
 		
 		//1. Collect the input data
 		String errorMsgUI = "<ul>";
-		
-		String empId = String.valueOf(request.getParameter("empId"));
-		logger.info("Param - empId : [" + empId + "]");
-		
 		EmployeeBO employeeBO= new EmployeeBO();
+		String empIdStr = request.getParameter("empId");
+		int empId = empIdStr!=null ? Integer.parseInt(empIdStr) : 0;
+		
+		//String empId = String.valueOf(request.getParameter("empId"));
+		logger.info("Param - empId : [" + empId + "]");
+		errorMsgUI = validateField(employeeBO, empId, "empId", errorMsgUI);
+	
 		
 		/*if(null==empId || empId.trim().length()<=0) {		
 			logger.error("EmpId cannot be null");
 			employeeBO.setEmpId("");
 			errorMsgUI += addError("Employee Id cannot be null");
 		}*/
-		errorMsgUI = validateField(employeeBO, empId, "empId", errorMsgUI);
+		
 		
 		String firstName = String.valueOf(request.getParameter("firstName"));
 		logger.info("Param - firstName : [" + firstName + "]");
@@ -82,7 +85,7 @@ public class EmployeeCreateServlet extends HttpServlet
 		String aadharId = String.valueOf(request.getParameter("aadharId"));
 		String bloodGroup= String.valueOf(request.getParameter("bloodGroup"));
 		String city = String.valueOf(request.getParameter("city"));
-		String personaleEmail = String.valueOf(request.getParameter("persoalEmail"));
+		String personalEmail = String.valueOf(request.getParameter("personalEmail"));
 		String officialEmail = String.valueOf(request.getParameter("officialEmail"));
 		String password = String.valueOf(request.getParameter("password"));
 		String primaryContactNo = String.valueOf(request.getParameter("primaryContactNumber"));
@@ -117,7 +120,7 @@ public class EmployeeCreateServlet extends HttpServlet
         employeeBO.setAadharId(aadharId);
         employeeBO.setBloodGroup(bloodGroup);
         employeeBO.setCity(city);
-        employeeBO.setPersonalEmail(personaleEmail);
+        employeeBO.setPersonalEmail(personalEmail);
         employeeBO.setOfficialEmail(officialEmail);
         employeeBO.setPassword(password);
         employeeBO.setPrimaryContactNo(primaryContactNo);
@@ -194,7 +197,7 @@ public class EmployeeCreateServlet extends HttpServlet
 		}
 		
 		String message = null;
-		String flag = null;
+		String url = null;
 		
 		if(lastInsertedId<=0) { /* Error */
 			message = "Error while registering the EmployeeBO. "; 
@@ -205,16 +208,20 @@ public class EmployeeCreateServlet extends HttpServlet
 				message = message + "User already exists";
 			} else {
 				message = message + " Reason : " + errorMsg;
-			}			
+			}		
+			url = "create.jsp";
 		} else { /* Success */ 
 			message = "Registration successful. Your Id  is : " + lastInsertedId;
+			url = "login.jsp";
 		}
 		
 		logger.info("Last Inserted Id : " +lastInsertedId);
+		logger.info("url : " +url);
+		logger.info("message : " + message);
 		request.setAttribute("message", message);
-		request.setAttribute("flag", flag);request.setAttribute("employeeForm", employeeBO);
-		
-		response.getWriter().println(message);	
+		request.setAttribute("employeeForm", employeeBO);
+			
+		request.getRequestDispatcher(url).forward(request, response);		
 	}
 	
 	private String addError(String errorMsg) {
@@ -232,14 +239,23 @@ public class EmployeeCreateServlet extends HttpServlet
 		
 		return errorMsgUI;
 	}
+	//Method OverLoading
+	public String validateField(EmployeeBO employeeBO, int value, String fieldName, String errorMsgUI) {
+		if(value==0) {	
+			validationError = true;
+			logger.error(fieldName + " cannot be Zero(0)");			
+			errorMsgUI += addError(fieldName + " cannot be Zero(0)");
+		} 
+		
+		setField(employeeBO, fieldName, value);
+		
+		return errorMsgUI;
+	}
 	
-	public void setField(EmployeeBO employeeBO, String fieldName, String value)
+	public void setField(EmployeeBO employeeBO, String fieldName ,String value)
 	{
 		switch(fieldName) 
 		{
-			case "empId":
-				employeeBO.setEmpId(value);
-				break;
 			case "firstName":
 				employeeBO.setFirstName(value);
 				break;
@@ -248,5 +264,15 @@ public class EmployeeCreateServlet extends HttpServlet
 				break;
 		}
 	}
-
-}
+	//Method OverLoading
+	public void setField(EmployeeBO employeeBO, String fieldName ,int value)
+	{
+		switch(fieldName) 
+		{
+			case "empId":
+				employeeBO.setEmpId(value);
+				break;
+			
+		}
+	}
+	}

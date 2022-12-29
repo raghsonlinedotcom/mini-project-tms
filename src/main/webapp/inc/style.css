@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+h1, h2 {
+	text-align: center;
+}
+
+/*
+* {
+	font-family: "Lucida Grande", "Verdana";
+	font-size: 18px;
+	color: navy;
+}
+table {
+	font-family : "Verdana";
+	margin: 5px;
+	padding: 5px;
+}
+
+table thead {
+	font-weight: bold;
+	font-size: 110%;
+	text-align: center;
+}
+
+.center {
+	text-align: center;
+}
+
+input,select,textarea{
+     
+      background-color: rgb(188, 243, 244);
+}
+*/
+
+.required {
+  color: red;
+}
+
+.errorMsg {
+	background-color: yellow;
+	color: black;
+	border: 1px solid red;
+}
+
+.footer-old {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+/* https://stackoverflow.com/questions/40512604/bootstrap-table-is-not-responsive */
+.table{
+   display: block !important;
+   overflow-x: auto !important;
+   width: 100% !important;
+ }
+ 
+ input[readonly] {
+    background-color: #CCCACA;
+}
+
+
+

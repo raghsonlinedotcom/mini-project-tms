@@ -26,7 +26,17 @@ echo "Start the server now"
 cd ~/soft/apache-tomcat-9.0.65/bin
 ./startup.sh
 cd ~/soft/apache-tomcat-9.0.65/webapps/
+# make the script sleep for 1 min so that the TMS.war gets exploded along with all the other .war files
+echo "sleeping for a minute for Tomcat to explode the .war file(s) into the respective folders"
+sleep 1m
 echo "verifying the exploded folder after the server start"
 ls -ltrh TMS*
+echo "copying the bootstrap library into the lib folder under the TMS/ directory"
+cd TMS
+mkdir lib
+cd lib
+cp -r ~/scp-files/bootstrap-5.2.3-dist .
+echo "listing the lib directory.."
+ls -ltrh
 echo "Time to check the application. "
 echo "Go to http://10.121.1.241:8080/TMS URL in the browser in the local machine"
