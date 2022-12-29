@@ -197,7 +197,6 @@ public class EmployeeCreateServlet extends HttpServlet
 		}
 		
 		String message = null;
-		String flag = null;
 		String url = null;
 		
 		if(lastInsertedId<=0) { /* Error */
@@ -220,7 +219,6 @@ public class EmployeeCreateServlet extends HttpServlet
 		logger.info("url : " +url);
 		logger.info("message : " + message);
 		request.setAttribute("message", message);
-		request.setAttribute("flag", flag);
 		request.setAttribute("employeeForm", employeeBO);
 			
 		request.getRequestDispatcher(url).forward(request, response);		

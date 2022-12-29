@@ -2,12 +2,21 @@
 <%@include file="../inc/header.jsp" %>
 
 		<h1>View Employee</h1>
+		
 		<%
 			EmployeeBO employeeBO = (EmployeeBO) request.getAttribute("employeeBO");
+			String message = (String) request.getAttribute("message");	
+			
+			if(null!=message){
+		%>
+				<div class="message">${message}</div>
+		<% 
+			}
 		
 			if(null!=employeeBO) {
 				session.setAttribute("employeeBO", employeeBO);
 		%>
+		
 		<table class="table table-striped table-hover table-bordered 
 				table-responsive caption-top">
 				<caption>View My Details</caption>

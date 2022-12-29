@@ -1,21 +1,11 @@
 <%@page import="com.tutorials.tms.bo.EmployeeBO"%>
 <%@include file="../inc/header.jsp" %>
-
+ <link rel="stylesheet" href="<%=request.getContextPath()%>/inc/style.css"/>
 		<h1>Edit Profile</h1>
 		
 		<%
-			Object empIdParam = request.getParameter("empId");
-			int empId = -1;
-			if(null!=empIdParam) {
-				empId = Integer.parseInt(empIdParam.toString());
-				out.println("Id parameter passed is : " + empId);
-			}
 		
-			EmployeeBO employeeBO= null;
-			
-			
-			employeeBO = (EmployeeBO) request.getAttribute("employeeBO");
-			
+			EmployeeBO employeeBO = (EmployeeBO) request.getAttribute("employeeBO");
 			
 			if(null==employeeBO) {
 				employeeBO = (EmployeeBO) session.getAttribute("employeeBO");	
@@ -60,16 +50,16 @@
 								<td>Id</td>
 								<td>
 									${employeeBO.id}
-									<input type="hidden" name="id" value="${employeeBO.id}"/>
+									<input type="hidden" name="id" value="${employeeBO.id}" />
 								</td>		
 								</tr>
 								<tr>
 								<td>EmployeeId</td>
 								<td>
 									${employeeBO.empId}
-									<input type="hidden" name="empId" value="${employeeBO.empId}"/>
+									<input type="hidden"  name="empId" value="${employeeBO.empId}"/>
 								</td>		
-								</tr>
+								</tr> 
 							<tr>
 								<td>First Name</td>
 								<td>
@@ -104,7 +94,7 @@
                                             out.println(" checked");
                                         }
                                     %>>M
-						<input readonly type="radio" name="gender" id="genderF" value="F"
+						<input readonly type="radio" name="gender" id="genderF" value="F" 
 									<%
                                         if(employeeBO.getGender()=='F') {
                                             out.println(" checked");
@@ -123,17 +113,16 @@
 							<tr>
 						<td> BloodGroup </td>
 						<td>
-							<select class="form-select" aria-label=".select example"
-                       		 		name="bloodGroup" id="bloodGroup" required>
+							<select class="form-select" aria-label=".select example" style= background-color:gray;                       		 		name="bloodGroup" id="bloodGroup" required>
                        		  	<option value="${employeeBO.bloodGroup}">${employeeBO.bloodGroup}</option>
-			                    <option value="A+ve" disabled >A+ve</option>
-			                    <option value="O+ve" disabled>O+ve</option>
-			                    <option value="B+ve" disabled>B+ve</option>
-			                    <option value="AB+ve" disabled>AB+ve</option>
-			                    <option value="A-ve" disabled>A-ve</option>
-			                    <option value="O-ve" disabled>O-ve</option>
-			                    <option value="B-ve" disabled>B-ve</option>
-			                    <option value="AB-ve" disabled>AB-ve</option> 
+			                    <option value="A+ve" disabled style= background-color:gray; >A+ve</option>
+			                    <option value="O+ve" disabled style= background-color:gray; >O+ve</option>
+			                    <option value="B+ve" disabled style= background-color:gray; >B+ve</option>
+			                    <option value="AB+ve" disabled style= background-color:gray;>AB+ve</option>
+			                    <option value="A-ve" disabled style= background-color:gray; >A-ve</option>
+			                    <option value="O-ve" disabled style= background-color:gray; >O-ve</option>
+			                    <option value="B-ve" disabled style= background-color:gray; >B-ve</option>
+			                    <option value="AB-ve" disabled style= background-color:gray;>AB-ve</option> 
 			                </select>
 			               
 						</td>
@@ -220,7 +209,7 @@
 							<input type="text" class="form-control" 
                        		 	id="hobbies" name="hobbies" 
                        		 	placeholder="Reading Books, Listening to Music, Playing Cricket etc.," 
-                       		 	size="100" maxlength="100"  value="${employeeBO.hobbies}"required />
+                       		 	size="100" maxlength="100"  value="${employeeBO.hobbies}"/>
                        		 	
 	    						<div id="hobbiesHelp" class="form-text">
 	    							Mention your extra curricular activities if any.
@@ -231,11 +220,11 @@
 					<tr>
 						<td> Manager Id </td>
 						<td>
-							<select class="form-select" aria-label=".select example"
+							<select class="form-select" aria-label=".select example" style= background-color:gray; 
                        			id="managerId" name="managerId"required>
                        			<option value="${employeeBO.managerId}">${employeeBO.managerId}</option>
-                       			<option id="1" value="0" disabled >N/A</option>
-                       			<option id="1" value="1" disabled>Raghavan</option>
+                       			<option id="1" value="0" disabled style= background-color:gray;>N/A</option>
+                       			<option id="1" value="1" disabled style= background-color:gray;>Raghavan</option>
                        		</select>
 								
 						</td>

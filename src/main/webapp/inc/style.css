@@ -58,3 +58,10 @@ input,select,textarea{
    overflow-x: auto !important;
    width: 100% !important;
  }
+ 
+ input[readonly] {
+    background-color:gray;
+}
+
+
+
