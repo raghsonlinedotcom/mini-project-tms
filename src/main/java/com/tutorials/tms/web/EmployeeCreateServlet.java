@@ -19,6 +19,7 @@ import com.tutorials.tms.bo.EmailConfigBO;
 import com.tutorials.tms.bo.EmployeeBO;
 import com.tutorials.tms.dao.EmployeeDAO;
 import com.tutorials.tms.dao.EmployeeDAOImpl;
+import com.tutorials.tms.exception.MissingConfigException;
 import com.tutorials.tms.util.AppUtil;
 import com.tutorials.tms.util.EmailConfigUtil;
 import com.tutorials.tms.util.EmailUtil;
@@ -187,11 +188,18 @@ public class EmployeeCreateServlet extends HttpServlet
 					addressException.printStackTrace();
 				}
 			} catch (MessagingException messagingException) {
-				logger.error("Exception while sending an email to the employee");
+				logger.error("MessagingException while sending an email to the employee");
 				String errorMsg3 = messagingException.getMessage();
 				logger.error("Error Message : " + errorMsg3);
 				if(AppUtil.isAppDevMode) {
 					messagingException.printStackTrace();
+				}
+			} catch (MissingConfigException missingConfigException) {
+			 	logger.error("MissingConfigException while sending an email to the employee");
+				String errorMsg4 = missingConfigException.getMessage();
+				logger.error("Error Message : " + errorMsg4);
+				if(AppUtil.isAppDevMode) {
+					missingConfigException.printStackTrace();
 				}
 			}
 		}

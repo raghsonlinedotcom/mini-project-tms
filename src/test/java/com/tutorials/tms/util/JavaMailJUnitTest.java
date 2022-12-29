@@ -9,26 +9,41 @@ import javax.mail.MessagingException;
 
 import org.junit.jupiter.api.Test;
 
+import com.tutorials.tms.exception.MissingConfigException;
+
 /**
  * @author raghavan.muthu
  *
  */
-class JavaMailJUnitTest {
+public class JavaMailJUnitTest {
 
 	@Test
 	void test() 
 	{
 		boolean mailSent = false;
+		boolean isError = false;
+		Exception exceptionObj = null;
+		
 		try {
 			mailSent = new EmailUtil().testMail();
+		} catch (MissingConfigException exception) {
+			isError = true;
+			exceptionObj = exception;
 		} catch (MessagingException exception) {
-			System.err.println("Exception occurred while sendingn a test email");
-			System.err.println("Error Message : " + exception.getMessage());
+			isError = true;
+			exceptionObj = exception;			
+		}
+		
+		if(isError) 
+		{
+			System.err.println("Exception occurred while sending a test email");
+			System.err.println("Error Message : " + exceptionObj.getMessage());
 			if(AppUtil.isAppDevMode) {
-				exception.printStackTrace();
+				exceptionObj.printStackTrace();
 			}
 			fail("Email sending failed");
 		}
+		
 		assertTrue(mailSent);
 	}
 

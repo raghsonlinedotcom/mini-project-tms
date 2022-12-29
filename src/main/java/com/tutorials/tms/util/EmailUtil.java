@@ -1,5 +1,7 @@
 package com.tutorials.tms.util;
 
+import static com.tutorials.tms.util.StringUtil.isNotValid;
+
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -17,6 +19,7 @@ import javax.mail.internet.MimeMultipart;
 import org.apache.log4j.Logger;
 
 import com.tutorials.tms.bo.EmailConfigBO;
+import com.tutorials.tms.exception.MissingConfigException;
 
 public class EmailUtil 
 {
@@ -34,7 +37,8 @@ public class EmailUtil
 	EmailConfigBO emailConfigBO = EmailConfigUtil.loadEmailConfig();
 	
 
-	public boolean testMail() throws AddressException, MessagingException
+	public boolean testMail() 
+	throws AddressException, MessagingException, MissingConfigException 
     {
 
 		boolean mailSent = false;
@@ -52,6 +56,9 @@ public class EmailUtil
 	    
 		String username = PropertyUtil.getEmailPropertyValue("smtp.user.name");
 		String password = PropertyUtil.getEmailPropertyValue("smtp.user.pass");
+		
+		validateEmailConfig("SMTPConfig", "emailconfig-user.properties", 
+				username, password);
 			
 		/*Session session = Session.getInstance(prop, new Authenticator() {
 	    	@Override
@@ -95,9 +102,8 @@ public class EmailUtil
     }
 	
 	public boolean sendMail(EmailConfigBO emailConfigBO) 
-		throws AddressException, MessagingException
+		throws AddressException, MessagingException, MissingConfigException
     {
-
 		boolean mailSent = false;
 		
 		Properties prop = new Properties();
@@ -113,6 +119,9 @@ public class EmailUtil
 	    
 		String username = PropertyUtil.getEmailPropertyValue("smtp.user.name");
 		String password = PropertyUtil.getEmailPropertyValue("smtp.user.pass");
+		
+		validateEmailConfig("SMTPConfig", "emailconfig-user.properties", 
+								username, password);
 			
 		/*Session session = Session.getInstance(prop, new Authenticator() {
 	    	@Override
@@ -154,4 +163,22 @@ public class EmailUtil
 		
 		return mailSent;
     }
+	
+	public void validateEmailConfig(EmailConfigBO emailConfigBO)
+	throws MissingConfigException
+	{
+		validateEmailConfig("EmailConfig", "emailconfig.properties", 
+				emailConfigBO.getEmailFrom(), emailConfigBO.getEmailTo());
+	}
+	
+	public void validateEmailConfig(String key, String configFileName, String... values)
+	throws MissingConfigException
+	{
+		if(isNotValid(values)) {
+			System.err.println("Missing " + key + " Credentials");
+			System.err.println("Check whether a valid [" + configFileName 
+					+ "] file exists in the classpath and accessible");
+			throw new MissingConfigException("Missing " + key + " Credentials");
+		}
+	}
 }

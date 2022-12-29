@@ -11,10 +11,6 @@
 		          <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/index.jsp">Home</a>
 		        </li>
 		  		<!-- <li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/create.jsp">Register</a>
-		        </li>
-		         -->
-		  		<!-- <li class="nav-item">
 		        	<a class="nav-link" href="sticky-footer/sticky-footer.html">Sticky Footer</a>
 		        </li>-->		        
 		       <li class="nav-item dropdown">
@@ -36,7 +32,10 @@
 		        </li>		
 		        <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/commands.jsp">Commands</a>
-		        </li>        
+		        </li>  
+		        <li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/paths.jsp">Paths</a>
+		        </li>
 		       <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/team.jsp">Members</a>
 		        </li>

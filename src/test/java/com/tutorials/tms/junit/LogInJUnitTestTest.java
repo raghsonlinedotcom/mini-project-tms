@@ -18,7 +18,7 @@ class LogInJUnitTestTest {
 		try {
 			employeeBO = employeeDAO.verifyEmployee(137, "Arun@123");
 		} catch (Exception exception) {
-			System.err.println("Exception occurred while obtaining the count of employees");
+			System.err.println("Exception occurred while verifying an employee");
 			System.err.println("Error Message : " + exception.getMessage());
 			if(AppUtil.isAppDevMode) {
 				exception.printStackTrace();

@@ -1,3 +1,6 @@
+# Any user specific config file
+*user.properties
+
 # Compiled class file
 *.class
 
