@@ -1,4 +1,4 @@
-<%@ page import="java.util.List, java.util.ArrayList,com.tutorials.tms.bo.EmployeeBO" %>
+<%@ page import="com.tutorials.tms.bo.EmployeeBO" %>
 <%@include file="../inc/header.jsp" %>
 
 		<h1>View Employee</h1>
@@ -7,108 +7,115 @@
 			EmployeeBO employeeBO = (EmployeeBO) request.getAttribute("employeeBO");
 			String message = (String) request.getAttribute("message");	
 			
-			if(null!=message){
+			if(null!=message)
+			{
 		%>
-				<div class="message">${message}</div>
+				<div class="row">
+					<div class="col-12" align="center">
+						<div class="alert alert-success" role="alert">
+						  	<%= message %>
+						</div>
+					</div>
+				</div>				
 		<% 
 			}
 		
-			if(null!=employeeBO) {
+			if(null!=employeeBO) 
+			{
 				session.setAttribute("employeeBO", employeeBO);
 		%>
-		
-		<table class="table table-striped table-hover table-bordered 
-				table-responsive caption-top">
-				<caption>View My Details</caption>
-			<thead>
-				<tr>
-					<td>Field</td>
-					<td>Value</td>
-				</tr>				
-			</thead>
-			<tbody class="table-group-divider">	
-				
-				<tr>
-					<td>EmpId</td>
-					<td><%=employeeBO.getEmpId()%></td>
-					
-				</tr>
-				<tr>
-					<td>FirstName</td>
-					<td>${employeeBO.firstName}</td>
-				</tr>
-				<tr>
-					<td>LastName</td>
-					<td>${employeeBO.lastName}</td>
-				</tr>
-				<tr>
-					<td>DateOfBirth</td>
-					<td>${employeeBO.dateOfBirth}</td>
-				</tr>
-				<tr>
-					<td>Gender</td>
-					<td>${employeeBO.gender}</td>
-				</tr>
-				<tr>
-					<td>AadharId</td>
-					<td>${employeeBO.aadharId}</td>
-				</tr>	
-				<tr>
-					<td>BloodGroup</td>
-					<td>${employeeBO.bloodGroup}</td>
-				</tr>
-				<tr>
-					<td>City</td>
-					<td>${employeeBO.city}</td>
-				</tr>
-				<tr>
-					<td>PersonalEmail</td>
-					<td>${employeeBO.personalEmail}</td>
-				</tr>
-				<tr>
-					<td>OfficialEmail</td>
-					<td>${employeeBO.officialEmail}</td>
-				</tr>
-				
-				<tr>
-					<td>PrimaryContactNo</td>
-					<td>${employeeBO.primaryContactNo}</td>
-				</tr>	
-				<tr>
-					<td>SecondaryContactNo</td>
-					<td>${employeeBO.secondaryContactNo}</td>
-				</tr>
-				<tr>
-					<td>HighestQualification</td>
-					<td>${employeeBO.highestQualification}</td>
-				</tr>
-				<tr>
-					<td>SkillSets</td>
-					<td>${employeeBO.skillsets}</td>
-				</tr>
-				<tr>
-					<td>DateOfJoining</td>
-					<td>${employeeBO.dateOfJoining}</td>
-				</tr>
-				<tr>
-					<td>Hobbies</td>
-					<td>${employeeBO.hobbies}</td>
-				</tr>
-				<tr>
-					<td>ManagerId</td>
-					<td>${employeeBO.managerId}</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<!-- <form id="editForm" name="EditForm" action="Edit" action="post">
-							<input type="submit" name="Edit" Value="Edit"/>
-						</form>-->
-						<a href="<%=request.getContextPath()%>/member/edit.jsp">Edit</a> &nbsp;&nbsp;
-	
-					</td>
-				</tr>			
-			</tbody>
-		</table>
+				<table class="table table-striped table-hover table-bordered 
+						table-responsive caption-top">
+					<caption>View My Details</caption>
+					<thead>
+						<tr>
+							<td>Field</td>
+							<td>Value</td>
+						</tr>				
+					</thead>
+					<tbody class="table-group-divider">	
+						
+						<tr>
+							<td>EmpId</td>
+							<td><%=employeeBO.getEmpId()%></td>
+							
+						</tr>
+						<tr>
+							<td>FirstName</td>
+							<td>${employeeBO.firstName}</td>
+						</tr>
+						<tr>
+							<td>LastName</td>
+							<td>${employeeBO.lastName}</td>
+						</tr>
+						<tr>
+							<td>DateOfBirth</td>
+							<td>${employeeBO.dateOfBirth}</td>
+						</tr>
+						<tr>
+							<td>Gender</td>
+							<td>${employeeBO.gender}</td>
+						</tr>
+						<tr>
+							<td>AadharId</td>
+							<td>${employeeBO.aadharId}</td>
+						</tr>	
+						<tr>
+							<td>BloodGroup</td>
+							<td>${employeeBO.bloodGroup}</td>
+						</tr>
+						<tr>
+							<td>City</td>
+							<td>${employeeBO.city}</td>
+						</tr>
+						<tr>
+							<td>PersonalEmail</td>
+							<td>${employeeBO.personalEmail}</td>
+						</tr>
+						<tr>
+							<td>OfficialEmail</td>
+							<td>${employeeBO.officialEmail}</td>
+						</tr>
+						
+						<tr>
+							<td>PrimaryContactNo</td>
+							<td>${employeeBO.primaryContactNo}</td>
+						</tr>	
+						<tr>
+							<td>SecondaryContactNo</td>
+							<td>${employeeBO.secondaryContactNo}</td>
+						</tr>
+						<tr>
+							<td>HighestQualification</td>
+							<td>${employeeBO.highestQualification}</td>
+						</tr>
+						<tr>
+							<td>SkillSets</td>
+							<td>${employeeBO.skillsets}</td>
+						</tr>
+						<tr>
+							<td>DateOfJoining</td>
+							<td>${employeeBO.dateOfJoining}</td>
+						</tr>
+						<tr>
+							<td>Hobbies</td>
+							<td>${employeeBO.hobbies}</td>
+						</tr>
+						<tr>
+							<td>ManagerId</td>
+							<td>${employeeBO.managerId}</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<!-- <form id="editForm" name="EditForm" action="Edit" action="post">
+									<input type="submit" name="Edit" Value="Edit"/>
+								</form>-->
+								<a href="<%=request.getContextPath()%>/member/edit.jsp">Edit</a> &nbsp;&nbsp;
+			
+							</td>
+						</tr>			
+					</tbody>
+				</table>
 		<%
 			} else {
 		%>

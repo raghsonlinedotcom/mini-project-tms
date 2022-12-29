@@ -60,7 +60,7 @@ input,select,textarea{
  }
  
  input[readonly] {
-    background-color:gray;
+    background-color: #CCCACA;
 }
 
 

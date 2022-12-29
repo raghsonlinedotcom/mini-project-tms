@@ -82,9 +82,9 @@
 						</a>
 					</td>
 				</tr>
-<tr>																						<tr>
+				<tr>																						<tr>
 					<td>
-						2
+						3
 					</td>
 					<td>
 						Bootstrap Table Non-Responsive
@@ -112,7 +112,44 @@
 							TMS-57
 						</a>
 					</td>
-				</tr>				
+				</tr>
+				<tr>																						<tr>
+					<td>
+						4
+					</td>
+					<td>
+						Bootstrap Library packed via Maven
+					</td>
+					<td>
+						2022-12-29
+					</td>
+					<td>
+						TBD
+					</td>
+					<td>
+						4.0
+					</td>
+					<td>
+						<p class="text-success">WIP</p>
+					</td>
+					<td>
+						Raghavan
+					</td>
+					<td>
+						The bootstrap library packed via Maven is bundled as a web jar and it is not helping the UI pages to pick up at runtime.
+						It needs a  bit more exploration for the right orchestration to refer in the respective <code>.jsp</code> pages.
+						<br/> <br/>
+						<b>Workaround : </b> As of now, a temporary workraround has been applied in the shell script - <code>aws-ec2-deploy.sh</code>
+						in such a way that it creates a <code>lib</code> directory inside the <code>~/soft/apache-tomcat-9.0.65/webapps/TMS</code> directory
+						and copies the library folder <code>bootstrap-5.2.3-dist/</code> into it. The library is already placed in the <code>~/scp-files</code>
+						directory via <code>scp</code> command. 							
+					</td>
+					<td>
+						<a href="https://raghsonlinedotcom.atlassian.net/browse/TMS-60">
+							TMS-60
+						</a>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

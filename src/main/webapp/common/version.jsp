@@ -99,8 +99,7 @@
 						</a>
 					</td>
 				</tr>
-				<tr>																									<tr>
-					<td>
+				<tr>																	    <td>
 						3
 					</td>
 					<td>
@@ -135,7 +134,49 @@
 							Jira Release Ref. for Release 3
 						</a>
 					</td>
-				</tr>				
+				</tr>	
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						4.0
+					</td>
+					<td>
+						2022-12-29
+					</td>
+					<td>
+						Sprint 4 - View Edit Member
+					</td>
+					<td>
+						Release 4
+					</td>
+					<td>
+						<ul>
+							<li>Login</li>
+							<li>Logout</li>
+							<li>View Member</li>
+							<li>Edit Member</li>
+							<li>Refactoring - JSP Pages into folders</li>
+							<li>Bug Fixes</li>
+						</ul>
+					</td>
+					<td>
+						Incremental Version
+					</td>
+					<td>
+						<ul>
+							<li>
+								Bootstrap library packed via Maven to AWS EC2 - Halfway with a workaround
+							</li>
+						</ul>
+					</td>
+					<td>
+						<a href="https://raghsonlinedotcom.atlassian.net/projects/TMS/versions/10003/tab/release-report-all-issues">
+							Jira Release Ref. for Release 4
+						</a>
+					</td>
+				</tr>											
 			</tbody>
 		</table>
 	</div>

@@ -4,7 +4,6 @@
 		<h1>Edit Profile</h1>
 		
 		<%
-		
 			EmployeeBO employeeBO = (EmployeeBO) request.getAttribute("employeeBO");
 			
 			if(null==employeeBO) {

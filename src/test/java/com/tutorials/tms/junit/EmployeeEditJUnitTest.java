@@ -30,7 +30,6 @@ class EmployeeEditJUnitTest {
 		try {
 			recordsUpdated = employeeDAO.updateEmployee(employeeBO);
 			System.out.println("EmployeeBO : " + employeeBO);
-
 		} catch (Exception exception) {
 			System.err.println("Exception occurred while updating the data into the Database Table");
 			System.err.println("Error Message : " + exception.getMessage());
@@ -40,6 +39,5 @@ class EmployeeEditJUnitTest {
 			System.out.println("recordsUpdated  : " + recordsUpdated);
 		}
 		assertTrue(recordsUpdated>0);
-
 	}
 }
