@@ -1,5 +1,7 @@
 package com.tutorials.tms.dao;
 
+import java.util.List;
+
 import com.tutorials.tms.bo.EmployeeBO;
 
 public interface EmployeeDAO {
@@ -13,4 +15,6 @@ public interface EmployeeDAO {
 	public abstract EmployeeBO verifyEmployee(int empId, String password) throws Exception;
 	
 	public abstract int updateEmployee(EmployeeBO employeeBO) throws Exception;
+	
+	public abstract  List<EmployeeBO> employeeBOList() throws Exception;
 }

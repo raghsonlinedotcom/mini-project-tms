@@ -278,7 +278,7 @@ public class EmployeeDAOTest
 		System.err.println(thrown.getMessage());
 		//assertTrue(lastInsertedId > 0);
 		Assertions.assertEquals("Duplicate entry '" + employeeBO.getEmpId() 
-				+ "' for key 'EMP_ID'", thrown.getMessage());
+				+ "' for key 'EMP_ID'", thrown.getMessage());		
 	}
 	
 	@Test

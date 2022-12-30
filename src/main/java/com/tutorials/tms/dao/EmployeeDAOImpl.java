@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -398,4 +400,82 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return recordsUpdated;
 	}
 
+	@Override
+	public List<EmployeeBO> employeeBOList() throws Exception {
+		
+		logger.info("listAll Invoked");
+		
+		String sql = "SELECT * FROM EMPLOYEE";
+		logger.info("SQL Query :: "+ sql);
+		
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<EmployeeBO> employeeBOList = new ArrayList<>();
+		EmployeeBO employeeBO = null;
+		Connection conn = null;
+		
+		try {
+			conn = DBConnection.getConn();
+			stmt = conn.createStatement();	
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next())
+			{
+				
+				employeeBO = new EmployeeBO();
+				employeeBO.setId(rs.getInt("ID"));
+				employeeBO.setEmpId(rs.getInt("EMP_ID"));
+				employeeBO.setFirstName(rs.getString("FIRST_NAME"));
+				employeeBO.setLastName(rs.getString("LAST_NAME"));
+				employeeBO.setDateOfBirth(rs.getDate("DATE_OF_BIRTH"));
+				employeeBO.setGender(rs.getString("GENDER").charAt(0));
+				employeeBO.setAadharId(rs.getString("AADHAR_ID"));
+				employeeBO.setBloodGroup(rs.getString("BLOOD_GROUP"));
+				employeeBO.setCity(rs.getString("CITY"));
+				employeeBO.setPersonalEmail(rs.getString("PERSONAL_EMAIL"));
+				employeeBO.setOfficialEmail(rs.getString("OFFICIAL_EMAIL"));
+				employeeBO.setPassword(rs.getString("PASSWORD"));
+				employeeBO.setPrimaryContactNo(rs.getString("PRIMARY_CONTACT_NO"));
+				employeeBO.setSecondaryContactNo(rs.getString("SECONDARY_CONTACT_NO"));
+				employeeBO.setHighestQualification(rs.getString("HIGHEST_QUALIFICATION"));
+				employeeBO.setSkillsets(rs.getString("SKILLSETS"));
+				employeeBO.setDateOfJoining(rs.getDate("DATE_OF_JOINING"));
+				employeeBO.setHobbies(rs.getString("HOBBIES"));
+				employeeBO.setManagerId(rs.getInt("MANAGER_ID"));
+				
+				employeeBOList.add(employeeBO);	
+			}
+		} catch (SQLException sqlException) {
+			logger.error("SQLException occurred while Obtaining the data from the Database Table");
+			logger.error("Message : " + sqlException.getMessage());
+		} catch (Exception exception) {
+			logger.error("Exception occurred while Obtaining the data from the Database Table");
+			logger.error("Message : " + exception.getMessage());
+		} finally {
+			try {
+				if (null != rs)
+					rs.close();
+				if (null != stmt)
+					stmt.close();
+				if (null != conn)
+					conn.close();
+			} catch (SQLException sqlException) {
+				logger.error("Exception occurred while Obtaining the data from the Database Table");
+				logger.error("Message : " + sqlException.getMessage());
+			} finally {
+				try {
+					if (null != rs)
+						rs.close();
+					if (null != stmt)
+						stmt.close();
+					if (null != conn)
+						conn.close();
+				} catch (SQLException sqlException) {
+					System.err.println("Exception occurred while closing the JDBC Resources");
+					System.err.println("Message : " + sqlException.getMessage());
+				}
+			}
+		}
+		return employeeBOList();
+	}
 }
