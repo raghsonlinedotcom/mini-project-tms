@@ -27,6 +27,9 @@
 		       <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/techstack.jsp">Tech. Stack</a>
 		        </li>
+		        <li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/EmployeeListServlet">View all Employees</a>
+		        </li>
 		       <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/issues.jsp">Issues</a>
 		        </li>		
