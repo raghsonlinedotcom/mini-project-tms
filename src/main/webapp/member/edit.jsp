@@ -17,22 +17,54 @@
 			
 			String errorMsg = (String) request.getAttribute("errorMsg");
 			
+			String errorMsgUI = (String) request.getAttribute("errorMsgUI");
+			
 			if(null!=message) {
 		%>
-				<div class="message">${message}</div>
+				<div class="row">
+					<div class="col-12" align="center">
+						<div class="alert alert-success" role="alert">
+						  	<%= message %>
+						</div>
+					</div>
+				</div>	
 		<% 
 			}
 			if(null!=exceptionMsg) {
+				
 		%>
-				<div class="errorMsg">${exceptionMsg}</div>
+			<div class="row">
+				<div class="col-12" align="center">
+					 <div class="alert alert-danger" role="alert">
+						<%= exceptionMsg %>
+					 </div>
+				</div>
+			</div>		
 		<%
 			}
 			
 			if(null!=errorMsg) {
 		%>
-				<div class="errorMsg">${errorMsg}</div>
+			<div class="row">
+				<div class="col-12" align="center">
+					 <div class="alert alert-danger" role="alert">
+						<%= errorMsg %>
+					 </div>
+				</div>
+			</div>		
 		<%
 			}
+			if(null!=errorMsgUI) {
+		%>
+			<div class="row">
+				<div class="col-12" align="center">
+					 <div class="alert alert-danger" role="alert">
+						<%= errorMsgUI %>
+					 </div>
+				</div>
+			</div>	
+		<%
+					}
 			
 			if(null==employeeBO) {
 		%>
@@ -49,14 +81,14 @@
 								<td>Id</td>
 								<td>
 									${employeeBO.id}
-									<input type="hidden" name="id" value="${employeeBO.id}" />
+									<input type="hidden" name="id"  value="${employeeBO.id}" />
 								</td>		
 								</tr>
 								<tr>
 								<td>EmployeeId</td>
 								<td>
 									${employeeBO.empId}
-									<input type="hidden"  name="empId" value="${employeeBO.empId}"/>
+									<input type="hidden"  name="empId"  value="${employeeBO.empId}"/>
 								</td>		
 								</tr> 
 							<tr>
@@ -87,13 +119,13 @@
 						<tr>
 						<td>Gender</td>
 						<td>
-						<input readonly type="radio" name="gender" id="genderM" value="M" 
+						<input  type="radio" name="gender" id="genderM" value="M" onclick="return false;"
 									<%
                                         if(employeeBO.getGender()=='M') {
                                             out.println(" checked");
                                         }
                                     %>>M
-						<input readonly type="radio" name="gender" id="genderF" value="F" 
+						<input type="radio" name="gender" id="genderF" value="F" onclick="return false;"
 									<%
                                         if(employeeBO.getGender()=='F') {
                                             out.println(" checked");
@@ -112,7 +144,7 @@
 							<tr>
 						<td> BloodGroup </td>
 						<td>
-							<select class="form-select" aria-label=".select example" style= background-color:gray;                       		 		name="bloodGroup" id="bloodGroup" required>
+							<select class="form-select" aria-label=".select example" style= background-color:#CCCACA;                       		 		name="bloodGroup" id="bloodGroup" required>
                        		  	<option value="${employeeBO.bloodGroup}">${employeeBO.bloodGroup}</option>
 			                    <option value="A+ve" disabled style= background-color:gray; >A+ve</option>
 			                    <option value="O+ve" disabled style= background-color:gray; >O+ve</option>
@@ -157,7 +189,7 @@
 					<tr>
 						<td>Primary Contact Number </td>
 						<td>
-							<input type="number" class="form-control" 
+							<input type="tel" class="form-control" 
 								id="primaryContactNumber" 
 								name="primaryContactNumber" 
 								placeholder="your number" size="10"  maxlength="10" value="${employeeBO.primaryContactNo}"
@@ -168,7 +200,7 @@
 						<tr>
 						<td>Secondary Contact Number </td>
 						<td>
-							<input type="number" class="form-control" 
+							<input type="tel" class="form-control" 
 								id="secondaryContactNumber" 
 								name="secondaryContactNumber" 
 								placeholder="your number" size="10"  maxlength="10" value="${employeeBO.secondaryContactNo}"/>
@@ -219,7 +251,7 @@
 					<tr>
 						<td> Manager Id </td>
 						<td>
-							<select class="form-select" aria-label=".select example" style= background-color:gray; 
+							<select class="form-select" aria-label=".select example" style= background-color:#CCCACA; 
                        			id="managerId" name="managerId"required>
                        			<option value="${employeeBO.managerId}">${employeeBO.managerId}</option>
                        			<option id="1" value="0" disabled style= background-color:gray;>N/A</option>
