@@ -26,6 +26,17 @@ public class JavaMailJUnitTest {
 		boolean isError = false;
 		Exception exceptionObj = null;
 		
+		boolean isAppGRCEmailEnabled = PropertyUtil.isAppGRCVerifyEmailEnabled();
+		
+		System.out.println("isAppGRCEmailEnabled ? " + isAppGRCEmailEnabled);
+		
+		if(!isAppGRCEmailEnabled) 
+		{
+			System.out.println("GRC Email Verify flag has been disabled. Skipping the email verification");
+			assertTrue(true);
+			return;
+		}
+		
 		try {
 			mailSent = new EmailUtil().testMail();
 		} catch (MissingConfigException exception) {

@@ -17,11 +17,22 @@ public class AppUtil {
 	
 	public static boolean isEmailReady = false;
 	
-	static {		
-		checkDB();
-		checkEmail();
+	public static boolean isAppGRCEmailEnabled = PropertyUtil.isAppGRCVerifyEmailEnabled();
+	
+	static {
 		
-		isAppReady = isDBReady && isEmailReady;
+		System.out.println("isAppDevMode ? " + isAppDevMode);
+		System.out.println("isAppGRCEmailEnabled ? " + isAppGRCEmailEnabled);
+		
+		checkDB();
+		
+		if(isAppGRCEmailEnabled) {
+			checkEmail();
+			isAppReady = isDBReady && isEmailReady;
+		}else  {
+			System.out.println("Skipping the mail check now, because either App Mode is Dev OR grcVerifyEmail is NOT enabled.");
+			isAppReady = isDBReady ;
+		}
 		
 		System.out.println("isAppReady ? " + isAppReady);
 	}

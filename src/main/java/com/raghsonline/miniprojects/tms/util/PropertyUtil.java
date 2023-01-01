@@ -42,6 +42,8 @@ public class PropertyUtil
 	
 	public static final String KEY_APP_MODE = "app.mode";
 	
+	public static final String KEY_APP_GRC_VERIFY_EMAIL = "app.grc.verify.email";
+	
 	static {
 		loadProps();
 	}
@@ -148,6 +150,12 @@ public class PropertyUtil
 		return null!=value && value.equalsIgnoreCase("dev");
 	}
 	
+	public static boolean isAppGRCVerifyEmailEnabled()
+	{
+		String value = _properties.getProperty(KEY_APP_GRC_VERIFY_EMAIL);
+		
+		return null!=value && value.equalsIgnoreCase("Y");
+	}
 	
 	public static String getDBPropertyValue(String key)
 	{
