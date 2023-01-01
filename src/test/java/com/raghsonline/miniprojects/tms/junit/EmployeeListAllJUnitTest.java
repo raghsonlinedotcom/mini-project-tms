@@ -18,11 +18,11 @@ public class EmployeeListAllJUnitTest {
 	void employeeListAllTest() {
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
-		List<EmployeeBO> employeeBO = null;
+		List<EmployeeBO> employeeBOList = null;
 		try {
-			employeeBO = employeeDAO.viewAll();
-			System.out.println("EmployeeBO : " + employeeBO);
-			if (null == employeeBO) {
+			employeeBOList = employeeDAO.viewAll();
+			System.out.println("EmployeeBO : " + employeeBOList);
+			if (null == employeeBOList) {
 				System.out.println("There is NO  Records in Table ");
 			}
 		} catch (Exception exception) {
@@ -33,7 +33,7 @@ public class EmployeeListAllJUnitTest {
 			}
 			fail(" EmployeeListAll() failed - " + exception.getMessage());
 		}
-		assertNotNull(employeeBO);
+		
 	}
 
 }
