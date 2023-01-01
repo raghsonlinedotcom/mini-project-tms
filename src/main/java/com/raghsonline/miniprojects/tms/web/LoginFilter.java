@@ -1,6 +1,7 @@
 package com.raghsonline.miniprojects.tms.web;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.raghsonline.miniprojects.tms.util.StringUtil;
+
 /**
  * Servlet Filter implementation class LoginFilter
  */
@@ -26,6 +29,11 @@ public class LoginFilter implements Filter
 {
 
 	Logger logger = Logger.getLogger(LoginFilter.class);
+	
+	List<String> dataList = List.of(
+			".css", "login", "Login",
+			"Logout", "create", "Create"
+		);
 	
     /**
      * Default constructor. 
@@ -66,11 +74,14 @@ public class LoginFilter implements Filter
 		logger.info("query : [" + query + "]");
 		logger.info("url : [" + url + "]");
 		logger.info("uri : [" + uri + "]");
+		logger.info("dataList : " + dataList);
 		
-		if(uri.endsWith(".css") || uri.contains("login") 
-				|| uri.contains("Login") || uri.contains("Logout"))
+		boolean isPresent = StringUtil.isPresent(uri, dataList);
+		logger.info("uri matches with the dataList ? " + isPresent);
+		
+		if(isPresent)
 		{
-			logger.info("uri ends with .css or contains login/Login/Logout.. proceeding");
+			logger.info("uri ends with .css or contains (c)Create/(l)Logout.. proceeding");
 			
 			// pass the request along the filter chain
 			chain.doFilter(request, response);
