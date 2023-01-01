@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="com.tutorials.tms.util.AppUtil"%>
+<%@page import="com.raghsonline.miniprojects.tms.util.AppUtil"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -77,7 +77,8 @@
 								</p>
 							</div> -->
 							<div class="col-12">												
-								<form id="loginForm" name="LoginForm" method="post" action="Login">
+								<form id="loginForm" name="LoginForm" method="post" 
+											action="<%=request.getContextPath()%>/Login">
 									<table
 										class="table table-striped table-hover table-bordered 
 											table-responsive caption-top">

@@ -1,7 +1,7 @@
-<%@page import="com.tutorials.tms.bo.EmployeeBO"%>
-<%@page import="com.tutorials.tms.util.AppUtil"%>
+<%@page import="com.raghsonline.miniprojects.tms.bo.EmployeeBO"%>
+<%@page import="com.raghsonline.miniprojects.tms.util.AppUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="com.tutorials.tms.util.AppUtil"%>
+<%@page import="com.raghsonline.miniprojects.tms.util.AppUtil"%>
 <!DOCTYPE html>
 <html>
 	<head>

@@ -1,8 +1,8 @@
 
-<%@page import="com.tutorials.tms.util.ConfigFile"%>
+<%@page import="com.raghsonline.miniprojects.tms.util.ConfigFile"%>
 <%@page import="java.util.List"%>
 <%@page import="java.io.IOException"%>
-<%@page import="com.tutorials.tms.util.PropertyUtil"%>
+<%@page import="com.raghsonline.miniprojects.tms.util.PropertyUtil"%>
 <%@include file="../inc/header.jsp" %>
 	<h3 class="text-center">Path Info</h3>
 	<p class="lead">

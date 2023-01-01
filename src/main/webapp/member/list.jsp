@@ -1,4 +1,5 @@
-<%@ page import="java.util.List, java.util.ArrayList, com.tutorials.tms.bo.EmployeeBO" %>
+<%@page import="com.raghsonline.miniprojects.tms.bo.EmployeeBO"%>
+<%@ page import="java.util.List, java.util.ArrayList" %>
 <%@include file="../inc/header.jsp" %>
 
 		<h1>View All Employees</h1>

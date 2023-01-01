@@ -1,5 +1,5 @@
 <%@include file="inc/header.jsp"%>
-<%@page import="com.tutorials.tms.util.AppUtil"%>
+<%@page import="com.raghsonline.miniprojects.tms.util.AppUtil"%>
 <%
 	String message = (String) request.getAttribute("message");
 	if (null != message) 
