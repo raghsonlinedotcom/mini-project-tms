@@ -35,12 +35,8 @@
 							<th>First Name</th>
 							<th>Last Name</th>
 							<th>Gender</th>
-							<th>Date of Birth</th>
-							<th>City</th>
-							<th>Personal Email</th>
 							<th>Official Email</th>
 							<th>Primary Contact Number</th>
-							<th>Date of Joining</th>
 							<th>Manager Id </th>
 						</tr>				
 					</thead>
@@ -53,12 +49,8 @@
 					out.println("<td>" + employeeBO.getFirstName() + "</td>");
 					out.println("<td class='center'>" + employeeBO.getLastName() + "</td>");
 					out.println("<td class='center'>" + employeeBO.getGender() + "</td>");
-					out.println("<td>" + employeeBO.getDateOfBirth() + "</td>");
-					out.println("<td>" + employeeBO.getCity() + "</td>");
-					out.println("<td>" + employeeBO.getPersonalEmail() + "</td>");
 					out.println("<td>" + employeeBO.getOfficialEmail() + "</td>");
 					out.println("<td>" + employeeBO.getPrimaryContactNo() + "</td>");
-					out.println("<td>" + employeeBO.getDateOfJoining() + "</td>");
 					out.println("<td>" + employeeBO.getManagerId() + "</td>");
 					out.println("</tr>");
 				}			

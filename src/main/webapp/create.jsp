@@ -311,8 +311,8 @@
                     	</td>
                    		<td>
                        		<select class="form-select" aria-label=".select example" 
-                       		id="managerId" name="managerId">
-                       		 
+                       		id="managerId" name="managerId" required>
+                       		<option disabled selected value> -- SELECT -- </option>
                        			<%
                        				for(EmployeeBO managerBO : managerList)
                 						{

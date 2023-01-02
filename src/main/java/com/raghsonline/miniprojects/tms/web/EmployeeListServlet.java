@@ -57,6 +57,6 @@ public class EmployeeListServlet extends HttpServlet
 		}
 		request.setAttribute("employeeBOList", employeeBOList);
 
-		request.getRequestDispatcher("list.jsp").forward(request, response);
+		request.getRequestDispatcher("/member/list.jsp").forward(request, response);
 	}
 }

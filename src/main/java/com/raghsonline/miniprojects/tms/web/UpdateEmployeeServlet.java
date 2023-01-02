@@ -139,7 +139,7 @@ public class UpdateEmployeeServlet extends HttpServlet {
         	request.setAttribute("errorMsgUI", errorMsgUI);
         	request.setAttribute("employeeBO", employeeBO);
         	validationError = false;
-        	request.getRequestDispatcher("member/edit.jsp").forward(request, response);
+        	request.getRequestDispatcher("/member/edit.jsp").forward(request, response);
         	return;
         }
 
@@ -196,13 +196,13 @@ public class UpdateEmployeeServlet extends HttpServlet {
 			}
 			logger.info("employeeBO1 : " + employeeBO1);
 			request.setAttribute("employeeBO", employeeBO1);
-			url = "member/view.jsp";
+			url = "/member/view.jsp";
 		}
 
 		else {
 			request.setAttribute("errorMsg", "Error while updating the record!");
 			request.setAttribute("employeeBO", employeeBO);
-			url = "member/edit.jsp";
+			url = "/member/edit.jsp";
 		}
 		
 		// 5. Redirect/Delegate to the corresponding view
