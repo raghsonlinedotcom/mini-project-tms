@@ -1,4 +1,7 @@
 <%@page import="com.raghsonline.miniprojects.tms.bo.EmployeeBO"%>
+<%@page import="com.raghsonline.miniprojects.tms.dao.EmployeeDAO"%>
+<%@page import="com.raghsonline.miniprojects.tms.dao.EmployeeDAOImpl"%>
+<%@ page import="java.util.List, java.util.ArrayList" %>
 <%@page import="com.raghsonline.miniprojects.tms.util.AppUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.raghsonline.miniprojects.tms.util.AppUtil"%>
@@ -34,9 +37,13 @@
 		<main class="flex-shrink-0">
 			<div class="container"> <!--  Container Div Start -->
 			<%
+				EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+				List<EmployeeBO> managerList = employeeDAO.viewManagers();
+				
 				//we send the parameter as 'message' only even for the error message. 
 				// for the successful cases it is redirected to the `login.jsp` page
 				String errorMessage = (String) request.getAttribute("message");
+				
 			
 				if(null!=errorMessage) {
 			%>					
@@ -303,11 +310,23 @@
                        		 Manager Id <span class="required">*</span>
                     	</td>
                    		<td>
-                       		<select class="form-select" aria-label=".select example"
-                       			id="managerId" name="managerId">
-                       			<option id="1" value="0">N/A</option>
-                       			<option id="1" value="1" selected>Raghavan</option>
-                       		</select>
+                       		<select class="form-select" aria-label=".select example" id="managerId" name="managerId">
+                       		 
+                       			<%
+                       				for(EmployeeBO managerBO : managerList)
+                						{
+                       			%>
+                							<option value = "<%=managerBO.getEmpId()%>" > 
+                							<%=managerBO.getFirstName() + 
+                							" " + managerBO.getLastName() %></option>
+                				<% 
+                					
+                						}	
+         
+                       			%>
+                       			<option value="0">N/A</option>
+	                       		</select>
+	                       		
                    		</td>
 	                </tr>
 					<tr>

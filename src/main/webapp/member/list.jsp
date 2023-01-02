@@ -31,17 +31,17 @@
 					<caption>View All Employees</caption>
 					<thead>
 						<tr>
-							<td>Employee Id</td>
-							<td>First Name</td>
-							<td>Last Name</td>
-							<td>Gender</td>
-							<td>Date of Birth</td>
-							<td>City</td>
-							<td>Personal Email</td>
-							<td>Official Email</td>
-							<td>Primary Contact Number</td>
-							<td>Date of Joining</td>
-							<td>Manager Id </td>
+							<th>Emp Id</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Gender</th>
+							<th>Date of Birth</th>
+							<th>City</th>
+							<th>Personal Email</th>
+							<th>Official Email</th>
+							<th>Primary Contact Number</th>
+							<th>Date of Joining</th>
+							<th>Manager Id </th>
 						</tr>				
 					</thead>
 			<tbody class="table-group-divider">	
