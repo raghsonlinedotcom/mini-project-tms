@@ -310,15 +310,17 @@
                        		 Manager Id <span class="required">*</span>
                     	</td>
                    		<td>
-                       		<select class="form-select" aria-label=".select example" id="managerId" name="managerId">
+                       		<select class="form-select" aria-label=".select example" 
+                       		id="managerId" name="managerId">
                        		 
                        			<%
                        				for(EmployeeBO managerBO : managerList)
                 						{
                        			%>
                 							<option value = "<%=managerBO.getEmpId()%>" > 
-                							<%=managerBO.getFirstName() + 
-                							" " + managerBO.getLastName() %></option>
+                							<%=managerBO.getEmpId() + " | " + 
+                							   managerBO.getFirstName() + 
+                								" " + managerBO.getLastName() %></option>
                 				<% 
                 					
                 						}	
