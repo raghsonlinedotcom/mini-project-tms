@@ -309,4 +309,21 @@ public class EmployeeDAOTest
 
 		assertNotNull(employeeBO);
 	}
+	
+	@Test
+	@DisplayName("Login Test of an employee")
+	public void loginTest() {
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+		EmployeeBO employeeBO = null;
+		try {
+			employeeBO = employeeDAO.verifyEmployee(140, "Raghavan@muthu");
+		} catch (Exception exception) {
+			System.err.println("Exception occurred while verifying an employee");
+			System.err.println("Error Message : " + exception.getMessage());
+			if(AppUtil.isAppDevMode) {
+				exception.printStackTrace();
+			}
+		}
+		assertNotNull(employeeBO);
+	}
 }

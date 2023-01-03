@@ -38,6 +38,7 @@
 							<th>Official Email</th>
 							<th>Primary Contact Number</th>
 							<th>Manager Id </th>
+							<th> Is Active </th>
 						</tr>				
 					</thead>
 			<tbody class="table-group-divider">	
@@ -52,6 +53,7 @@
 					out.println("<td>" + employeeBO.getOfficialEmail() + "</td>");
 					out.println("<td>" + employeeBO.getPrimaryContactNo() + "</td>");
 					out.println("<td>" + employeeBO.getManagerId() + "</td>");
+					out.println("<td>" + employeeBO.isActive() + "</td>");
 					out.println("</tr>");
 				}			
 			%>					

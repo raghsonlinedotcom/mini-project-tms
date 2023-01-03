@@ -1,8 +1,6 @@
 package com.raghsonline.miniprojects.tms.dao;
 
 import com.raghsonline.miniprojects.tms.bo.EmployeeBO;
-import com.raghsonline.miniprojects.tms.dao.EmployeeDAO;
-import com.raghsonline.miniprojects.tms.dao.EmployeeDAOImpl;
 import com.raghsonline.miniprojects.tms.util.AppUtil;
 
 public class EmployeeLoginTest 
@@ -12,7 +10,7 @@ public class EmployeeLoginTest
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		testLoginEmployee(137, "Arun@123");
+		testLoginEmployee(140, "Raghavan@muthu");
 	}
 
 	public static void testLoginEmployee(int empId, String password) {

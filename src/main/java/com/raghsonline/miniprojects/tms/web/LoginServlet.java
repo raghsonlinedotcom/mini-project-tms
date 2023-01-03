@@ -81,12 +81,19 @@ public class LoginServlet extends HttpServlet {
 		
 		if(null!=employeeBO)
 		{
-			if (empId == employeeBO.getEmpId() && password.equals(employeeBO.getPassword())) {
+			if (empId == employeeBO.getEmpId() && password.equals(employeeBO.getPassword()) 
+					&& Boolean.valueOf(employeeBO.isActive())) {
 				System.out.println("[INFO] Credentials matched!");
 				url = "/index.jsp";
 				message = "Welcome <b>" + employeeBO.getFirstName() + " " + employeeBO.getLastName() + "</b>";
 				request.setAttribute("message", message);
 				request.getSession().setAttribute("employeeBO", employeeBO);
+			}
+			else
+			{
+				System.out.println("[ERR] Not an Active User!");
+				url = "/login.jsp";
+				request.setAttribute("errorMessage", "Not an Active User! Cannot login");
 			}
 		}
 		else

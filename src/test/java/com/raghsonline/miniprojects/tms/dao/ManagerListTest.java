@@ -1,12 +1,9 @@
 package com.raghsonline.miniprojects.tms.dao;
 import com.raghsonline.miniprojects.tms.bo.EmployeeBO;
-import com.raghsonline.miniprojects.tms.dao.EmployeeDAO;
-import com.raghsonline.miniprojects.tms.dao.EmployeeDAOImpl;
 import com.raghsonline.miniprojects.tms.util.AppUtil;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 
 public class ManagerListTest {
 	

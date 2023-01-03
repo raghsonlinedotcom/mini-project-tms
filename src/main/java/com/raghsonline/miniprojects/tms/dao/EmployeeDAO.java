@@ -19,4 +19,6 @@ public interface EmployeeDAO {
 	public abstract List<EmployeeBO> viewAll() throws Exception;
 	
 	public abstract List<EmployeeBO> viewManagers() throws Exception;
+	
+	public abstract int deleteEmployee (int empId) throws Exception;
 }

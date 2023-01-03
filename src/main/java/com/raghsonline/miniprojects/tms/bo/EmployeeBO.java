@@ -41,6 +41,8 @@ public class EmployeeBO {
 	private String hobbies;
 
 	private int managerId;
+	
+	private boolean active;
 
 	public EmployeeBO() {
 	}
@@ -217,6 +219,15 @@ public class EmployeeBO {
 		this.managerId = managerId;
 	}
 	
+	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() 
 	{

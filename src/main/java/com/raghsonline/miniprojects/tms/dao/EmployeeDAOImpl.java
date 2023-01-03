@@ -326,6 +326,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				employeeBO.setDateOfJoining(rs.getDate("DATE_OF_JOINING"));
 				employeeBO.setHobbies(rs.getString("HOBBIES"));
 				employeeBO.setManagerId(rs.getInt("MANAGER_ID"));
+				employeeBO.setActive(rs.getBoolean("IS_ACTIVE"));
 			}
 		} catch (SQLException sqlException) {
 			logger.error("SQLException occurred while reading the data from the Database Table");
@@ -453,7 +454,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				employeeBO.setDateOfJoining(rs.getDate("DATE_OF_JOINING"));
 				employeeBO.setHobbies(rs.getString("HOBBIES"));
 				employeeBO.setManagerId(rs.getInt("MANAGER_ID"));
-				
+				employeeBO.setActive(rs.getBoolean("IS_ACTIVE"));				
 				employeeBOList.add(employeeBO);	
 			}
 		} catch (SQLException sqlException) {
@@ -555,5 +556,50 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		logger.info("ManagerBOList size : " + managerBOList.size());
 
 		return managerBOList;
+	}
+	
+	@Override
+	public int deleteEmployee(int empId) throws Exception {
+		logger.info("deleteEmployee :: " + empId);
+
+		String sql = "UPDATE EMPLOYEE SET IS_ACTIVE = FALSE WHERE EMP_ID = ?";
+
+		logger.info("SQL Query :: " + sql);
+		Connection conn = null;
+		PreparedStatement pStmt = null;
+		int recordsUpdated = 0;
+		
+		try
+		{
+			conn = DBConnection.getConn();
+			pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, empId);
+			recordsUpdated = pStmt.executeUpdate();
+			
+			logger.info("recordsUpdated : " + recordsUpdated);
+			
+		} catch (Exception exception) {
+			logger.error("Exception occurred while deleting employee(updating is_active column) "
+					+ "the data from the Database Table");
+			logger.error("Message : " + exception.getMessage());
+		} finally {
+			try {
+				if (null != pStmt)
+					pStmt.close();
+				if (null != conn)
+					conn.close();
+			} catch (SQLException sqlException) {
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
+				if(AppUtil.isAppDevMode) {
+					sqlException.printStackTrace();
+				}
+			}
+		}
+
+		logger.info("recordsUpdated  : " + recordsUpdated);
+		
+		return recordsUpdated;
+
 	}
 }
