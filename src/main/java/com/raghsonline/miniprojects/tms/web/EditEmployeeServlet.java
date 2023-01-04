@@ -19,8 +19,8 @@ import com.raghsonline.miniprojects.tms.util.AppUtil;
 /**
  * Servlet implementation class ViewServlet
  */
-@WebServlet({ "/ViewMyDetailsServlet", "/ViewMyDetails" })
-public class ViewMyDetailsServlet extends HttpServlet 
+@WebServlet({ "/EditEmployeeServlet", "/EditEmployee" })
+public class EditEmployeeServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -29,7 +29,7 @@ public class ViewMyDetailsServlet extends HttpServlet
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ViewMyDetailsServlet() {
+	public EditEmployeeServlet() {
 		super();
 	}
 
@@ -40,7 +40,7 @@ public class ViewMyDetailsServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{
-		System.out.println("ViewMyDetailsServlet - doGet() invoked");
+		System.out.println("EditEmployeeServlet - doGet() invoked");
 
 		// 1. Get the Employee Data from the session
 
@@ -62,11 +62,10 @@ public class ViewMyDetailsServlet extends HttpServlet
 		}
 		logger.info("EmployeeBO object from the database is " + employeeBO);
 		
-
 		// 2. Store it in a way where the data is accessible in the JSP
 		request.setAttribute("employeeBO", employeeBO);
 
 		// 3. Forward / Delegate the control/flow the required JSP Page
-		request.getRequestDispatcher("member/view.jsp").forward(request, response);
+		request.getRequestDispatcher("member/edit.jsp").forward(request, response);
 	}
 }

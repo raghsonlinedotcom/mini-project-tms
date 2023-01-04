@@ -19,7 +19,7 @@
 		         </a>
 		         <ul class="dropdown-menu">
 		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/ViewMyDetails">View Details</a></li>
-		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/edit.jsp">Edit Details</a></li>
+		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/EditEmployee">Edit Details</a></li>
 		            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/EmployeeListServlet">View All Employees</a></li>
 		            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/delete.jsp">Delete My Profile</a></li>
 		           <li><hr class="dropdown-divider"></li>
