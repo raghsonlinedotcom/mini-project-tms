@@ -82,7 +82,10 @@ public class LoginServlet extends HttpServlet {
 		if(null!=employeeBO)
 		{
 			if (empId == employeeBO.getEmpId() && password.equals(employeeBO.getPassword()) 
-					&& Boolean.valueOf(employeeBO.isActive())) {
+					&& Boolean.valueOf(employeeBO.isActive())) 
+			{
+				request.getServletContext().setAttribute("userAvailable", true);
+				
 				System.out.println("[INFO] Credentials matched!");
 				url = "/index.jsp";
 				message = "Welcome <b>" + employeeBO.getFirstName() + " " + employeeBO.getLastName() + "</b>";

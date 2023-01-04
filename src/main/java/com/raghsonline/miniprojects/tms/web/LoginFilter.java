@@ -91,11 +91,18 @@ public class LoginFilter implements Filter
 		
 		Object obj = httpRequest.getSession().getAttribute("employeeBO");
 		
+		Object flagObj = httpRequest.getServletContext().getAttribute("userAvailable");
+		boolean userAvailable = null!=flagObj ? Boolean.valueOf(String.valueOf(flagObj)) : false;
+		logger.info("ServletContext - userAvailable ? " + userAvailable);
+		
 		if(null==obj) 
 		{
+			if(userAvailable) 
+			{
+				httpRequest.setAttribute("errorMessage", "Your session has expired. Please login");
+			}
 			System.err.println("User Object is NOT in session, redirecting to Login Page");
 			logger.error("User Object is NOT in session, redirecting to Login Page");
-			httpRequest.setAttribute("errorMessage", "Your session has expired. Please login");
 			httpRequest.getRequestDispatcher("/login.jsp")
 						.forward(httpRequest, httpResponse);
 			return;
