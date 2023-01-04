@@ -4,7 +4,6 @@ import com.raghsonline.miniprojects.tms.util.AppUtil;
 
 import java.util.List;
 
-
 public class ManagerListTest {
 	
 	public static void main(String[] args) {

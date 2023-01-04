@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -326,4 +327,27 @@ public class EmployeeDAOTest
 		}
 		assertNotNull(employeeBO);
 	}
+	@Test
+	@DisplayName("ListAll Employee from the Employee table")
+	public void employeeListAllTest() {
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+		List<EmployeeBO> employeeBOList = null;
+		try {
+			employeeBOList = employeeDAO.viewAll();
+			System.out.println("EmployeeBO : " + employeeBOList);
+			if (null == employeeBOList) {
+				System.out.println("There is NO  Records in Table ");
+			}
+		} catch (Exception exception) {
+			System.err.println("Exception while fetching the Employee List ");
+			System.err.println("Error Message : " + exception.getMessage());
+			if (AppUtil.isAppDevMode) {
+				exception.printStackTrace();
+			}
+			fail(" EmployeeListAll() failed - " + exception.getMessage());
+		}
+		assertNotNull(employeeBOList);
+	}
+
 }
+
