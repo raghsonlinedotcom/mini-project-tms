@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.sql.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -24,34 +25,37 @@ import com.raghsonline.miniprojects.tms.util.AppUtil;
  * @author raghavan.muthu
  *
  */
-public class EmployeeDAOTest {
+public class EmployeeDAOTest 
+{
+	static Logger logger = Logger.getLogger(EmployeeDAOTest.class);
+	
 	static int empId;
 
 	@BeforeEach
 	public void before() {
 		empId = 1;
-		System.out.println("Before..., empId = " + empId);
+		logger.info("Before..., empId = " + empId);
 		// TODO: Conditionally insert Balaji -record (EMP ID #81)
 	}
 
 	@BeforeAll
 	public static void beforeAll() {
 		empId = 0;
-		System.out.println("BeforeAll..., empId = " + empId);
+		logger.info("BeforeAll..., empId = " + empId);
 		// TODO: Conditionally insert Raghavan -record (EMP ID #140)
 	}
 
 	@AfterEach
 	public void after() {
 		empId = -1;
-		System.out.println("after..., empId = " + empId);
+		logger.info("after..., empId = " + empId);
 		// TODO: Conditionally delete Balaji -record
 	}
 
 	@AfterAll
 	public static void afterAll() {
 		empId = -2;
-		System.out.println("afterAll, empId = " + empId);
+		logger.info("afterAll, empId = " + empId);
 		// TODO: Conditionally delete Raghavan -record
 	}
 
@@ -62,7 +66,7 @@ public class EmployeeDAOTest {
 	}
 
 	public void getCountOfEmployees() {
-		System.out.println("getCountOfEmployees() - invoked");
+		logger.info("getCountOfEmployees() - invoked");
 
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		int count = 0;
@@ -70,18 +74,18 @@ public class EmployeeDAOTest {
 		try {
 			count = employeeDAO.getCount();
 		} catch (Exception exception) {
-			System.err.println("Exception occurred while obtaining the count of employees");
-			System.err.println("Error Message : " + exception.getMessage());
+			logger.error("Exception occurred while obtaining the count of employees");
+			logger.error("Error Message : " + exception.getMessage());
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
 		}
 
-		System.out.println("Total # of Employees : " + count);
+		logger.info("Total # of Employees : " + count);
 	}
 
 	public void testCreateEmployee() {
-		System.out.println("EmployeeDAOTest - testCreateEmployee() invoked");
+		logger.info("EmployeeDAOTest - testCreateEmployee() invoked");
 
 		EmployeeBO employeeBO = new EmployeeBO();
 		Date dob = new Date(2000 - 01 - 01);
@@ -112,11 +116,11 @@ public class EmployeeDAOTest {
 
 		try {
 			employeeDAO.createEmployee(employeeBO);
-			System.out.println("EmployeeBO has been successfully created");
+			logger.info("EmployeeBO has been successfully created");
 			getCountOfEmployees();
 		} catch (Exception exception) {
-			System.err.println("Exception while creating an EmployeeBO");
-			System.err.println("Error Message : " + exception.getMessage());
+			logger.error("Exception while creating an EmployeeBO");
+			logger.error("Error Message : " + exception.getMessage());
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
@@ -164,8 +168,8 @@ public class EmployeeDAOTest {
 			count = employeeDAO.getCount();
 			assertTrue(count > 0);
 		} catch (Exception exception) {
-			System.err.println("Exception while creating an EmployeeBO");
-			System.err.println("Error Message : " + exception.getMessage());
+			logger.error("Exception while creating an EmployeeBO");
+			logger.error("Error Message : " + exception.getMessage());
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
@@ -195,8 +199,8 @@ public class EmployeeDAOTest {
 			count = employeeDAO.getCount();
 			assertTrue(count > 0);
 		} catch (Exception exception) {
-			System.err.println("Exception while creating an EmployeeBO");
-			System.err.println("Error Message : " + exception.getMessage());
+			logger.error("Exception while creating an EmployeeBO");
+			logger.error("Error Message : " + exception.getMessage());
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
@@ -208,11 +212,11 @@ public class EmployeeDAOTest {
 
 		try {
 			targetEmployee = employeeDAO.getEmployeeByEmpId(employeeBO.getEmpId());
-			System.out.println("targetEmployee : " + targetEmployee);
+			logger.info("targetEmployee : " + targetEmployee);
 			assertNotNull(employeeBO);
 		} catch (Exception exception) {
-			System.err.println("Exception while fetching an Employee with the EmpId - " + empId);
-			System.err.println("Error Message : " + exception.getMessage());
+			logger.error("Exception while fetching an Employee with the EmpId - " + empId);
+			logger.error("Error Message : " + exception.getMessage());
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
@@ -229,7 +233,7 @@ public class EmployeeDAOTest {
 	}
 
 	public void verifyCreationSuccess(EmployeeDAO employeeDAO, EmployeeBO employeeBO) {
-		System.out.println("verifyCreationSuccess() invoked");
+		logger.info("verifyCreationSuccess() invoked");
 
 		int lastInsertedId = 0;
 		int count = 0;
@@ -246,8 +250,8 @@ public class EmployeeDAOTest {
 
 			assertTrue(employeeDAO.getCount() > count);
 		} catch (Exception exception) {
-			System.err.println("Exception while creating an EmployeeBO");
-			System.err.println("Error Message : " + exception.getMessage());
+			logger.error("Exception while creating an EmployeeBO");
+			logger.error("Error Message : " + exception.getMessage());
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
@@ -256,36 +260,38 @@ public class EmployeeDAOTest {
 	}
 
 	public void verifyCreationFailure(EmployeeDAO employeeDAO, EmployeeBO employeeBO) {
-		System.out.println("verifyCreationFailure() invoked");
+		logger.info("verifyCreationFailure() invoked");
 
 		Exception thrown = Assertions.assertThrows(Exception.class, () -> {
 			int lastInsertedIdLocal = employeeDAO.createEmployee(employeeBO);
-			System.out.println("lastInsertedIdLocal : " + lastInsertedIdLocal);
+			logger.info("lastInsertedIdLocal : " + lastInsertedIdLocal);
 		});
-		System.err.println(thrown.getMessage());
+		logger.error(thrown.getMessage());
 		// assertTrue(lastInsertedId > 0);
 		Assertions.assertEquals("Duplicate entry '" + employeeBO.getEmpId() + "' for key 'EMP_ID'",
 				thrown.getMessage());
 	}
 
 	@Test
-	public void getEmployeeByEmpId() {
-		System.out.println("getEmployeeByEmpId()  invoked");
+	public void getEmployeeByEmpId() 
+	{
+		logger.info("getEmployeeByEmpId()  invoked");
 		getEmployeeByEmpId(81);
 	}
 
-	public void getEmployeeByEmpId(int empId) {
-		System.out.println("getEmployeeByEmpId()  invoked - empId:" + empId);
+	public void getEmployeeByEmpId(int empId) 
+	{
+		logger.info("getEmployeeByEmpId()  invoked - empId:" + empId);
 
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		EmployeeBO employeeBO = null;
 
 		try {
 			employeeBO = employeeDAO.getEmployeeByEmpId(empId);
-			System.out.println("employeeBO : " + employeeBO);
+			logger.info("employeeBO : " + employeeBO);
 		} catch (Exception exception) {
-			System.err.println("Exception while fetching an Employee with the EmpId - " + empId);
-			System.err.println("Error Message : " + exception.getMessage());
+			logger.error("Exception while fetching an Employee with the EmpId - " + empId);
+			logger.error("Error Message : " + exception.getMessage());
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
@@ -303,8 +309,8 @@ public class EmployeeDAOTest {
 		try {
 			employeeBO = employeeDAO.verifyEmployee(140, "Raghavan@muthu");
 		} catch (Exception exception) {
-			System.err.println("Exception occurred while verifying an employee");
-			System.err.println("Error Message : " + exception.getMessage());
+			logger.error("Exception occurred while verifying an employee");
+			logger.error("Error Message : " + exception.getMessage());
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
@@ -314,18 +320,19 @@ public class EmployeeDAOTest {
 
 	@Test
 	@DisplayName("ListAll Employee from the Employee table")
-	public void employeeListAllTest() {
+	public void listAll() 
+	{
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		List<EmployeeBO> employeeBOList = null;
 		try {
 			employeeBOList = employeeDAO.viewAll();
-			System.out.println("EmployeeBO : " + employeeBOList);
+			logger.info("EmployeeBO : " + employeeBOList);
 			if (null == employeeBOList) {
-				System.out.println("There is NO  Records in Table ");
+				logger.info("There is NO  Records in Table ");
 			}
 		} catch (Exception exception) {
-			System.err.println("Exception while fetching the Employee List ");
-			System.err.println("Error Message : " + exception.getMessage());
+			logger.error("Exception while fetching the Employee List ");
+			logger.error("Error Message : " + exception.getMessage());
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
@@ -337,28 +344,26 @@ public class EmployeeDAOTest {
 	@Test
 	@DisplayName("Delete Employee by EmpId")
 	public void testEmployeeDeleteByEmpId() {
-		System.out.println("EmployeeDeleteJUnitTest - Invoked");
+		logger.info("EmployeeDeleteJUnitTest - Invoked");
 		testEmployeeDeleteByEmpId(137);
 	}
 
 	public void testEmployeeDeleteByEmpId(int empId) {
 
-		System.out.println("testEmployeeDeleteByEmpId() invoked - empId: " + empId);
+		logger.info("testEmployeeDeleteByEmpId() invoked - empId: " + empId);
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
 		int recordsUpdated = 0;
 		try {
 			recordsUpdated = employeeDAO.deleteEmployee(empId);
 		} catch (Exception exception) {
-			System.err.println("Exception while deleteing  an Employee with the EmpId - " + empId);
-			System.err.println("Error Message : " + exception.getMessage());
+			logger.error("Exception while deleteing  an Employee with the EmpId - " + empId);
+			logger.error("Error Message : " + exception.getMessage());
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
-			System.out.println("recordsUpdated  : " + recordsUpdated);
+			logger.info("recordsUpdated  : " + recordsUpdated);
 		}
-
 		assertTrue(recordsUpdated > 0);
-
 	}
 }

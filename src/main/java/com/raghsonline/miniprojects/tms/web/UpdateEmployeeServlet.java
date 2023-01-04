@@ -23,11 +23,13 @@ import com.raghsonline.miniprojects.tms.util.AppUtil;
 
 @WebServlet({ "/UpdateEmployeeServlet", "/UpdateEmployee" })
 
-public class UpdateEmployeeServlet extends HttpServlet {
+public class UpdateEmployeeServlet extends HttpServlet 
+{
 
 	private static final long serialVersionUID = 1L;
 
 	Logger logger = Logger.getLogger(this.getClass());
+	
 	boolean validationError = false;
 	
 	/**

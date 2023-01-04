@@ -3,21 +3,23 @@
  */
 package com.raghsonline.miniprojects.tms.util;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import javax.mail.MessagingException;
 
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import com.raghsonline.miniprojects.tms.exception.MissingConfigException;
-import com.raghsonline.miniprojects.tms.util.AppUtil;
-import com.raghsonline.miniprojects.tms.util.EmailUtil;
 
 /**
  * @author raghavan.muthu
  *
  */
-public class JavaMailJUnitTest {
+public class JavaMailJUnitTest 
+{
+	Logger logger = Logger.getLogger(JavaMailJUnitTest.class);
 
 	@Test
 	void test() 
@@ -28,11 +30,11 @@ public class JavaMailJUnitTest {
 		
 		boolean isAppGRCEmailEnabled = PropertyUtil.isAppGRCVerifyEmailEnabled();
 		
-		System.out.println("isAppGRCEmailEnabled ? " + isAppGRCEmailEnabled);
+		logger.info("isAppGRCEmailEnabled ? " + isAppGRCEmailEnabled);
 		
 		if(!isAppGRCEmailEnabled) 
 		{
-			System.out.println("GRC Email Verify flag has been disabled. Skipping the email verification");
+			logger.info("GRC Email Verify flag has been disabled. Skipping the email verification");
 			assertTrue(true);
 			return;
 		}
@@ -49,8 +51,8 @@ public class JavaMailJUnitTest {
 		
 		if(isError) 
 		{
-			System.err.println("Exception occurred while sending a test email");
-			System.err.println("Error Message : " + exceptionObj.getMessage());
+			logger.error("Exception occurred while sending a test email");
+			logger.error("Error Message : " + exceptionObj.getMessage());
 			if(AppUtil.isAppDevMode) {
 				exceptionObj.printStackTrace();
 			}

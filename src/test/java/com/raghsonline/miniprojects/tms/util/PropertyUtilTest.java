@@ -8,15 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
-
-import com.raghsonline.miniprojects.tms.util.PropertyUtil;
 
 /**
  * @author raghavan.muthu
  *
  */
-public class PropertyUtilTest {
+public class PropertyUtilTest 
+{
+	static Logger logger = Logger.getLogger(PropertyUtilTest.class);
 
 	/**
 	 * @param args
@@ -24,16 +25,16 @@ public class PropertyUtilTest {
 	public static void main(String[] args) 
 	{
 		Properties properties = PropertyUtil.getDBProps();
-		System.out.println("Properties : " + properties);
+		logger.info("Properties : " + properties);
 		
-		System.out.println("------ Explicitly accessing values ----");
+		logger.info("------ Explicitly accessing values ----");
 		String[] keys = new String[] {"jdbc.user.name", "jdbc.user.pass", "jdbc.user.url"};
 		
 		for(String key : keys)
 		{
 			String value = properties.getProperty(key);
 			//String value2 = PropertyUtil.getPropertyValue(key);
-			System.out.println("Key : [" + key + "], value : [" + value + "]");
+			logger.info("Key : [" + key + "], value : [" + value + "]");
 		}
 	}
 	
@@ -41,16 +42,16 @@ public class PropertyUtilTest {
 	public void testDBProps()
 	{
 		Properties properties = PropertyUtil.getDBProps();
-		System.out.println("Properties : " + properties);
+		logger.info("Properties : " + properties);
 		
-		System.out.println("------ Explicitly accessing values ----");
+		logger.info("------ Explicitly accessing values ----");
 		String[] keys = new String[] {"jdbc.user.name", "jdbc.user.pass", "jdbc.url"};
 		
 		for(String key : keys)
 		{
 			String value = properties.getProperty(key);
 			//String value2 = PropertyUtil.getPropertyValue(key);
-			System.out.println("Key : [" + key + "], value : [" + value + "]");
+			logger.info("Key : [" + key + "], value : [" + value + "]");
 			assertNotNull(key);
 			assertNotNull(value);
 		}
@@ -60,16 +61,16 @@ public class PropertyUtilTest {
 	public void testEmailProps()
 	{
 		Properties properties = PropertyUtil.getEmailProps();
-		System.out.println("Properties : " + properties);
+		logger.info("Properties : " + properties);
 		
-		System.out.println("------ Explicitly accessing values ----");
+		logger.info("------ Explicitly accessing values ----");
 		String[] keys = new String[] {"smtp.user.name", "smtp.user.pass", "email.user.from", "email.user.to"};
 		
 		for(String key : keys)
 		{
 			String value = properties.getProperty(key);
 			//String value2 = PropertyUtil.getPropertyValue(key);
-			System.out.println("Key : [" + key + "], value : [" + value + "]");
+			logger.info("Key : [" + key + "], value : [" + value + "]");
 			assertNotNull(key);
 			assertNotNull(value);
 		}

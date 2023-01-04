@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,12 +19,14 @@ import org.junit.jupiter.api.Test;
  */
 class StringUtilTest 
 {
+	static Logger logger = Logger.getLogger(StringUtilTest.class);
+	
 	static List<String> dataList;
 	
 	@BeforeAll
 	public static void before() 
 	{
-		System.out.println("beforeAll() invoked...");
+		logger.info("beforeAll() invoked...");
 		
 		dataList = List.of(
 				"create", 
@@ -31,7 +34,7 @@ class StringUtilTest
 				"login", 
 				"Login");
 		
-		System.out.println("dataList initialized");
+		logger.info("dataList initialized");
 	}
 	
 	@Test

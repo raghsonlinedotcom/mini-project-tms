@@ -57,12 +57,12 @@
 			<%
 				}
 			
-			 	String errorMsg = (String) request.getAttribute("errorMsgUI");
+			 	String errorMsgUI = (String) request.getAttribute("errorMsgUI");
 			 	EmployeeBO employeeBO = (EmployeeBO) request.getAttribute("employeeForm");
 			 	
 				boolean isValidationError = false;
 				
-			 	if(null!=errorMsg) 
+			 	if(null!=errorMsgUI) 
 			 	{
 			 		isValidationError = true;
 			 %>
@@ -70,7 +70,7 @@
 					<div class="row">
 						<div class="col-12" align="center">
 							<div class="alert alert-danger" role="alert">
-							  	<%= errorMsg %>
+							  	<%= errorMsgUI %>
 							</div>
 						</div>
 					</div>			 		
