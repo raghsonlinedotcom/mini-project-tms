@@ -1,20 +1,34 @@
 <%@include file="inc/header.jsp"%>
-<%@page import="com.tutorials.tms.util.AppUtil"%>
+<%@page import="com.raghsonline.miniprojects.tms.util.AppUtil"%>
 <%
 	String message = (String) request.getAttribute("message");
+	String errorMessage = (String) request.getAttribute("errorMessage");
 	if (null != message) 
 	{
 %>
 		<div class="row">
 			<div class="col-12" align="center">
-				<div class="alert alert-primary" role="alert">
+				<div class="alert alert-success" role="alert">
 				  	<%= message %>
 				</div>
 			</div>
 		</div>
 <%
 	}
+	if (null != errorMessage) 
+	{
 %>
+	<div class="row">
+			<div class="col-12" align="center">
+				<div class="alert danger" role="alert">
+				  	<%= errorMessage %>
+				</div>
+			</div>
+		</div>
+<%
+	}
+%>
+	
 	<div class="row">
 		<div class="col-12">
 			<h1 class="mt-5">Team Management System</h1>

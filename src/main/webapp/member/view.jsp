@@ -1,4 +1,4 @@
-<%@ page import="com.tutorials.tms.bo.EmployeeBO" %>
+<%@ page import="com.raghsonline.miniprojects.tms.bo.EmployeeBO" %>
 <%@include file="../inc/header.jsp" %>
 
 		<h1>View Employee</h1>

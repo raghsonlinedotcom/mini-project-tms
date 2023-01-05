@@ -1,7 +1,10 @@
-<%@page import="com.tutorials.tms.bo.EmployeeBO"%>
-<%@page import="com.tutorials.tms.util.AppUtil"%>
+<%@page import="com.raghsonline.miniprojects.tms.bo.EmployeeBO"%>
+<%@page import="com.raghsonline.miniprojects.tms.dao.EmployeeDAO"%>
+<%@page import="com.raghsonline.miniprojects.tms.dao.EmployeeDAOImpl"%>
+<%@ page import="java.util.List, java.util.ArrayList , java.util.Date" %>
+<%@page import="com.raghsonline.miniprojects.tms.util.AppUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="com.tutorials.tms.util.AppUtil"%>
+<%@page import="com.raghsonline.miniprojects.tms.util.AppUtil"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -33,10 +36,37 @@
 		<!-- Begin page content -->
 		<main class="flex-shrink-0">
 			<div class="container"> <!--  Container Div Start -->
+			
+			<%!
+				int empId = 0; /* Default, for PROD */
+				String firstName = "";
+				String lastName = "";
+				String dob = "";
+				char gender = ' ';
+				String aadharId = "";
+				String bloodGroup = "";
+				String city = "";
+				String personalEmail = "";
+				String officialEmail = "";
+				String password = "";
+				String primaryContactNumber = "";
+				String secondaryContactNumber = "";
+				String highestQualification = "";
+				String skillsets = "";
+				String doj = "";
+				String hobbies = "";
+				int managerId = 0;
+				
+			%>
 			<%
+				EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+				List<EmployeeBO> managerList = employeeDAO.viewManagers();
+				
 				//we send the parameter as 'message' only even for the error message. 
 				// for the successful cases it is redirected to the `login.jsp` page
 				String errorMessage = (String) request.getAttribute("message");
+			 	EmployeeBO employeeBO = (EmployeeBO) request.getAttribute("employeeForm");
+				
 			
 				if(null!=errorMessage) {
 			%>					
@@ -47,15 +77,14 @@
 							</div>
 						</div>
 					</div>						
-			<%
+			<%	
 				}
 			
-			 	String errorMsg = (String) request.getAttribute("errorMsgUI");
-			 	EmployeeBO employeeBO = (EmployeeBO) request.getAttribute("employeeForm");
+			 	String errorMsgUI = (String) request.getAttribute("errorMsgUI");
 			 	
 				boolean isValidationError = false;
 				
-			 	if(null!=errorMsg) 
+			 	if(null!=errorMsgUI) 
 			 	{
 			 		isValidationError = true;
 			 %>
@@ -63,7 +92,7 @@
 					<div class="row">
 						<div class="col-12" align="center">
 							<div class="alert alert-danger" role="alert">
-							  	<%= errorMsg %>
+							  	<%= errorMsgUI %>
 							</div>
 						</div>
 					</div>			 		
@@ -79,21 +108,47 @@
 		<%
 			boolean isAppDevMode = AppUtil.isAppDevMode;
 		
-			int empId = 0; /* Default, for PROD */
-			String firstName = "";
-			String lastName = "";
-					
-			if(isValidationError) /* If there was an error, use this */
+			if(isValidationError || null!=errorMessage) /* If there was an error, use this */
 			{
 				empId = employeeBO.getEmpId();
 				firstName = employeeBO.getFirstName();
 				lastName = employeeBO.getLastName();
+				dob = employeeBO.getDateOfBirth().toString();
+				gender = employeeBO.getGender();
+				aadharId = employeeBO.getAadharId();
+				bloodGroup = employeeBO.getBloodGroup();
+				city = employeeBO.getCity();
+				personalEmail = employeeBO.getPersonalEmail();
+				officialEmail = employeeBO.getOfficialEmail();
+				password = employeeBO.getPassword();
+				primaryContactNumber = employeeBO.getPrimaryContactNo();
+				secondaryContactNumber = employeeBO.getSecondaryContactNo();
+				highestQualification = employeeBO.getHighestQualification();
+				skillsets = employeeBO.getSkillsets();
+				doj = employeeBO.getDateOfJoining().toString();
+				hobbies = employeeBO.getHobbies();
+				managerId = employeeBO.getManagerId();
 			}
 			else if(isAppDevMode) /* If no error, but Dev Mode, then use this */
-			{
+			{				
 				empId = 137;
 				firstName = "Arun";
 				lastName = "Prasad";
+				dob = "1999-11-13";
+				gender = 'M'; 
+				aadharId = "123456789012";
+				bloodGroup = "selected";
+				city = "Kakinada";
+				personalEmail = "Arun@123gmail.com";
+				officialEmail = "Arun@Office.com";
+				password = "Arun@123";
+				primaryContactNumber = "7274767870";
+				secondaryContactNumber = "9193959799"; //Optional Value
+				highestQualification = "BTech";
+				skillsets = "Java, SQL, HTML, CSS";
+				doj = "2022-04-13";
+				hobbies = "Playing Cricket,Listening to Music,Gardening"; //Optional Value
+				managerId = 140;
 			}
 		%>
 		<form id="create" name="create" action="EmployeeCreate" method="post" >
@@ -138,9 +193,10 @@
 					<tr>
 						<td>Date Of Birth <span class="required">*</span></td>
 						<td>
-							<input type="date" class="form-control"  id="dob" name="dob" 
+							<input type="date" class="form-control" 
+								id="dob" name="dob" 
 								min="1960-01-01" max="2004-01-01"  
-								value='<%= isAppDevMode ? "1999-11-13" : "" %>'
+								value="<%= dob %>"
 								required/>
 						</td>
 					</tr>
@@ -150,14 +206,15 @@
      						<div class="form-check">
 							  <input class="form-check-input" type="radio" name="gender" 
 							  		id="genderM" value="M" onclick="changeGender();"
-							  		<%= isAppDevMode ? " checked" : "" %>>
+							  		<%= gender == 'M' ? "checked" : "" %>>
 							  <label class="form-check-label" for="genderM">
 							    Male
 							  </label>
 							</div>
 							<div class="form-check">
 							  <input class="form-check-input" type="radio" name="gender" 
-							  		id="genderF" value="F" onclick="changeGender();">
+							  		id="genderF" value="F" onclick="changeGender();"
+							  		<%= gender == 'F' ? "checked" : "" %> >
 							  <label class="form-check-label" for="genderF">
 							    Female
 							  </label>
@@ -169,7 +226,7 @@
 						<td>
 							<input type="number" class="form-control" id="aadharId" name="aadharId" size="12" 
 								placeholder="123456789012" maxlength="12"
-								value='<%= isAppDevMode ? "123456789012" : "" %>' 
+								value='<%= aadharId %>' 
 								required>
 						</td>
 					</tr>
@@ -181,14 +238,14 @@
                        		 <select class="form-select" aria-label=".select example"
                        		 		name="bloodGroup" id="bloodGroup" required>
                        		  	<option value='' selected >Select an Option</option>
-			                    <option value="A+ve" <%= isAppDevMode ? "selected" : "" %> >A+ve</option>
-			                    <option value="O+ve">O+ve</option>
-			                    <option value="B+ve">B+ve</option>
-			                    <option value="AB+ve">AB+ve</option>
-			                    <option value="A-ve">A-ve</option>
-			                    <option value="O-ve">O-ve</option>
-			                    <option value="B-ve">B-ve</option>
-			                    <option value="AB-ve">AB-ve</option> 
+			                    <option value="A+ve" <%= bloodGroup.equals("A+ve") ? "selected" : "" %> >A+ve</option>
+			                    <option value="O+ve" <%= bloodGroup.equals("O+ve") ? "selected" : "" %> >O+ve</option>
+			                    <option value="B+ve" <%= bloodGroup.equals("B+ve") ? "selected" : "" %> >B+ve</option>
+			                    <option value="AB+ve" <%= bloodGroup.equals("AB+ve") ? "selected" : "" %> >AB+ve</option>
+			                    <option value="A-ve" <%= bloodGroup.equals("A-ve") ? "selected" : "" %> >A-ve</option>
+			                    <option value="O-ve" <%= bloodGroup.equals("O-ve") ? "selected" : "" %> >O-ve</option>
+			                    <option value="B-ve" <%= bloodGroup.equals("B-ve") ? "selected" : "" %> >B-ve</option>
+			                    <option value="AB-ve" <%= bloodGroup.equals("AB-ve") ? "selected" : "" %>>AB-ve</option> 
 			                </select>
                    		</td>
 	                </tr>
@@ -198,7 +255,7 @@
 	                    	<input type="text" class="form-control"  
 	                    	id="city" name="city" placeholder="city" 
 	                    	size="20"   maxlength="20" 
-	                    	value='<%= isAppDevMode ? "Kakinada" : "" %>'
+	                    	value='<%= city %>'
 	                    	required>
 	                    </td>
 	                </tr>
@@ -208,7 +265,7 @@
 	                    	<input type="Email" class="form-control" 
 	                    	id="personalEmail" name="personalEmail" 
 		                    size="40"  placeholder="abc@gmail.com" 
-		                    value='<%= isAppDevMode ? "arun@gmail.com" : "" %>'  
+		                    value='<%= personalEmail %>'  
 		                    maxlength="40" required>
 	                    </td>
 	                </tr>
@@ -217,7 +274,7 @@
 	                    <td><input type="Email" class="form-control" 
 	                    id="officialEmail" name="officialEmail" 
 	                    size="40"  placeholder="abc.de@milvik.se"  
-	                    value='<%= isAppDevMode ? "arun@office.com" : "" %>' 
+	                    value='<%= officialEmail %>' 
 	                    maxlength="40" required>
 	                    </td>
 	                </tr>
@@ -227,7 +284,7 @@
 	                    	<input type="password" class="form-control" 
 	                    	id="password" name="password" 
 	                    	pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" size="15" 
-	                    	value='<%= isAppDevMode ? "Arun@123" : "" %>' 
+	                    	value='<%= password %>' 
 	                    	placeholder="password" maxlength="15" 
 	                    	required aria-describedby="pwdPattern">
     						<div id="pwdPattern" class="form-text">
@@ -242,7 +299,7 @@
 								id="primaryContactNumber" 
 								name="primaryContactNumber" 
 								placeholder="1234567890" size="10"  maxlength="10" 
-								value='<%= isAppDevMode ? "7288822559" : "" %>'
+								value='<%= primaryContactNumber %>'
 								required >
 						</td>
 					</tr>
@@ -252,6 +309,7 @@
 							<input type="number" class="form-control" 
 								id="secondaryContactNumber" 
 								name="secondaryContactNumber" 
+								value='<%= secondaryContactNumber %>'
 								placeholder="1234567890" size="10"  maxlength="10" >
 						</td>
 					</tr>
@@ -262,7 +320,7 @@
 								id="highestQualification" 
 								name="highestQualification" 
 								placeholder="MTech, MS, MBA etc.," required size="35" 
-								value='<%= isAppDevMode ? "BTech" : "" %>' 
+								value='<%= highestQualification %>' 
 								maxlength="35">
 						</td>
 					</tr>
@@ -272,14 +330,14 @@
 						<textarea class="form-control" rows="4" cols="50"  
 								id="skillSets" name="skillSets" 
 								placeholder="Java, MySQL, HTML, CSS" maxlength="100"								  
-								required><%= isAppDevMode ? "Java, SQL, HTML, CSS" : "" %></textarea>						
+								required><%= skillsets %></textarea>						
 						</td>
 					<tr>
 						<td>Date Of Joining <span class="required">*</span></td>
 						<td>
 							<input type="date" class="form-control" 
 								id="doj" name="doj" 
-								value='<%= isAppDevMode ? "2022-04-13" : "" %>'
+								value="<%= doj %>"
 								required/>
 						</td>
 					</tr>
@@ -292,6 +350,7 @@
                        		 	id="hobbies" name="hobbies" 
                        		 	placeholder="Reading Books, Listening to Music, Playing Cricket etc.," 
                        		 	size="100" maxlength="100" 
+                       		 	value='<%= hobbies %>'
                        		 	aria-describedby="hobbiesHelp">
 	    						<div id="hobbiesHelp" class="form-text">
 	    							Mention your extra curricular activities if any.
@@ -303,11 +362,25 @@
                        		 Manager Id <span class="required">*</span>
                     	</td>
                    		<td>
-                       		<select class="form-select" aria-label=".select example"
-                       			id="managerId" name="managerId">
-                       			<option id="1" value="0">N/A</option>
-                       			<option id="1" value="1" selected>Raghavan</option>
-                       		</select>
+                       		<select class="form-select" aria-label=".select example" 
+                       		id="managerId" name="managerId" required>
+                       		<option disabled selected value> -- SELECT -- </option>
+                       			<%
+                       				for(EmployeeBO managerBO : managerList)
+                						{
+                       			%>
+                							<option value = "<%=managerBO.getEmpId()%>" > 
+                								<%=
+                									managerBO.getEmpId() + " | " + 
+                							        managerBO.getFirstName() + " " +
+                									managerBO.getLastName() 
+                								 %>
+                							</option>
+                				<% 
+                						}	
+                       			%>
+                       			<option value="0">N/A</option>
+	                       		</select>
                    		</td>
 	                </tr>
 					<tr>

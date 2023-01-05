@@ -11,10 +11,6 @@
 		          <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/index.jsp">Home</a>
 		        </li>
 		  		<!-- <li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/create.jsp">Register</a>
-		        </li>
-		         -->
-		  		<!-- <li class="nav-item">
 		        	<a class="nav-link" href="sticky-footer/sticky-footer.html">Sticky Footer</a>
 		        </li>-->		        
 		       <li class="nav-item dropdown">
@@ -23,7 +19,9 @@
 		         </a>
 		         <ul class="dropdown-menu">
 		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/ViewMyDetails">View Details</a></li>
-		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/edit.jsp">Edit Details</a></li>
+		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/EditEmployee">Edit Details</a></li>
+		            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/EmployeeListServlet">View All Employees</a></li>
+		            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/delete.jsp">Delete My Profile</a></li>
 		           <li><hr class="dropdown-divider"></li>
 		           <li><a class="dropdown-item" href="#">Apply Leave</a></li>
 		         </ul>
@@ -36,7 +34,10 @@
 		        </li>		
 		        <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/commands.jsp">Commands</a>
-		        </li>        
+		        </li>  
+		        <li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/paths.jsp">Paths</a>
+		        </li>
 		       <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/team.jsp">Members</a>
 		        </li>
