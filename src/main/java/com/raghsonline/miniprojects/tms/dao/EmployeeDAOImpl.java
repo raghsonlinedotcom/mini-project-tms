@@ -489,7 +489,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 	public List<EmployeeBO> viewManagers() throws Exception {
 		logger.info("viewManagers() Invoked");
 		
-		String sql = "SELECT * FROM EMPLOYEE WHERE MANAGER_ID IS NULL";
+		String sql = "SELECT * FROM EMPLOYEE WHERE MANAGER_ID IS NULL AND IS_ACTIVE = TRUE";
 		
 		logger.info("SQL Query :: "+ sql);
 		
