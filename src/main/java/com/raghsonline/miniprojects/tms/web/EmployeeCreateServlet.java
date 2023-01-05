@@ -207,7 +207,8 @@ public class EmployeeCreateServlet extends HttpServlet {
 			if (AppUtil.isAppDevMode) {
 				exceptionObj.printStackTrace();
 			}
-		} else /* Successfully registered, you can send a confirmation email */
+		} 
+		else /* Successfully registered, you can send a confirmation email */
 		{
 			EmailConfigBO emailConfigBO = EmailConfigUtil.loadEmailConfigForTMS();
 			emailConfigBO.setEmailTo(employeeBO.getOfficialEmail());

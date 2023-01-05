@@ -286,13 +286,17 @@ public class EmployeeDAOTest
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		EmployeeBO employeeBO = null;
 
-		try {
+		try
+		{
 			employeeBO = employeeDAO.getEmployeeByEmpId(empId);
 			logger.info("employeeBO : " + employeeBO);
-		} catch (Exception exception) {
+		} 
+		catch (Exception exception) 
+		{
 			logger.error("Exception while fetching an Employee with the EmpId - " + empId);
 			logger.error("Error Message : " + exception.getMessage());
-			if (AppUtil.isAppDevMode) {
+			if (AppUtil.isAppDevMode) 
+			{
 				exception.printStackTrace();
 			}
 			fail("Employee getEmployeeByEmpId() failed - " + exception.getMessage());
@@ -300,7 +304,87 @@ public class EmployeeDAOTest
 
 		assertNotNull(employeeBO);
 	}
+	
+	@Test
+	@DisplayName("-----------EmployeeView JUnitTest-----------")
+	public void testEmployeeView() 
+	{
+		logger.info("------EmployeeViewJUnitTest - Invoked----------");	
+		testEmployeeView(140);
+	}
+	
+	public void testEmployeeView(int empId) 
+	{
+		logger.info("testEmployeeView() invoked - empId: " + empId);
+		
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+		EmployeeBO employeeBO = null;
+		
+		try 
+		{
+			employeeBO = employeeDAO.getEmployeeByEmpId(empId);	
+			logger.info("EmployeeBO : " + employeeBO);
+			if(null==employeeBO)
+			{
+				logger.info("There is NO Matching Record For the given empId : " + empId);
+			}
+		}
+		catch (Exception exception) 
+		{
+			logger.error("Exception while fetching an Employee with the EmpId - " + empId);
+			logger.error("Error Message : " + exception.getMessage());
+			if(AppUtil.isAppDevMode) 
+			{
+				exception.printStackTrace();
+			}
+			fail("Employee getEmployeeByEmpId() failed - " + exception.getMessage());
+		}
+		
+		assertNotNull(employeeBO);
+		assertNotNull(employeeBO.getEmpId());
+		assertNotNull(employeeBO.getFirstName());
+		assertNotNull(employeeBO.getLastName());
+		assertNotNull(employeeBO.getOfficialEmail());
+		assertNotNull(employeeBO.getAadharId());
+		assertNotNull(employeeBO.getManagerId());
+	}
+	
+	@Test
+	@DisplayName("---------EmployeeEdit JUnitTest of an employee--------")
+	public void employeeEditTest() 
+	{
+		logger.info("-------EmployeeEditJUnitTest - Invoked----------");
+		
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+		EmployeeBO employeeBO = new EmployeeBO();
 
+		employeeBO.setFirstName("ArunJUnit");
+		employeeBO.setLastName("Prasad");
+		employeeBO.setCity("Kakinada");
+		employeeBO.setPersonalEmail("arunJunit@gmail.com");
+		employeeBO.setPrimaryContactNo("7288822559");
+		employeeBO.setHighestQualification("BTech");
+		employeeBO.setSkillsets("Java,JUnit,MYSQL,HTML,JS");
+		employeeBO.setEmpId(137);
+		int recordsUpdated = 0;
+
+		try 
+		{
+			recordsUpdated = employeeDAO.updateEmployee(employeeBO);
+			logger.info("EmployeeBO : " + employeeBO);
+		} 
+		catch (Exception exception) 
+		{
+			logger.error("Exception occurred while updating the data into the Database Table");
+			logger.error("Error Message : " + exception.getMessage());
+			if (AppUtil.isAppDevMode) 
+			{
+				exception.printStackTrace();
+			}
+		}
+		logger.info("recordsUpdated  : " + recordsUpdated);
+		assertTrue(recordsUpdated>0);
+	}
 	
 	@Test
 	@DisplayName("ListAll Employee from the Employee table")

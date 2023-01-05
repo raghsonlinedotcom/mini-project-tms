@@ -11,8 +11,6 @@ import com.raghsonline.miniprojects.tms.util.PropertyUtilTest;
 			EmployeeBOJUnitTest.class,
 			EmployeeDAOTest.class, 
 			DBCheckerJUnitTest.class,
-			EmployeeViewJUnitTest.class,
-			EmployeeEditJUnitTest.class,
 			PropertyUtilTest.class,
 			JavaMailJUnitTest.class
 		})
