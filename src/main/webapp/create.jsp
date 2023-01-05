@@ -41,7 +41,7 @@
 				int empId = 0; /* Default, for PROD */
 				String firstName = "";
 				String lastName = "";
-				Date dob = null;
+				String dob = "";
 				char gender = ' ';
 				String aadharId = "";
 				String bloodGroup = "";
@@ -53,7 +53,7 @@
 				String secondaryContactNumber = "";
 				String highestQualification = "";
 				String skillsets = "";
-				Date doj = null;
+				String doj = "";
 				String hobbies = "";
 				int managerId = 0;
 				
@@ -113,7 +113,7 @@
 				empId = employeeBO.getEmpId();
 				firstName = employeeBO.getFirstName();
 				lastName = employeeBO.getLastName();
-				dob = employeeBO.getDateOfBirth();
+				dob = employeeBO.getDateOfBirth().toString();
 				gender = employeeBO.getGender();
 				aadharId = employeeBO.getAadharId();
 				bloodGroup = employeeBO.getBloodGroup();
@@ -125,18 +125,16 @@
 				secondaryContactNumber = employeeBO.getSecondaryContactNo();
 				highestQualification = employeeBO.getHighestQualification();
 				skillsets = employeeBO.getSkillsets();
-				doj = employeeBO.getDateOfJoining();
+				doj = employeeBO.getDateOfJoining().toString();
 				hobbies = employeeBO.getHobbies();
 				managerId = employeeBO.getManagerId();
 			}
 			else if(isAppDevMode) /* If no error, but Dev Mode, then use this */
-			{
-				Date dob1 = new Date(1999-11-13);
-				Date doj1 = new Date(2022-04-13);
+			{				
 				empId = 137;
 				firstName = "Arun";
 				lastName = "Prasad";
-				dob = dob1;
+				dob = "1999-11-13";
 				gender = 'M'; 
 				aadharId = "123456789012";
 				bloodGroup = "selected";
@@ -148,7 +146,7 @@
 				secondaryContactNumber = "9193959799"; //Optional Value
 				highestQualification = "BTech";
 				skillsets = "Java, SQL, HTML, CSS";
-				doj = doj1;
+				doj = "2022-04-13";
 				hobbies = "Playing Cricket,Listening to Music,Gardening"; //Optional Value
 				managerId = 140;
 			}
@@ -195,9 +193,10 @@
 					<tr>
 						<td>Date Of Birth <span class="required">*</span></td>
 						<td>
-							<input type="date" class="form-control"  id="dob" name="dob" 
+							<input type="date" class="form-control" 
+								id="dob" name="dob" 
 								min="1960-01-01" max="2004-01-01"  
-								value='<%= dob %>'
+								value="<%= dob %>"
 								required/>
 						</td>
 					</tr>
@@ -338,7 +337,7 @@
 						<td>
 							<input type="date" class="form-control" 
 								id="doj" name="doj" 
-								value='<%= doj %>'
+								value="<%= doj %>"
 								required/>
 						</td>
 					</tr>
