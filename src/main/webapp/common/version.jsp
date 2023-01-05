@@ -91,6 +91,10 @@
 						<ul>
 							<li>Bootstrap Sticky Footer</li>
 							<li>Bootstrap Table not responsive</li>
+							<li>
+								Emails sent to the Official Email Address from the Tomcat Server on the AWS EC2 environment are NOT 
+								delivered, but it works in local Eclipse + Tomcat
+							</li>
 						</ul>
 					</td>
 					<td>
@@ -127,7 +131,15 @@
 						Incremental Version
 					</td>
 					<td>
-						N/A
+						<ul>							
+							<li>
+								Bootstrap library packed via Maven to AWS EC2 - Halfway with a workaround
+							</li>							
+							<li>
+								Emails sent to the Official Email Address from the Tomcat Server on the AWS EC2 environment are NOT 
+								delivered, but it works in local Eclipse + Tomcat
+							</li>							
+						</ul>
 					</td>
 					<td>
 						<a href="https://raghsonlinedotcom.atlassian.net/projects/TMS/versions/10002/tab/release-report-all-issues">
@@ -169,6 +181,10 @@
 							<li>
 								Bootstrap library packed via Maven to AWS EC2 - Halfway with a workaround
 							</li>
+							<li>
+								Emails sent to the Official Email Address from the Tomcat Server on the AWS EC2 environment are NOT 
+								delivered, but it works in local Eclipse + Tomcat
+							</li>							
 						</ul>
 					</td>
 					<td>
@@ -176,7 +192,62 @@
 							Jira Release Ref. for Release 4
 						</a>
 					</td>
-				</tr>											
+				</tr>	
+				<tr>
+					<td>
+						5
+					</td>
+					<td>
+						5.0
+					</td>
+					<td>
+						2023-01-05
+					</td>
+					<td>
+						Sprint 5 - Delete, ViewAll Members
+					</td>
+					<td>
+						Release 5
+					</td>
+					<td>
+						<ul>
+							<li>Delete Member</li>
+							<li>View All Members</li>
+							<li>Validation on the Create and Update Member</li>
+							<li>Enhancement to GRC (Global Readiness Check) - 
+								Flag to Control the emails being sent on Application Startup
+							</li>
+							<li>Refactoring - Package Naming (added `miniprojects.tms`), JUnit Class</li>
+							<li>Bug Fixes</li>
+						</ul>
+					</td>
+					<td>
+						Incremental Version
+					</td>
+					<td>
+						<ul>
+							<li>
+								JDBC Driver does not give the right count for the DML Update - the Unit Testing was asserted with `rowsUpdated > 0'
+								was supposed to fail but getting passed. 
+							</li>
+							<li>
+								Bootstrap library packed via Maven to AWS EC2 - Halfway with a workaround
+							</li>							
+							<li>
+								Emails sent to the Official Email Address from the Tomcat Server on the AWS EC2 environment are NOT 
+								delivered, but it works in local Eclipse + Tomcat
+							</li>	
+							<li>
+								The deployment in the AWS EC2 has a permission issue on the files, if it is performed by someone other than Raghavan.
+							</li>						
+						</ul>
+					</td>
+					<td>
+						<a href="https://raghsonlinedotcom.atlassian.net/projects/TMS/versions/10004/tab/release-report-all-issues">
+							Jira Release Ref. for Release 5
+						</a>
+					</td>
+				</tr>														
 			</tbody>
 		</table>
 	</div>
