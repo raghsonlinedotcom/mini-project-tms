@@ -42,7 +42,6 @@ public class DeleteEmployeeServlet extends HttpServlet
 	{
 		logger.info("DeleteEmployeeServlet - doPost() invoked");
 		
-	
 		String decision = request.getParameter("decision");
 		String message = null;
 		String url = null;
@@ -53,7 +52,6 @@ public class DeleteEmployeeServlet extends HttpServlet
 			message = "Thank you for staying back!!";
 			request.setAttribute("message", message);
 		}
-		
 		else 
 		{
 			// 1. Get the Employee Data from the session
@@ -62,24 +60,28 @@ public class DeleteEmployeeServlet extends HttpServlet
 			EmployeeBO employeeBO = (EmployeeBO) session.getAttribute("employeeBO");
 	
 			empId = employeeBO.getEmpId();
+			
 			logger.info("EmployeeBO object from the session is " + employeeBO);
 			logger.info("EmpId Parameter from the session : " + empId);
+			
 			EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 			int recordsUpdated =0;
 			String errorMessage = null;
+			
 			try {
 				recordsUpdated = employeeDAO.deleteEmployee(empId);
 			} catch (Exception exception) {
 				logger.error("Exception occurred while updating the data into the Database Table");
 				logger.error("Message : " + exception.getMessage());
+				
 				request.setAttribute("errorMessage", exception.getMessage());
 				request.getRequestDispatcher("index.jsp").forward(request, response);
+				
 				if (AppUtil.isAppDevMode) {
 					exception.printStackTrace();
 				}
 				return;
 			}
-			
 			
 			if(recordsUpdated>0)
 			{
@@ -93,13 +95,8 @@ public class DeleteEmployeeServlet extends HttpServlet
 				url = "index.jsp";
 				request.setAttribute("errorMessage", errorMessage);
 			}
-			
-			// 5. Redirect/Delegate to the corresponding view
-			
 		}
-		request.getRequestDispatcher(url).forward(request, response);
-		
-
-		
+		// 5. Redirect/Delegate to the corresponding view
+		request.getRequestDispatcher(url).forward(request, response);		
 	}
 }

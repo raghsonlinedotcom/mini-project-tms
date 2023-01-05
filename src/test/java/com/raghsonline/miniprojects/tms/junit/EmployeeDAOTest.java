@@ -338,15 +338,17 @@ public class EmployeeDAOTest
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
 		int recordsUpdated = 0;
+		
 		try {
 			recordsUpdated = employeeDAO.deleteEmployee(empId);
+			logger.info("recordsUpdated  : " + recordsUpdated);
 		} catch (Exception exception) {
 			logger.error("Exception while deleteing  an Employee with the EmpId - " + empId);
 			logger.error("Error Message : " + exception.getMessage());
+			
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
-			logger.info("recordsUpdated  : " + recordsUpdated);
 		}
 		assertTrue(recordsUpdated > 0);
 	}

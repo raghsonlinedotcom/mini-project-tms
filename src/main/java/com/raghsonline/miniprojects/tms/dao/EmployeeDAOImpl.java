@@ -559,7 +559,8 @@ public class EmployeeDAOImpl implements EmployeeDAO
 	}
 	
 	@Override
-	public int deleteEmployee(int empId) throws Exception {
+	public int deleteEmployee(int empId) throws Exception 
+	{
 		logger.info("deleteEmployee :: " + empId);
 
 		String sql = "UPDATE EMPLOYEE SET IS_ACTIVE = FALSE WHERE EMP_ID = ?";
@@ -596,10 +597,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				}
 			}
 		}
-
-		logger.info("recordsUpdated  : " + recordsUpdated);
 		
 		return recordsUpdated;
-
 	}
 }

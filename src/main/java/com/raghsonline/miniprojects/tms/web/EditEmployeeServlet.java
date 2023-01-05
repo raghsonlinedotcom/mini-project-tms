@@ -66,6 +66,6 @@ public class EditEmployeeServlet extends HttpServlet
 		request.setAttribute("employeeBO", employeeBO);
 
 		// 3. Forward / Delegate the control/flow the required JSP Page
-		request.getRequestDispatcher("member/edit.jsp").forward(request, response);
+		request.getRequestDispatcher("/member/edit.jsp").forward(request, response);
 	}
 }
