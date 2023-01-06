@@ -239,7 +239,7 @@
                        		 		name="bloodGroup" id="bloodGroup" required>
                        		  	<option value='' selected >Select an Option</option>
 			                    <option value="A+ve" <%= bloodGroup.equals("A+ve") ? "selected" : "" %> >A+ve</option>
-			                    <option value="O+ve" <%= bloodGroup.equals("O+ve") ? "selected" : "" %> >O+ve</option>
+			                    <option value="O+ve" <%= bloodGroup.equals("O+ve") ? "selected" : "" %> <%= isAppDevMode ? "selected" : "" %>>O+ve</option>
 			                    <option value="B+ve" <%= bloodGroup.equals("B+ve") ? "selected" : "" %> >B+ve</option>
 			                    <option value="AB+ve" <%= bloodGroup.equals("AB+ve") ? "selected" : "" %> >AB+ve</option>
 			                    <option value="A-ve" <%= bloodGroup.equals("A-ve") ? "selected" : "" %> >A-ve</option>
@@ -295,7 +295,7 @@
 					<tr>
 						<td>Primary Contact Number <span class="required">*</span></td>
 						<td>
-							<input type="number" class="form-control" 
+							<input type="tel" class="form-control" 
 								id="primaryContactNumber" 
 								name="primaryContactNumber" 
 								placeholder="1234567890" size="10"  maxlength="10" 
@@ -306,7 +306,7 @@
 					<tr>
 						<td>Secondary Contact Number</td>
 						<td>
-							<input type="number" class="form-control" 
+							<input type="tel" class="form-control" 
 								id="secondaryContactNumber" 
 								name="secondaryContactNumber" 
 								value='<%= secondaryContactNumber %>'
@@ -365,6 +365,7 @@
                        		<select class="form-select" aria-label=".select example" 
                        		id="managerId" name="managerId" required>
                        		<option disabled selected value> -- SELECT -- </option>
+                       		<option selected value="<%=managerId%>" > <%=managerId%></option>
                        			<%
                        				for(EmployeeBO managerBO : managerList)
                 						{
