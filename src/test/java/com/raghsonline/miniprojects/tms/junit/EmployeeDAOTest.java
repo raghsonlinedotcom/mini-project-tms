@@ -306,7 +306,7 @@ public class EmployeeDAOTest
 	}
 	
 	@Test
-	@DisplayName("-----------EmployeeView JUnitTest-----------")
+	@DisplayName("EmployeeView JUnitTest")
 	public void testEmployeeView() 
 	{
 		logger.info("------EmployeeViewJUnitTest - Invoked----------");	
@@ -350,7 +350,7 @@ public class EmployeeDAOTest
 	}
 	
 	@Test
-	@DisplayName("---------EmployeeEdit JUnitTest of an employee--------")
+	@DisplayName("EmployeeEdit JUnitTest of an employee")
 	public void employeeEditTest() 
 	{
 		logger.info("-------EmployeeEditJUnitTest - Invoked----------");
@@ -438,7 +438,7 @@ public class EmployeeDAOTest
 	}
 	
 	@Test
-	@DisplayName("-----------ManagerSelfView JUnitTest-----------")
+	@DisplayName("ManagerSelfView JUnitTest")
 	public void testManagerSelfView() 
 	{
 		logger.info("------ManagerSelfView JUnitTest - Invoked----------");	
