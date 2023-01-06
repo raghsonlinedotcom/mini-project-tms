@@ -436,4 +436,43 @@ public class EmployeeDAOTest
 		}
 		assertTrue(recordsUpdated > 0);
 	}
+	
+	@Test
+	@DisplayName("-----------ManagerSelfView JUnitTest-----------")
+	public void testManagerSelfView() 
+	{
+		logger.info("------ManagerSelfView JUnitTest - Invoked----------");	
+		testManagerSelfView(140);
+	}
+	
+	public void testManagerSelfView(int empId) 
+	{
+		logger.info("ManagerSelfView() invoked - empId: " + empId);
+		
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+		EmployeeBO employeeBO = null;
+		
+		try 
+		{
+			employeeBO = employeeDAO.getEmployeeByEmpId(empId);	
+			logger.info("EmployeeBO : " + employeeBO);
+			if(null==employeeBO)
+			{
+				logger.info("There is NO Matching Record For the given empId : " + empId);
+			}
+		}
+		catch (Exception exception) 
+		{
+			logger.error("Exception while fetching an Employee with the EmpId - " + empId);
+			logger.error("Error Message : " + exception.getMessage());
+			if(AppUtil.isAppDevMode) 
+			{
+				exception.printStackTrace();
+			}
+			fail("Employee getEmployeeByEmpId() failed - " + exception.getMessage());
+		}
+		logger.info("ManagerId :" + employeeBO.getManagerId());
+		assertNotNull(employeeBO);
+		assertTrue(employeeBO.getManagerId() == 0);
+	}
 }

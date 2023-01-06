@@ -247,7 +247,6 @@
 	    						</div>
 						</td>
 					</tr>
-					
 					<tr>
 						<td> Manager Id </td>
 						<td>
@@ -260,11 +259,10 @@
 								
 						</td>
 					</tr>
-				
 							<tr>
 								<td colspan="2">
 									<input type="submit" name="Update" Value="Update"/>
-								
+
 								</td>
 							</tr>			
 						</tbody>
