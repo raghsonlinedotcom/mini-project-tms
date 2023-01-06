@@ -106,6 +106,22 @@
 							<td>${employeeBO.managerId}</td>
 						</tr>
 						<tr>
+							<td>Created Date</td>
+							<td>${employeeBO.createdDate}</td>
+						</tr>
+						<tr>
+							<td>Created By</td>
+							<td>${employeeBO.createdBy}</td>
+						</tr>
+						<tr>
+							<td>Updated Date</td>
+							<td>${employeeBO.updatedDate}</td>
+						</tr>
+						<tr>
+							<td>Updated By</td>
+							<td>${employeeBO.updatedBy}</td>
+						</tr>
+						<tr>
 							<td colspan="2">
 								<!-- <form id="editForm" name="EditForm" action="Edit" action="post">
 									<input type="submit" name="Edit" Value="Edit"/>
