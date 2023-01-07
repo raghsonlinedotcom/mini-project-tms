@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -19,8 +18,8 @@ import com.raghsonline.miniprojects.tms.util.AppUtil;
 /**
  * Servlet implementation class ViewServlet
  */
-@WebServlet({ "/ViewMyDetailsServlet", "/ViewMyDetails" })
-public class ViewMyDetailsServlet extends HttpServlet 
+@WebServlet({ "/ViewEmployeeDetailsServlet", "/ViewEmployeeDetails" })
+public class ViewEmployeeDetailsServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -29,7 +28,7 @@ public class ViewMyDetailsServlet extends HttpServlet
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ViewMyDetailsServlet() {
+	public ViewEmployeeDetailsServlet() {
 		super();
 	}
 
@@ -40,14 +39,17 @@ public class ViewMyDetailsServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{
-		System.out.println("ViewMyDetailsServlet - doGet() invoked");
+		System.out.println("ViewEmployeeDetailsServlet - doGet() invoked");
 
-		// 1. Get the Employee Data from the session
+		// 1. Get the Employee Data from the request
 
-		int empId;
-		HttpSession session = request.getSession(true);
-		EmployeeBO employeeBO = (EmployeeBO) session.getAttribute("employeeBO");
-		empId = employeeBO.getEmpId();
+		int empId = 0;
+		String empIdStr = request.getParameter("empId");
+		
+		if(null!=empIdStr && empIdStr.trim().length()>0) {
+			empId = Integer.parseInt(empIdStr);
+		}
+		EmployeeBO employeeBO = new EmployeeBO();
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		try {
 			employeeBO = employeeDAO.getEmployeeByEmpId(empId);
@@ -67,6 +69,6 @@ public class ViewMyDetailsServlet extends HttpServlet
 		request.setAttribute("employeeBO", employeeBO);
 
 		// 3. Forward / Delegate the control/flow the required JSP Page
-		request.getRequestDispatcher("/member/view.jsp").forward(request, response);
+		request.getRequestDispatcher("/manager/viewemployee.jsp").forward(request, response);
 	}
 }

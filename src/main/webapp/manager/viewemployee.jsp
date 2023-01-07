@@ -1,7 +1,7 @@
 <%@ page import="com.raghsonline.miniprojects.tms.bo.EmployeeBO" %>
 <%@include file="../inc/header.jsp" %>
 
-		<h1>View My Details</h1>
+		<h1>View Employee Details</h1>
 		
 		<%
 			EmployeeBO employeeBO = (EmployeeBO) request.getAttribute("employeeBO");
@@ -22,11 +22,11 @@
 		
 			if(null!=employeeBO) 
 			{
-				session.setAttribute("employeeBO", employeeBO);
+				
 		%>
 				<table class="table table-striped table-hover table-bordered 
 						table-responsive caption-top">
-					<caption>View My Details</caption>
+					<caption>View Employee Details</caption>
 					<thead>
 						<tr>
 							<td>Field</td>
@@ -120,16 +120,7 @@
 						<tr>
 							<td>Updated By</td>
 							<td>${employeeBO.updatedBy}</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<!-- <form id="editForm" name="EditForm" action="Edit" action="post">
-									<input type="submit" name="Edit" Value="Edit"/>
-								</form>-->
-								<a href="<%=request.getContextPath()%>/member/edit.jsp">Edit</a> &nbsp;&nbsp;
-			
-							</td>
-						</tr>			
+						</tr>	
 					</tbody>
 				</table>
 		<%

@@ -243,7 +243,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				employeeBO.setCreatedDate(rs.getTimestamp("CREATED_DATE"));
 				employeeBO.setCreatedBy(rs.getString("CREATED_BY"));
 				employeeBO.setUpdatedDate(rs.getTimestamp("UPDATED_DATE"));
-				employeeBO.setUpdatedBy(rs.getString("UPDATEDBY"));
+				employeeBO.setUpdatedBy(rs.getString("UPDATED_BY"));
 				
 			}
 		} catch (SQLException sqlException) {
@@ -283,8 +283,8 @@ public class EmployeeDAOImpl implements EmployeeDAO
 
 	public EmployeeBO verifyEmployee(int idParam, String passwordParam)
 	{
-		logger.info("verifyEmployee - idParam, passwordParam :: " 
-				+ idParam + "," + passwordParam);
+		logger.info("verifyEmployee - idParam :: " 
+				+ idParam);
 
 		String sql = "SELECT * FROM EMPLOYEE WHERE EMP_ID=? AND PASSWORD =?";
 
