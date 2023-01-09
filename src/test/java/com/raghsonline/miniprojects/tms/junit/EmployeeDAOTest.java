@@ -413,7 +413,7 @@ public class EmployeeDAOTest
 	@DisplayName("Delete Employee by EmpId")
 	public void testEmployeeDeleteByEmpId() {
 		logger.info("EmployeeDeleteJUnitTest - Invoked");
-		testEmployeeDeleteByEmpId(137);
+		testEmployeeDeleteByEmpId(140);
 	}
 
 	public void testEmployeeDeleteByEmpId(int empId) {

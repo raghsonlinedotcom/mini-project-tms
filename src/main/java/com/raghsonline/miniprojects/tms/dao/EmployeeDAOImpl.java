@@ -363,7 +363,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 
 		String sql = "UPDATE EMPLOYEE SET " + "FIRST_NAME=?, LAST_NAME=?, CITY=?, PERSONAL_EMAIL=?,"
 				+ " PRIMARY_CONTACT_NO=?, SECONDARY_CONTACT_NO=?," + " HIGHEST_QUALIFICATION=?, SKILLSETS =?,"
-				+ " HOBBIES = ? WHERE EMP_ID= ?";
+				+ " HOBBIES = ?,UPDATED_DATE=?,UPDATED_BY=? WHERE EMP_ID= ?";
 
 		logger.info("SQL Query :: " + sql);
 		Connection conn = null;
@@ -385,7 +385,9 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			pStmt.setString(7, employeeBO.getHighestQualification());
 			pStmt.setString(8, employeeBO.getSkillsets());
 			pStmt.setString(9, employeeBO.getHobbies());
-			pStmt.setInt(10, employeeBO.getEmpId());
+			pStmt.setTimestamp(10, employeeBO.getUpdatedDate());
+			pStmt.setString(11, employeeBO.getUpdatedBy());
+			pStmt.setInt(12, employeeBO.getEmpId());
 			
 			recordsUpdated = pStmt.executeUpdate();
 			
