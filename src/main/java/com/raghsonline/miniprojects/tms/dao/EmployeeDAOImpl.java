@@ -617,7 +617,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		String sql = "UPDATE EMPLOYEE SET " + "FIRST_NAME=?, LAST_NAME=?, DATE_OF_BIRTH = ?,"
 				+ " GENDER =?, AADHAR_ID = ?, BLOOD_GROUP = ?, CITY=?, PERSONAL_EMAIL=?, OFFICIAL_EMAIL=?,"
 				+ " PRIMARY_CONTACT_NO=?, SECONDARY_CONTACT_NO=?, HIGHEST_QUALIFICATION=?, SKILLSETS =?,"
-				+ " DATE_OF_JOINING =?, HOBBIES = ?,IS_ACTIVE = ?, UPDATED_BY = ?"
+				+ " DATE_OF_JOINING =?, HOBBIES = ?,IS_ACTIVE = ?,UPDATED_DATE=?, UPDATED_BY = ?"
 				+ " WHERE MANAGER_ID= ? AND EMP_ID = ?";
 
 		logger.info("SQL Query :: " + sql);
@@ -647,9 +647,10 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			pStmt.setDate(14, (java.sql.Date) employeeBO.getDateOfJoining());
 			pStmt.setString(15, employeeBO.getHobbies());
 			pStmt.setBoolean(16, employeeBO.isActive());
-			pStmt.setString(17, employeeBO.getUpdatedBy());
-			pStmt.setInt(18, employeeBO.getManagerId());
-			pStmt.setInt(19, employeeBO.getEmpId());
+			pStmt.setTimestamp(17, employeeBO.getUpdatedDate());
+			pStmt.setString(18, employeeBO.getUpdatedBy());
+			pStmt.setInt(19, employeeBO.getManagerId());
+			pStmt.setInt(20, employeeBO.getEmpId());
 			
 			recordsUpdated = pStmt.executeUpdate();
 			

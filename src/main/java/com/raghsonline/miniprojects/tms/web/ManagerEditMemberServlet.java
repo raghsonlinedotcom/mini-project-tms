@@ -17,7 +17,7 @@ import com.raghsonline.miniprojects.tms.util.AppUtil;
 /**
  * Servlet implementation class ManagerEditMemberServlet
  */
-@WebServlet({ "/ManagerEditMemberServlet", "/ManagerEditMember1" })
+@WebServlet({ "/ManagerEditMemberServlet", "/ManagerEditMember" })
 
 public class ManagerEditMemberServlet extends HttpServlet 
 {

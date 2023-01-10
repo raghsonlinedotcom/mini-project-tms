@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -21,7 +22,7 @@ import com.raghsonline.miniprojects.tms.util.AppUtil;
 /**
  * Servlet implementation class ManagerUpdateMemberServlet
  */
-@WebServlet({"/ManagerUpdateMemberServlet", "/ManagerEditMember"})
+@WebServlet({"/ManagerUpdateMemberServlet", "/ManagerUpdateMember"})
 public class ManagerUpdateMemberServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
@@ -46,6 +47,8 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 	IOException 
 	{
 		logger.info("ManagerUpdateMemberServlet Servlet - doPost() invoked");
+		HttpSession session = request.getSession(true);
+		EmployeeBO employeeBOSession = (EmployeeBO) session.getAttribute("employeeBO");
 		
 		String errorMsgUI = "<ul>";
 		EmployeeBO employeeBO= new EmployeeBO();
@@ -120,6 +123,11 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		logger.info("Param - hobbies : [" + hobbies + "]");
 		errorMsgUI = validateHobbiesField(employeeBO, hobbies, "hobbies", errorMsgUI);
 		
+		String isActiveStr = request.getParameter("isActive");
+		Boolean isActive = (Boolean) (isActiveStr != null ? Boolean.parseBoolean(isActiveStr) : false);
+		logger.info("Param - isActive: [" + isActive + "]");
+		employeeBO.setActive(isActive);
+		
 		String manageridStr = request.getParameter("managerId");
 		int managerid = manageridStr != null ? Integer.parseInt(manageridStr) : 0;
 		logger.info("Param - managerId : [" + managerid + "]");
@@ -129,7 +137,7 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		Timestamp utilDate =java.sql.Timestamp.valueOf(ldt);
 		employeeBO.setUpdatedDate(utilDate);
 		
-		String updatedBy=  employeeBO.getFirstName() + " " + employeeBO.getLastName();
+		String updatedBy=  employeeBOSession.getFirstName() + " " + employeeBOSession.getLastName();
 		logger.info("Param - updatedBy : [" + updatedBy + "]");
 		errorMsgUI = validateField(employeeBO, updatedBy, "updatedBy", errorMsgUI);
 		
@@ -139,7 +147,7 @@ public class ManagerUpdateMemberServlet extends HttpServlet
         	request.setAttribute("errorMsgUI", errorMsgUI);
         	request.setAttribute("employeeBO", employeeBO);
         	validationError = false;
-        	request.getRequestDispatcher("/manager/managerEditMember.jsp").forward(request, response);
+        	request.getRequestDispatcher("/manager/managereditmember.jsp").forward(request, response);
         	return;
         }
 
@@ -160,6 +168,7 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		employeeBO.setSkillsets(skillsets);
 		employeeBO.setDateOfJoining(dateOfJoining);
 		employeeBO.setHobbies(hobbies);
+		employeeBO.setActive(isActive);
 		employeeBO.setUpdatedBy(updatedBy);
 
 		String exceptionMsg = null;
@@ -214,7 +223,7 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		{
 			request.setAttribute("errorMsg", "Error while updating the record!");
 			request.setAttribute("employeeBO", employeeBO);
-			url = "/manager/managerEditMember.jsp";
+			url = "/manager/managereditmember.jsp";
 		}
 		
 		// 5. Redirect/Delegate to the corresponding view
