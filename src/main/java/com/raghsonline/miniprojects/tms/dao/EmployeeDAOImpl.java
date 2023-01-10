@@ -677,4 +677,46 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		
 		return recordsUpdated;
 	}
+
+	@Override
+	public int deleteData(int empId) throws Exception {
+		logger.info("deleteData :: " + empId);
+
+		String sql = "DELETE FROM EMPLOYEE WHERE EMP_ID = ?";
+
+		logger.info("SQL Query :: " + sql);
+		Connection conn = null;
+		PreparedStatement pStmt = null;
+		int rowsDeleted = 0;
+		
+		try
+		{
+			conn = DBConnection.getConn();
+			pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, empId);
+			rowsDeleted = pStmt.executeUpdate();
+			
+			logger.info("recordsUpdated : " + rowsDeleted);
+			
+		} catch (Exception exception) {
+			logger.error("Exception occurred while deleting employee"
+					+ "the data from the Database Table");
+			logger.error("Message : " + exception.getMessage());
+		} finally {
+			try {
+				if (null != pStmt)
+					pStmt.close();
+				if (null != conn)
+					conn.close();
+			} catch (SQLException sqlException) {
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
+				if(AppUtil.isAppDevMode) {
+					sqlException.printStackTrace();
+				}
+			}
+		}
+		
+		return rowsDeleted;
+	}
 }

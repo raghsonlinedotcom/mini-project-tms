@@ -23,4 +23,6 @@ public interface EmployeeDAO {
 	public abstract int deleteEmployee (int empId) throws Exception;
 	
 	public abstract int managerEditMember(EmployeeBO employeeBO) throws Exception;
+	//Delete Method for JUnit
+	public abstract int deleteData (int empId) throws Exception;
 }

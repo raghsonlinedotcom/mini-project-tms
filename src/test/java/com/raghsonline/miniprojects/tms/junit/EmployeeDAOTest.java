@@ -32,31 +32,192 @@ public class EmployeeDAOTest
 	static int empId;
 
 	@BeforeEach
-	public void before() {
+	public void before()
+	{
 		empId = 1;
-		logger.info("Before..., empId = " + empId);
-		// TODO: Conditionally insert Balaji -record (EMP ID #81)
+		logger.info("------- Before Each Invoked ---------");
+		logger.info("BeforeEach..., empId = " + empId);
+		//  Conditionally insert Balaji -record (EMP ID #81)
+		
+		EmployeeBO employeeBO = new EmployeeBO();
+
+		Date dob = new Date(1986 - 9 - 13);
+		Date doj = new Date(2014 - 01 - 01);
+
+		employeeBO.setEmpId(81);
+		employeeBO.setFirstName("Balaji");
+		employeeBO.setLastName("Jayavelu");
+		employeeBO.setDateOfBirth(dob);
+		employeeBO.setGender('M');
+		employeeBO.setAadharId("232323456788");
+		employeeBO.setBloodGroup("B+ve");
+		employeeBO.setCity("Bengaluru");
+		employeeBO.setPersonalEmail("balaji@gmail.com");
+		employeeBO.setOfficialEmail("balaji@office.com");
+		employeeBO.setPassword("Balaji@123");
+		employeeBO.setPrimaryContactNo("9804612341");
+		employeeBO.setSecondaryContactNo("9999451111");
+		employeeBO.setHighestQualification("BTech");
+		employeeBO.setSkillsets("Java, TOGAF");
+		employeeBO.setDateOfJoining(doj);
+		employeeBO.setHobbies("Cycling, Coding");
+		employeeBO.setManagerId(140);
+		
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+
+		try
+		{
+			employeeDAO.createEmployee(employeeBO);
+			logger.info("EmployeeBO has been successfully created with Emp_Id = " + employeeBO.getEmpId());
+		} 
+		catch (Exception exception) 
+		{
+			logger.error("Exception while creating an EmployeeBO");
+			logger.error("Error Message : " + exception.getMessage());
+			if (AppUtil.isAppDevMode) 
+			{
+				exception.printStackTrace();
+			}
+		}
 	}
 
 	@BeforeAll
-	public static void beforeAll() {
+	public static void beforeAll()
+	{
 		empId = 0;
+		logger.info("------- Before All Invoked ---------");
 		logger.info("BeforeAll..., empId = " + empId);
-		// TODO: Conditionally insert Raghavan -record (EMP ID #140)
+		//  Conditionally insert Raghavan -record (EMP ID #140)
+		
+		EmployeeBO employeeBO = new EmployeeBO();
+
+		Date dob = new Date(1981 - 01 - 01);
+		Date doj = new Date(2022 - 05 - 01);
+
+		employeeBO.setEmpId(140);
+		employeeBO.setFirstName("Raghavan");
+		employeeBO.setLastName("Muthu");
+		employeeBO.setDateOfBirth(dob);
+		employeeBO.setGender('M');
+		employeeBO.setAadharId("123456789876");
+		employeeBO.setBloodGroup("B+ve");
+		employeeBO.setCity("Bengaluru");
+		employeeBO.setPersonalEmail("raghavan.muthu@gmail.com");
+		employeeBO.setOfficialEmail("raghavan.muthu@milvik.se");
+		employeeBO.setPassword("Raghavan@muthu");
+		employeeBO.setPrimaryContactNo("8095261616");
+		employeeBO.setSecondaryContactNo("9848022338");
+		employeeBO.setHighestQualification("MTech");
+		employeeBO.setSkillsets("Java, MySQL, Spring, HTML, CSS, TOGAF");
+		employeeBO.setDateOfJoining(doj);
+		employeeBO.setHobbies("Training young freshers, Playing Cricket, Reading Books");
+		employeeBO.setManagerId(0);
+		
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+
+		try
+		{
+			employeeDAO.createEmployee(employeeBO);
+			logger.info("EmployeeBO has been successfully created with Emp_Id = " + employeeBO.getEmpId());
+		} 
+		catch (Exception exception)
+		{
+			logger.error("Exception while creating an EmployeeBO");
+			logger.error("Error Message : " + exception.getMessage());
+			if (AppUtil.isAppDevMode)
+			{
+				exception.printStackTrace();
+			}
+		}
 	}
 
 	@AfterEach
-	public void after() {
-		empId = -1;
-		logger.info("after..., empId = " + empId);
-		// TODO: Conditionally delete Balaji -record
+	public void after()
+	{
+		empId = 81;
+		logger.info("------- After Each Invoked ---------");
+		logger.info("afterEach..., empId = " + empId);
+		// Conditionally delete Balaji -record
+		
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+
+		int recordsDeleted = 0;
+		
+		try 
+		{
+			recordsDeleted = employeeDAO.deleteData(empId);
+			logger.info("recordsDeleted  : " + recordsDeleted);
+			logger.info("recordsDeleted with empId =" + empId );
+		} 
+		catch (Exception exception) 
+		{
+			logger.error("Exception while deleteing  an Employee with the EmpId - " + empId);
+			logger.error("Error Message : " + exception.getMessage());
+			
+			if (AppUtil.isAppDevMode) 
+			{
+				exception.printStackTrace();
+			}
+		}
 	}
 
 	@AfterAll
-	public static void afterAll() {
-		empId = -2;
+	public static void afterAll() 
+	{
+		empId = 140;
+		logger.info("------- After All Invoked ---------");
 		logger.info("afterAll, empId = " + empId);
-		// TODO: Conditionally delete Raghavan -record
+		//Conditionally "delete" Raghavan -record And
+		//Conditionally "insert" Raghavan -record (EMP ID #140)
+		
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+		
+		EmployeeBO employeeBO = new EmployeeBO();
+
+		Date dob = new Date(1981 - 01 - 01);
+		Date doj = new Date(2022 - 05 - 01);
+
+		employeeBO.setEmpId(140);
+		employeeBO.setFirstName("Raghavan");
+		employeeBO.setLastName("Muthu");
+		employeeBO.setDateOfBirth(dob);
+		employeeBO.setGender('M');
+		employeeBO.setAadharId("123456789876");
+		employeeBO.setBloodGroup("B+ve");
+		employeeBO.setCity("Bengaluru");
+		employeeBO.setPersonalEmail("raghavan.muthu@gmail.com");
+		employeeBO.setOfficialEmail("raghavan.muthu@milvik.se");
+		employeeBO.setPassword("Raghavan@muthu");
+		employeeBO.setPrimaryContactNo("8095261616");
+		employeeBO.setSecondaryContactNo("9848022338");
+		employeeBO.setHighestQualification("MTech");
+		employeeBO.setSkillsets("Java, MySQL, Spring, HTML, CSS, TOGAF");
+		employeeBO.setDateOfJoining(doj);
+		employeeBO.setHobbies("Training young freshers, Playing Cricket, Reading Books");
+		employeeBO.setManagerId(0);
+
+		int recordsDeleted = 0;
+		
+		try 
+		{
+			recordsDeleted = employeeDAO.deleteData(empId);
+			logger.info("recordsDeleted  : " + recordsDeleted);
+			logger.info("recordsDeleted with empId =" + empId );
+
+			employeeDAO.createEmployee(employeeBO);
+			logger.info("EmployeeBO has been successfully created with Emp_Id = " + employeeBO.getEmpId());
+		} 
+		catch (Exception exception) 
+		{
+			logger.error("Exception while deleteing  an Employee with the EmpId - " + empId);
+			logger.error("Exception while creating an EmployeeBO");
+			logger.error("Error Message : " + exception.getMessage());
+			
+			if (AppUtil.isAppDevMode)
+			{
+				exception.printStackTrace();
+			}
+		}
 	}
 
 	public static void main(String[] args) {
@@ -278,7 +439,6 @@ public class EmployeeDAOTest
 		logger.info("getEmployeeByEmpId()  invoked");
 		getEmployeeByEmpId(81);
 	}
-
 	public void getEmployeeByEmpId(int empId) 
 	{
 		logger.info("getEmployeeByEmpId()  invoked - empId:" + empId);
@@ -309,7 +469,7 @@ public class EmployeeDAOTest
 	@DisplayName("EmployeeView JUnitTest")
 	public void testEmployeeView() 
 	{
-		logger.info("------EmployeeViewJUnitTest - Invoked----------");	
+		logger.info("----------- EmployeeViewJUnitTest - Invoked ------------");	
 		testEmployeeView(140);
 	}
 	
@@ -353,19 +513,19 @@ public class EmployeeDAOTest
 	@DisplayName("EmployeeEdit JUnitTest of an employee")
 	public void employeeEditTest() 
 	{
-		logger.info("-------EmployeeEditJUnitTest - Invoked----------");
+		logger.info("----------- EmployeeEditJUnitTest - Invoked --------------");
 		
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		EmployeeBO employeeBO = new EmployeeBO();
 
-		employeeBO.setFirstName("ArunJUnit");
-		employeeBO.setLastName("Prasad");
-		employeeBO.setCity("Kakinada");
-		employeeBO.setPersonalEmail("arunJunit@gmail.com");
-		employeeBO.setPrimaryContactNo("7288822559");
-		employeeBO.setHighestQualification("BTech");
+		employeeBO.setFirstName("BalajiJUnit");
+		employeeBO.setLastName("Jayavelu Junit");
+		employeeBO.setCity("Bengalore");
+		employeeBO.setPersonalEmail("balajiJunit@gmail.com");
+		employeeBO.setPrimaryContactNo("7296345789");
+		employeeBO.setHighestQualification("MTech");
 		employeeBO.setSkillsets("Java,JUnit,MYSQL,HTML,JS");
-		employeeBO.setEmpId(137);
+		employeeBO.setEmpId(81);
 		int recordsUpdated = 0;
 
 		try 
@@ -441,7 +601,7 @@ public class EmployeeDAOTest
 	@DisplayName("ManagerSelfView JUnitTest")
 	public void testManagerSelfView() 
 	{
-		logger.info("------ManagerSelfView JUnitTest - Invoked----------");	
+		logger.info("------------- ManagerSelfView JUnitTest - Invoked --------------");	
 		testManagerSelfView(140);
 	}
 	
@@ -474,5 +634,42 @@ public class EmployeeDAOTest
 		logger.info("ManagerId :" + employeeBO.getManagerId());
 		assertNotNull(employeeBO);
 		assertTrue(employeeBO.getManagerId() == 0);
+	}
+	
+	@Test
+	@DisplayName("Manager View Member JUnitTest")
+	public void testManagerView() 
+	{
+		logger.info("----------- ManagerView() invoked ----------" );
+		
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+		EmployeeBO employeeBO = null;
+		
+		try 
+		{
+			employeeBO = employeeDAO.getEmployeeByEmpId(81);	
+			logger.info("EmployeeBO : " + employeeBO);
+			if(null==employeeBO)
+			{
+				logger.info("There is NO Matching Record For the given empId : " + 81);
+			}
+		}
+		catch (Exception exception) 
+		{
+			logger.error("Exception while fetching an Employee with the EmpId - " + 81);
+			logger.error("Error Message : " + exception.getMessage());
+			if(AppUtil.isAppDevMode) 
+			{
+				exception.printStackTrace();
+			}
+			fail("Employee getEmployeeByEmpId() failed - " + exception.getMessage());
+		}
+		logger.info("ManagerId :" + employeeBO.getManagerId());
+		assertNotNull(employeeBO);
+		assertTrue(employeeBO.getManagerId() == 140);
+		java.util.Date time = new java.util.Date();
+		logger.info("Current Time :"+ time);
+		logger.info("Created Time :" + employeeBO.getCreatedDate());
+		assertTrue(employeeBO.getCreatedDate() !=  time );
 	}
 }

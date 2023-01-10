@@ -67,7 +67,8 @@
 						{
 							out.println("<td>" + "<a href='ViewEmployeeDetails?empId=" + 
 							employeeBO.getEmpId() + "'>View " + "</a> "+  "</td>");
-							out.println("<td>" + "Edit"+ "</td>");
+							out.println("<td>" + "<a href='ManagerEditMember1?empId=" + 
+							employeeBO.getEmpId() + "'>Edit " + "</a> "+  "</td>");
 	
 						}
 					out.println("</tr>");
