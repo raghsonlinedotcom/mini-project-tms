@@ -72,7 +72,7 @@
 		<%		
 			} else {
 		%>	
-				<form id="updateForm" name="UpdateForm" action="<%=request.getContextPath()%>/UpdateEmployee" method="post">
+				<form id="updateForm" name="UpdateForm" action="<%=request.getContextPath()%>/ManagerUpdateMember" method="post">
 					<table class="table table-striped table-hover table-bordered 
 					table-responsive caption-top">
 						
@@ -110,7 +110,7 @@
 							<tr>
 								<td>Date Of Birth</td>
 								<td>
-									<input readonly  type="date" class="form-control"  id="dob" name="dob" 
+									<input type="date" class="form-control"  id="dob" name="dob" 
 										min="1960-01-01" max="2004-01-01"  
 										placeholder="Your dob" value="${employeeBO.dateOfBirth}"
 										required/>
@@ -119,13 +119,13 @@
 						<tr>
 						<td>Gender</td>
 						<td>
-						<input  type="radio" name="gender" id="genderM" value="M" onclick="return false;"
+						<input  type="radio" name="gender" id="genderM" value="M" 
 									<%
                                         if(employeeBO.getGender()=='M') {
                                             out.println(" checked");
                                         }
                                     %>>M
-						<input type="radio" name="gender" id="genderF" value="F" onclick="return false;"
+						<input type="radio" name="gender" id="genderF" value="F"
 									<%
                                         if(employeeBO.getGender()=='F') {
                                             out.println(" checked");
@@ -136,7 +136,7 @@
 							<tr>
 								<td>AadharId </td>
 								<td>
-										<input readonly  type="number" class="form-control" id="aadharId" name="aadharId" size="12" 
+										<input type="number" class="form-control" id="aadharId" name="aadharId" size="12" 
 										placeholder="Your AadharId" 
 										value="${employeeBO.aadharId}" required/>
 								</td>
@@ -144,17 +144,16 @@
 							<tr>
 						<td> BloodGroup </td>
 						<td>
-							<select class="form-select" aria-label=".select example" style= background-color:#CCCACA; name="bloodGroup" 
-							          id="bloodGroup" required>
+							<select class="form-select" aria-label=".select example" name="bloodGroup" id="bloodGroup" required>
                        		  	<option value="${employeeBO.bloodGroup}">${employeeBO.bloodGroup}</option>
-			                    <option value="A+ve" disabled style= background-color:gray; >A+ve</option>
-			                    <option value="O+ve" disabled style= background-color:gray; >O+ve</option>
-			                    <option value="B+ve" disabled style= background-color:gray; >B+ve</option>
-			                    <option value="AB+ve" disabled style= background-color:gray;>AB+ve</option>
-			                    <option value="A-ve" disabled style= background-color:gray; >A-ve</option>
-			                    <option value="O-ve" disabled style= background-color:gray; >O-ve</option>
-			                    <option value="B-ve" disabled style= background-color:gray; >B-ve</option>
-			                    <option value="AB-ve" disabled style= background-color:gray;>AB-ve</option> 
+			                    <option value="A+ve"  >A+ve</option>
+			                    <option value="O+ve"  >O+ve</option>
+			                    <option value="B+ve"  >B+ve</option>
+			                    <option value="AB+ve" >AB+ve</option>
+			                    <option value="A-ve"  >A-ve</option>
+			                    <option value="O-ve"  >O-ve</option>
+			                    <option value="B-ve"  >B-ve</option>
+			                    <option value="AB-ve" >AB-ve</option> 
 			                </select>
 			               
 						</td>
@@ -181,7 +180,7 @@
 					<tr>
 						<td>OfficialEmail</td>
 						<td>
-							<input  readonly type="Email" class="form-control" 
+							<input type="Email" class="form-control" 
 	                    id="officialEmail" name="officialEmail" 
 	                    size="40"    maxlength="40" placeholder="your email"  value="${employeeBO.officialEmail}"
 								required />
@@ -230,7 +229,7 @@
 					<tr>
 						<td>Date Of Joining </td>
 						<td>
-							<input  readonly type="date" class="form-control" 
+							<input type="date" class="form-control" 
 								id="doj" name="doj"  value="${employeeBO.dateOfJoining}"
 								required />
 						</td>
@@ -248,6 +247,23 @@
 	    						</div>
 						</td>
 					</tr>
+				<tr>
+						<td>Is Active</td>
+						<td>
+						<input  type="radio" name="isActive" id="isActive" value="true" 
+									<%
+                                        if(employeeBO.isActive()==true) {
+                                            out.println(" checked");
+                                        }
+                                    %>>True
+						<input type="radio" name="isActive" id="isActive" value="false"
+									<%
+                                        if(employeeBO.isActive()==false) {
+                                            out.println(" checked");
+                                        }
+                                    %>>False
+                     </td>
+					 </tr>	
 					<tr>
 						<td> Manager Id </td>
 						<td>
