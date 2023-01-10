@@ -240,6 +240,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				employeeBO.setDateOfJoining(rs.getDate("DATE_OF_JOINING"));
 				employeeBO.setHobbies(rs.getString("HOBBIES"));
 				employeeBO.setManagerId(rs.getInt("MANAGER_ID"));
+				employeeBO.setActive(rs.getBoolean("IS_ACTIVE"));
 				employeeBO.setCreatedDate(rs.getTimestamp("CREATED_DATE"));
 				employeeBO.setCreatedBy(rs.getString("CREATED_BY"));
 				employeeBO.setUpdatedDate(rs.getTimestamp("UPDATED_DATE"));

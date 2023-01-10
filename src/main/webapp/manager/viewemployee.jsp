@@ -106,6 +106,10 @@
 							<td>${employeeBO.managerId}</td>
 						</tr>
 						<tr>
+							<td>Is active</td>
+							<td>${employeeBO.active}</td>
+						</tr>
+						<tr>
 							<td>Created Date</td>
 							<td>${employeeBO.createdDate}</td>
 						</tr>
