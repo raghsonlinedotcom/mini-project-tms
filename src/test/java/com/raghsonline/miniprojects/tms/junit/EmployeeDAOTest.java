@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -672,4 +674,62 @@ public class EmployeeDAOTest
 		logger.info("Created Time :" + employeeBO.getCreatedDate());
 		assertTrue(employeeBO.getCreatedDate() !=  time );
 	}
+	@Test
+	@DisplayName("ManagerEditMember JUnitTest ")
+	public void TestmanagerEdit() 
+	{
+		logger.info("----------- ManagerEditMemberJUnitTest - Invoked --------------");
+		
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+		EmployeeBO employeeBO = new EmployeeBO();
+
+		Date dob = new Date(1999-11-13);
+		Date doj = new Date(2022-04-13);
+		
+		employeeBO.setFirstName("Arun Prasad");
+		employeeBO.setLastName("Vizag");
+		employeeBO.setDateOfBirth(dob);
+		employeeBO.setGender('M');
+		employeeBO.setAadharId("123456789012");
+		employeeBO.setBloodGroup("B+ve");
+		employeeBO.setCity("Vizag");
+		employeeBO.setPersonalEmail("Arun@123gmail.com");
+		employeeBO.setOfficialEmail("Arun@office.com");
+		employeeBO.setPassword("Arun@123");
+		employeeBO.setPrimaryContactNo("7274767870");
+		employeeBO.setSecondaryContactNo("9193959799");
+		employeeBO.setHighestQualification("BE");
+		employeeBO.setSkillsets("Java");
+		employeeBO.setDateOfJoining(doj);
+		employeeBO.setHobbies("Playing Cricket,Listening to Music,Coding");
+		employeeBO.setManagerId(140);
+		employeeBO.setActive(true);
+		LocalDateTime ldt = LocalDateTime.now();
+		Timestamp utilDate =java.sql.Timestamp.valueOf(ldt);
+		employeeBO.setUpdatedDate(utilDate);
+		//Since this is test method we are hardcoding updatedBy with "Raghavan Muthu" --Manager of Arun Prasad
+		employeeBO.setUpdatedBy("Raghavan Muthu");
+		employeeBO.setEmpId(200);
+		
+		int recordsUpdated = 0;
+
+		try 
+		{
+			recordsUpdated = employeeDAO.managerEditMember(employeeBO);
+			logger.info("EmployeeBO : " + employeeBO);
+		} 
+		catch (Exception exception) 
+		{
+			logger.error("Exception occurred while updating the data into the Database Table");
+			logger.error("Error Message : " + exception.getMessage());
+			if (AppUtil.isAppDevMode) 
+			{
+				exception.printStackTrace();
+			}
+		}
+		logger.info("recordsUpdated  : " + recordsUpdated);
+		assertTrue(recordsUpdated>0);
+		
+		}
 }
+
