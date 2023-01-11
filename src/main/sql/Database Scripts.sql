@@ -30,7 +30,7 @@ CREATE TABLE EMPLOYEE (
     CREATED_DATE TIMESTAMP NOT NULL default now(),
     CREATED_BY VARCHAR(20) NOT NULL DEFAULT "SYSTEM",
     UPDATED_DATE TIMESTAMP default now(),
-    UPDATED_BY VARCHAR(20)  
+    UPDATED_BY INT  
 );
 
 ---- Sample Values for Employee Table (DML) ---

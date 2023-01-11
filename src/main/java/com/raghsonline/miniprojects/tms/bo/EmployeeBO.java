@@ -51,7 +51,7 @@ public class EmployeeBO {
 	
 	private Timestamp updatedDate;
 	
-	private String updatedBy;
+	private int updatedBy;
 
 	public EmployeeBO() {
 	}
@@ -258,11 +258,11 @@ public class EmployeeBO {
 		this.updatedDate = updatedDate;
 	}
 
-	public String getUpdatedBy() {
+	public int getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(String updatedBy) {
+	public void setUpdatedBy(int updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

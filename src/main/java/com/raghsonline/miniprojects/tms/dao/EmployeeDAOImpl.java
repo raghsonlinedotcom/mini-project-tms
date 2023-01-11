@@ -244,7 +244,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				employeeBO.setCreatedDate(rs.getTimestamp("CREATED_DATE"));
 				employeeBO.setCreatedBy(rs.getString("CREATED_BY"));
 				employeeBO.setUpdatedDate(rs.getTimestamp("UPDATED_DATE"));
-				employeeBO.setUpdatedBy(rs.getString("UPDATED_BY"));
+				employeeBO.setUpdatedBy(rs.getInt("UPDATED_BY"));
 				
 			}
 		} catch (SQLException sqlException) {
@@ -387,7 +387,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			pStmt.setString(8, employeeBO.getSkillsets());
 			pStmt.setString(9, employeeBO.getHobbies());
 			pStmt.setTimestamp(10, employeeBO.getUpdatedDate());
-			pStmt.setString(11, employeeBO.getUpdatedBy());
+			pStmt.setInt(11, employeeBO.getUpdatedBy());
 			pStmt.setInt(12, employeeBO.getEmpId());
 			
 			recordsUpdated = pStmt.executeUpdate();
@@ -649,7 +649,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			pStmt.setString(15, employeeBO.getHobbies());
 			pStmt.setBoolean(16, employeeBO.isActive());
 			pStmt.setTimestamp(17, employeeBO.getUpdatedDate());
-			pStmt.setString(18, employeeBO.getUpdatedBy());
+			pStmt.setInt(18, employeeBO.getUpdatedBy());
 			pStmt.setInt(19, employeeBO.getManagerId());
 			pStmt.setInt(20, employeeBO.getEmpId());
 			

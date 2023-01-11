@@ -137,7 +137,7 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		Timestamp utilDate =java.sql.Timestamp.valueOf(ldt);
 		employeeBO.setUpdatedDate(utilDate);
 		
-		String updatedBy=  employeeBOSession.getFirstName() + " " + employeeBOSession.getLastName();
+		int updatedBy=  employeeBOSession.getEmpId();
 		logger.info("Param - updatedBy : [" + updatedBy + "]");
 		errorMsgUI = validateField(employeeBO, updatedBy, "updatedBy", errorMsgUI);
 		
@@ -334,6 +334,8 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 			case "empId":
 				employeeBO.setEmpId(value);
 				break;	
+			case "updatedBy" :
+				employeeBO.setUpdatedBy(value);	
 		}
 	}
 	
@@ -393,8 +395,7 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 				employeeBO.setSkillsets(value);
 			case "hobbies" :
 				employeeBO.setHobbies(value);
-			case "updatedBy" :
-				employeeBO.setUpdatedBy(value);	
+			
 		}
 	}
 }

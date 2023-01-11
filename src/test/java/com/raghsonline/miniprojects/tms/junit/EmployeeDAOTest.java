@@ -708,7 +708,7 @@ public class EmployeeDAOTest
 		Timestamp utilDate =java.sql.Timestamp.valueOf(ldt);
 		employeeBO.setUpdatedDate(utilDate);
 		//Since this is test method we are hardcoding updatedBy with "Raghavan Muthu" --Manager of Arun Prasad
-		employeeBO.setUpdatedBy("Raghavan Muthu");
+		employeeBO.setUpdatedBy(140);
 		employeeBO.setEmpId(137);
 		
 		int recordsUpdated = 0;
