@@ -709,7 +709,7 @@ public class EmployeeDAOTest
 		employeeBO.setUpdatedDate(utilDate);
 		//Since this is test method we are hardcoding updatedBy with "Raghavan Muthu" --Manager of Arun Prasad
 		employeeBO.setUpdatedBy("Raghavan Muthu");
-		employeeBO.setEmpId(200);
+		employeeBO.setEmpId(137);
 		
 		int recordsUpdated = 0;
 
