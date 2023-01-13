@@ -674,6 +674,8 @@ public class EmployeeDAOTest
 		logger.info("Created Time :" + employeeBO.getCreatedDate());
 		assertTrue(employeeBO.getCreatedDate() !=  time );
 	}
+	
+	
 	@Test
 	@DisplayName("ManagerEditMember JUnitTest ")
 	public void testManagerEdit() 
@@ -682,34 +684,67 @@ public class EmployeeDAOTest
 		
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		EmployeeBO employeeBO = new EmployeeBO();
-
-		Date dob = new Date(1999-11-13);
-		Date doj = new Date(2022-04-13);
+		EmployeeBO employeeBOFromDB = null;
+		int empId = 137; //for Arun, whose record we want to update in DB, if it exists
 		
-		employeeBO.setFirstName("Arun Prasad");
-		employeeBO.setLastName("Vizag");
-		employeeBO.setDateOfBirth(dob);
-		employeeBO.setGender('M');
-		employeeBO.setAadharId("123456789012");
-		employeeBO.setBloodGroup("B+ve");
-		employeeBO.setCity("Vizag");
-		employeeBO.setPersonalEmail("Arun@123gmail.com");
-		employeeBO.setOfficialEmail("Arun@office.com");
-		employeeBO.setPassword("Arun@123");
-		employeeBO.setPrimaryContactNo("7274767870");
-		employeeBO.setSecondaryContactNo("9193959799");
-		employeeBO.setHighestQualification("BE");
-		employeeBO.setSkillsets("Java");
-		employeeBO.setDateOfJoining(doj);
-		employeeBO.setHobbies("Playing Cricket,Listening to Music,Coding");
-		employeeBO.setManagerId(140);
-		employeeBO.setActive(true);
-		LocalDateTime ldt = LocalDateTime.now();
-		Timestamp utilDate =java.sql.Timestamp.valueOf(ldt);
-		employeeBO.setUpdatedDate(utilDate);
-		//Since this is test method we are hardcoding updatedBy with "Raghavan Muthu" --Manager of Arun Prasad
-		employeeBO.setUpdatedBy(140);
-		employeeBO.setEmpId(137);
+		try {
+			employeeBOFromDB = employeeDAO.getEmployeeByEmpId(empId);
+			logger.info("employeeBOFromDB : " + employeeBOFromDB);
+		}catch(Exception exception) {
+			logger.error("Exception occurred while getting an employee with the EmpID - " + empId);
+			logger.error("Error Message : " + exception.getMessage());
+
+			if (AppUtil.isAppDevMode) {
+				exception.getStackTrace();
+			}
+		}
+		
+		if(null==employeeBOFromDB) 
+		{
+			int rowsInserted = 0;
+			
+			Date dob = new Date(1999-11-13);
+			Date doj = new Date(2022-04-13);
+			
+			employeeBO.setFirstName("Arun Prasad");
+			employeeBO.setLastName("Vizag");
+			employeeBO.setDateOfBirth(dob);
+			employeeBO.setGender('M');
+			employeeBO.setAadharId("123456789012");
+			employeeBO.setBloodGroup("B+ve");
+			employeeBO.setCity("Vizag");
+			employeeBO.setPersonalEmail("Arun@123gmail.com");
+			employeeBO.setOfficialEmail("Arun@office.com");
+			employeeBO.setPassword("Arun@123");
+			employeeBO.setPrimaryContactNo("7274767870");
+			employeeBO.setSecondaryContactNo("9193959799");
+			employeeBO.setHighestQualification("BE");
+			employeeBO.setSkillsets("Java");
+			employeeBO.setDateOfJoining(doj);
+			employeeBO.setHobbies("Playing Cricket,Listening to Music,Coding");
+			employeeBO.setManagerId(140);
+			employeeBO.setActive(true);
+			LocalDateTime ldt = LocalDateTime.now();
+			Timestamp utilDate =java.sql.Timestamp.valueOf(ldt);
+			employeeBO.setUpdatedDate(utilDate);
+			//Since this is test method we are hardcoding updatedBy with 
+			// "Raghavan Muthu" --Manager of Arun Prasad
+			employeeBO.setUpdatedBy(140);
+			employeeBO.setEmpId(137);
+			
+			try {
+				rowsInserted = employeeDAO.createEmployee(employeeBO);
+				assertTrue(rowsInserted > 0);
+				logger.info("EmployeeBO created successfully - for empId : " + empId);
+			}catch(Exception exception) {
+				logger.error("Exception occurred while creating an employee with the EmpID - " + empId);
+				logger.error("Error Message : " + exception.getMessage());
+
+				if (AppUtil.isAppDevMode) {
+					exception.getStackTrace();
+				}
+			}
+		}
 		
 		int recordsUpdated = 0;
 
@@ -730,5 +765,7 @@ public class EmployeeDAOTest
 		
 		logger.info("recordsUpdated  : " + recordsUpdated);
 		assertTrue(recordsUpdated>0);		
+		assertTrue(employeeBO.getManagerId() == 140);
+		assertTrue(employeeBO.getUpdatedBy() == 140);
 	}
 }

@@ -3,10 +3,10 @@
  */
 package com.raghsonline.miniprojects.tms.junit;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.AfterAll;
