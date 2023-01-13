@@ -248,11 +248,11 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				
 			}
 		} catch (SQLException sqlException) {
-			System.err.println("SQLException occurred while reading the data from the Database Table");
-			System.err.println("Message : " + sqlException.getMessage());
+			logger.error("SQLException occurred while reading the data from the Database Table");
+			logger.error("Message : " + sqlException.getMessage());
 		} catch (Exception exception) {
-			System.err.println("Exception occurred while reading the data from the Database Table");
-			System.err.println("Message : " + exception.getMessage());
+			logger.error("Exception occurred while reading the data from the Database Table");
+			logger.error("Message : " + exception.getMessage());
 		} finally {
 			try {
 				if (null != rs)
@@ -262,21 +262,9 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				if (null != conn)
 					conn.close();
 			} catch (SQLException sqlException) {
-				System.err.println("Exception occurred while reading the data from the Database Table");
-				System.err.println("Message : " + sqlException.getMessage());
-			} finally {
-				try {
-					if (null != rs)
-						rs.close();
-					if (null != stmt)
-						stmt.close();
-					if (null != conn)
-						conn.close();
-				} catch (SQLException sqlException) {
-					System.err.println("Exception occurred while closing the JDBC Resources");
-					System.err.println("Message : " + sqlException.getMessage());
-				}
-			}
+				logger.error("Exception occurred while closing the DB Resource(s)");
+				logger.error("Message : " + sqlException.getMessage());
+			} 
 		}
 
 		return employeeBO;
@@ -349,8 +337,8 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				if (null != conn)
 					conn.close();
 			} catch (SQLException sqlException) {
-				System.err.println("Exception occurred while closing the JDBC Resources");
-				System.err.println("Message : " + sqlException.getMessage());
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
 			}
 		}
 
@@ -480,8 +468,8 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				if (null != conn)
 					conn.close();
 			} catch (SQLException sqlException) {
-				System.err.println("Exception occurred while closing the JDBC Resources");
-				System.err.println("Message : " + sqlException.getMessage());
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
 				if(AppUtil.isAppDevMode) {
 					sqlException.printStackTrace();
 				}
@@ -553,8 +541,8 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				if (null != conn)
 					conn.close();
 			} catch (SQLException sqlException) {
-				System.err.println("Exception occurred while closing the JDBC Resources");
-				System.err.println("Message : " + sqlException.getMessage());
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
 				if(AppUtil.isAppDevMode) {
 					sqlException.printStackTrace();
 				}
@@ -702,7 +690,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			
 		} catch (Exception exception) {
 			logger.error("Exception occurred while deleting employee"
-					+ "the data from the Database Table");
+					+ " from the Database Table");
 			logger.error("Message : " + exception.getMessage());
 		} finally {
 			try {

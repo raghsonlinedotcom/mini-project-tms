@@ -676,7 +676,7 @@ public class EmployeeDAOTest
 	}
 	@Test
 	@DisplayName("ManagerEditMember JUnitTest ")
-	public void TestmanagerEdit() 
+	public void testManagerEdit() 
 	{
 		logger.info("----------- ManagerEditMemberJUnitTest - Invoked --------------");
 		
@@ -727,9 +727,8 @@ public class EmployeeDAOTest
 				exception.printStackTrace();
 			}
 		}
-		logger.info("recordsUpdated  : " + recordsUpdated);
-		assertTrue(recordsUpdated>0);
 		
-		}
+		logger.info("recordsUpdated  : " + recordsUpdated);
+		assertTrue(recordsUpdated>0);		
+	}
 }
-
