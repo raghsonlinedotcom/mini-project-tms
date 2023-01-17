@@ -297,7 +297,6 @@ public class EmployeeDAOImpl implements EmployeeDAO
 
 			while (rs.next())// read one full row's data - one column at a time 
 			{ 
-
 				// makes sense to create an object, so that we don't waste the memory allotted
 				// to an Object.
 				employeeBO = new EmployeeBO();

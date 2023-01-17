@@ -13,12 +13,13 @@ import com.raghsonline.miniprojects.tms.dao.EmployeeDAOImpl;
 import com.raghsonline.miniprojects.tms.util.AppUtil;
 
 
-public class LoginJunitTest {
-	static Logger logger = Logger.getLogger(EmployeeDAOTest.class);
+public class LoginJUnitTest {
+	static Logger logger = Logger.getLogger(EmployeeDAOJUnitTest.class);
 	
 	@Test
 	@DisplayName("Login Test of an employee")
-	public void loginTest() {
+	public void loginTest() 
+	{
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		EmployeeBO employeeBO = null;
 		try {
