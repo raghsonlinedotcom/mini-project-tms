@@ -247,7 +247,49 @@
 							Jira Release Ref. for Release 5
 						</a>
 					</td>
-				</tr>														
+				</tr>
+				<tr>
+					<td>
+						6
+					</td>
+					<td>
+						6.0
+					</td>
+					<td>
+						2023-01-18
+					</td>
+					<td>
+						Sprint 6 - Manager, AuditTrial
+					</td>
+					<td>
+						Release 6
+					</td>
+					<td>
+						<ul>
+							<li>Audit Trial</li>
+							<li>Manager - Self - Edit/Delete with Audit Trial</li>
+							<li>Manager - Others - View/Edit/Delete with Audit Trial</li>
+							<li>JUnit Life Cycle Methods</li>
+							<li>EmployeeDAOTest class inclined with the JUnit Lifecycle Methods</li>
+							<li>Bug Fixes</li>
+						</ul>
+					</td>
+					<td>
+						Incremental Version
+					</td>
+					<td>
+						<ul>
+							<li>
+								No new issues. All the previous issues still prevail.
+							</li>						
+						</ul>
+					</td>
+					<td>
+						<a href="https://raghsonlinedotcom.atlassian.net/projects/TMS/versions/10005/tab/release-report-all-issues">
+							Jira Release Ref. for Release 6
+						</a>
+					</td>
+				</tr>																		
 			</tbody>
 		</table>
 	</div>

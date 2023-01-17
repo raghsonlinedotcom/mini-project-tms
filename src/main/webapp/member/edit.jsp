@@ -144,7 +144,8 @@
 							<tr>
 						<td> BloodGroup </td>
 						<td>
-							<select class="form-select" aria-label=".select example" style= background-color:#CCCACA;                       		 		name="bloodGroup" id="bloodGroup" required>
+							<select class="form-select" aria-label=".select example" style= background-color:#CCCACA; name="bloodGroup" 
+							          id="bloodGroup" required>
                        		  	<option value="${employeeBO.bloodGroup}">${employeeBO.bloodGroup}</option>
 			                    <option value="A+ve" disabled style= background-color:gray; >A+ve</option>
 			                    <option value="O+ve" disabled style= background-color:gray; >O+ve</option>
@@ -247,7 +248,6 @@
 	    						</div>
 						</td>
 					</tr>
-					
 					<tr>
 						<td> Manager Id </td>
 						<td>
@@ -260,11 +260,34 @@
 								
 						</td>
 					</tr>
-				
+					<tr>
+						<td>Created Date</td>
+						<td>${employeeBO.createdDate}</td>
+					</tr>
+				    <tr>
+					    <td> Created By </td>
+					    <td> 
+						    <input readonly  type="text" class="form-control"  id="createdBy" name="createdBy"  
+								   value="${employeeBO.createdBy}"
+										required/>
+				     	</td>
+					</tr>
+			    	<tr>
+						<td>Updated Date</td>
+						<td>${employeeBO.updatedDate}</td>
+						</tr>				    
+				    <tr>
+						<td> Updated By </td>
+						<td> 
+						    <input readonly  type="text" class="form-control"  id="updatedBy" name="updatedBy"  
+								   value="${employeeBO.updatedBy}"
+										required/>
+				     	</td>
+					</tr>
 							<tr>
 								<td colspan="2">
 									<input type="submit" name="Update" Value="Update"/>
-								
+
 								</td>
 							</tr>			
 						</tbody>

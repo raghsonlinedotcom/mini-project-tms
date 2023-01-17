@@ -67,6 +67,6 @@ public class ViewMyDetailsServlet extends HttpServlet
 		request.setAttribute("employeeBO", employeeBO);
 
 		// 3. Forward / Delegate the control/flow the required JSP Page
-		request.getRequestDispatcher("member/view.jsp").forward(request, response);
+		request.getRequestDispatcher("/member/view.jsp").forward(request, response);
 	}
 }

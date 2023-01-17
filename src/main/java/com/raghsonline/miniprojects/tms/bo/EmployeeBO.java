@@ -1,5 +1,6 @@
 package com.raghsonline.miniprojects.tms.bo;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class EmployeeBO {
@@ -43,6 +44,14 @@ public class EmployeeBO {
 	private int managerId;
 	
 	private boolean active;
+	
+    private Timestamp createdDate;
+	
+	private String createdBy;
+	
+	private Timestamp updatedDate;
+	
+	private int updatedBy;
 
 	public EmployeeBO() {
 	}
@@ -71,12 +80,9 @@ public class EmployeeBO {
 		this.id = id;
 	}
  
-	
-
 	public int getEmpId() {
 		return empId;
 	}
-
 
 	public void setEmpId(int  empId) {
 		this.empId =  empId;
@@ -226,6 +232,38 @@ public class EmployeeBO {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Timestamp getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Timestamp updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public int getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 	@Override

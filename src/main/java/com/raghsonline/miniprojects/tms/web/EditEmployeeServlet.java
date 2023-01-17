@@ -43,7 +43,6 @@ public class EditEmployeeServlet extends HttpServlet
 		System.out.println("EditEmployeeServlet - doGet() invoked");
 
 		// 1. Get the Employee Data from the session
-
 		int empId;
 		HttpSession session = request.getSession(true);
 		EmployeeBO employeeBO = (EmployeeBO) session.getAttribute("employeeBO");

@@ -9,6 +9,7 @@
 			if(null!=obj) {
 				employeeBOList = (List<EmployeeBO>) obj;
 			}
+			EmployeeBO managerInsession = (EmployeeBO)session.getAttribute("managerInsession");
 		%>
 				
 		<h3>Total list of employees is : <%= employeeBOList.size() %></h3>			
@@ -39,6 +40,14 @@
 							<th>Primary Contact Number</th>
 							<th>Manager Id </th>
 							<th> Is Active </th>
+							<% 
+								if(null!=managerInsession)
+								{
+							%>
+							<th> Action </th>
+							<%
+								}
+							%>
 						</tr>				
 					</thead>
 			<tbody class="table-group-divider">	
@@ -54,8 +63,17 @@
 					out.println("<td>" + employeeBO.getPrimaryContactNo() + "</td>");
 					out.println("<td>" + employeeBO.getManagerId() + "</td>");
 					out.println("<td>" + employeeBO.isActive() + "</td>");
+						if(null!=managerInsession && (employeeBO.getManagerId()==managerInsession.getEmpId()))
+						{
+							out.println("<td>" + "<a href='ViewEmployeeDetails?empId=" + 
+							employeeBO.getEmpId() + "'>View " + "</a> "+  "</td>");
+							out.println("<td>" + "<a href='ManagerEditMember?empId=" + 
+							employeeBO.getEmpId() + "'>Edit " + "</a> "+  "</td>");
+	
+						}
 					out.println("</tr>");
-				}			
+				}
+							
 			%>					
 			</tbody>
 		</table>

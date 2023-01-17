@@ -3,7 +3,8 @@ package com.raghsonline.miniprojects.tms.web;
 
 import java.io.IOException;
 import java.sql.Date;
-
+import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -144,6 +145,13 @@ public class UpdateEmployeeServlet extends HttpServlet
         	request.getRequestDispatcher("/member/edit.jsp").forward(request, response);
         	return;
         }
+		LocalDateTime ldt = LocalDateTime.now();
+		Timestamp utilDate =java.sql.Timestamp.valueOf(ldt);
+		employeeBO.setUpdatedDate(utilDate);
+		
+		int updatedBy=  employeeBO.getEmpId();
+		logger.info("Param - updatedBy : [" + updatedBy + "]");
+		errorMsgUI = validateField(employeeBO, updatedBy, "updatedBy", errorMsgUI);
 
 		employeeBO.setId(id);
 		employeeBO.setEmpId(empId);
@@ -162,6 +170,7 @@ public class UpdateEmployeeServlet extends HttpServlet
 		employeeBO.setSkillsets(skillsets);
 		employeeBO.setDateOfJoining(dateOfJoining);
 		employeeBO.setHobbies(hobbies);
+		employeeBO.setUpdatedBy(updatedBy);
 
 		String exceptionMsg = null;
 		int recordsUpdated = 0;
@@ -298,6 +307,8 @@ public class UpdateEmployeeServlet extends HttpServlet
 			case "empId":
 				employeeBO.setEmpId(value);
 				break;
+			case "updatedBy" :
+				employeeBO.setUpdatedBy(value);
 			
 		}
 	}
@@ -359,6 +370,7 @@ public class UpdateEmployeeServlet extends HttpServlet
 				employeeBO.setSkillsets(value);
 			case "hobbies" :
 				employeeBO.setHobbies(value);
+			
 			
 		}
 	}

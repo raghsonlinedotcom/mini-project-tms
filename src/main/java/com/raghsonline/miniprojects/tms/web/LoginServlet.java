@@ -91,6 +91,10 @@ public class LoginServlet extends HttpServlet {
 				message = "Welcome <b>" + employeeBO.getFirstName() + " " + employeeBO.getLastName() + "</b>";
 				request.setAttribute("message", message);
 				request.getSession().setAttribute("employeeBO", employeeBO);
+				if(employeeBO.getManagerId()==0)
+				{
+					request.getSession().setAttribute("managerInsession", employeeBO);
+				}
 			}
 			else
 			{

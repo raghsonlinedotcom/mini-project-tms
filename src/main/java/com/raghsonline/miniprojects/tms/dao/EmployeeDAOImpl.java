@@ -240,13 +240,19 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				employeeBO.setDateOfJoining(rs.getDate("DATE_OF_JOINING"));
 				employeeBO.setHobbies(rs.getString("HOBBIES"));
 				employeeBO.setManagerId(rs.getInt("MANAGER_ID"));
+				employeeBO.setActive(rs.getBoolean("IS_ACTIVE"));
+				employeeBO.setCreatedDate(rs.getTimestamp("CREATED_DATE"));
+				employeeBO.setCreatedBy(rs.getString("CREATED_BY"));
+				employeeBO.setUpdatedDate(rs.getTimestamp("UPDATED_DATE"));
+				employeeBO.setUpdatedBy(rs.getInt("UPDATED_BY"));
+				
 			}
 		} catch (SQLException sqlException) {
-			System.err.println("SQLException occurred while reading the data from the Database Table");
-			System.err.println("Message : " + sqlException.getMessage());
+			logger.error("SQLException occurred while reading the data from the Database Table");
+			logger.error("Message : " + sqlException.getMessage());
 		} catch (Exception exception) {
-			System.err.println("Exception occurred while reading the data from the Database Table");
-			System.err.println("Message : " + exception.getMessage());
+			logger.error("Exception occurred while reading the data from the Database Table");
+			logger.error("Message : " + exception.getMessage());
 		} finally {
 			try {
 				if (null != rs)
@@ -256,21 +262,9 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				if (null != conn)
 					conn.close();
 			} catch (SQLException sqlException) {
-				System.err.println("Exception occurred while reading the data from the Database Table");
-				System.err.println("Message : " + sqlException.getMessage());
-			} finally {
-				try {
-					if (null != rs)
-						rs.close();
-					if (null != stmt)
-						stmt.close();
-					if (null != conn)
-						conn.close();
-				} catch (SQLException sqlException) {
-					System.err.println("Exception occurred while closing the JDBC Resources");
-					System.err.println("Message : " + sqlException.getMessage());
-				}
-			}
+				logger.error("Exception occurred while closing the DB Resource(s)");
+				logger.error("Message : " + sqlException.getMessage());
+			} 
 		}
 
 		return employeeBO;
@@ -278,8 +272,8 @@ public class EmployeeDAOImpl implements EmployeeDAO
 
 	public EmployeeBO verifyEmployee(int idParam, String passwordParam)
 	{
-		logger.info("verifyEmployee - idParam, passwordParam :: " 
-				+ idParam + "," + passwordParam);
+		logger.info("verifyEmployee - idParam :: " 
+				+ idParam);
 
 		String sql = "SELECT * FROM EMPLOYEE WHERE EMP_ID=? AND PASSWORD =?";
 
@@ -303,7 +297,6 @@ public class EmployeeDAOImpl implements EmployeeDAO
 
 			while (rs.next())// read one full row's data - one column at a time 
 			{ 
-
 				// makes sense to create an object, so that we don't waste the memory allotted
 				// to an Object.
 				employeeBO = new EmployeeBO();
@@ -343,8 +336,8 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				if (null != conn)
 					conn.close();
 			} catch (SQLException sqlException) {
-				System.err.println("Exception occurred while closing the JDBC Resources");
-				System.err.println("Message : " + sqlException.getMessage());
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
 			}
 		}
 
@@ -358,7 +351,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
 
 		String sql = "UPDATE EMPLOYEE SET " + "FIRST_NAME=?, LAST_NAME=?, CITY=?, PERSONAL_EMAIL=?,"
 				+ " PRIMARY_CONTACT_NO=?, SECONDARY_CONTACT_NO=?," + " HIGHEST_QUALIFICATION=?, SKILLSETS =?,"
-				+ " HOBBIES = ? WHERE EMP_ID= ?";
+				+ " HOBBIES = ?,UPDATED_DATE=?,UPDATED_BY=? WHERE EMP_ID= ?";
 
 		logger.info("SQL Query :: " + sql);
 		Connection conn = null;
@@ -380,7 +373,9 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			pStmt.setString(7, employeeBO.getHighestQualification());
 			pStmt.setString(8, employeeBO.getSkillsets());
 			pStmt.setString(9, employeeBO.getHobbies());
-			pStmt.setInt(10, employeeBO.getEmpId());
+			pStmt.setTimestamp(10, employeeBO.getUpdatedDate());
+			pStmt.setInt(11, employeeBO.getUpdatedBy());
+			pStmt.setInt(12, employeeBO.getEmpId());
 			
 			recordsUpdated = pStmt.executeUpdate();
 			
@@ -472,8 +467,8 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				if (null != conn)
 					conn.close();
 			} catch (SQLException sqlException) {
-				System.err.println("Exception occurred while closing the JDBC Resources");
-				System.err.println("Message : " + sqlException.getMessage());
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
 				if(AppUtil.isAppDevMode) {
 					sqlException.printStackTrace();
 				}
@@ -545,8 +540,8 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				if (null != conn)
 					conn.close();
 			} catch (SQLException sqlException) {
-				System.err.println("Exception occurred while closing the JDBC Resources");
-				System.err.println("Message : " + sqlException.getMessage());
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
 				if(AppUtil.isAppDevMode) {
 					sqlException.printStackTrace();
 				}
@@ -599,5 +594,118 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		}
 		
 		return recordsUpdated;
+	}
+
+	@Override
+	public int managerEditMember(EmployeeBO employeeBO) 
+	throws Exception 
+	{
+		logger.info("Manager Edit Memeber :: " + employeeBO);
+
+		String sql = "UPDATE EMPLOYEE SET " + "FIRST_NAME=?, LAST_NAME=?, DATE_OF_BIRTH = ?,"
+				+ " GENDER =?, AADHAR_ID = ?, BLOOD_GROUP = ?, CITY=?, PERSONAL_EMAIL=?, OFFICIAL_EMAIL=?,"
+				+ " PRIMARY_CONTACT_NO=?, SECONDARY_CONTACT_NO=?, HIGHEST_QUALIFICATION=?, SKILLSETS =?,"
+				+ " DATE_OF_JOINING =?, HOBBIES = ?,IS_ACTIVE = ?,UPDATED_DATE=?, UPDATED_BY = ?"
+				+ " WHERE MANAGER_ID= ? AND EMP_ID = ?";
+
+		logger.info("SQL Query :: " + sql);
+		Connection conn = null;
+		PreparedStatement pStmt = null;
+		int recordsUpdated = 0;
+		
+		try
+		{
+			conn = DBConnection.getConn();
+			
+			pStmt = conn.prepareStatement(sql);
+			
+			pStmt.setString(1, employeeBO.getFirstName());
+			pStmt.setString(2, employeeBO.getLastName());
+			pStmt.setDate(3, (java.sql.Date) employeeBO.getDateOfBirth());
+			pStmt.setString(4, "" + employeeBO.getGender());
+			pStmt.setString(5, employeeBO.getAadharId());
+			pStmt.setString(6, employeeBO.getBloodGroup());
+			pStmt.setString(7, employeeBO.getCity());
+			pStmt.setString(8, employeeBO.getPersonalEmail());
+			pStmt.setString(9, employeeBO.getOfficialEmail());
+			pStmt.setString(10, employeeBO.getPrimaryContactNo());
+			pStmt.setString(11, employeeBO.getSecondaryContactNo());
+			pStmt.setString(12, employeeBO.getHighestQualification());
+			pStmt.setString(13, employeeBO.getSkillsets());
+			pStmt.setDate(14, (java.sql.Date) employeeBO.getDateOfJoining());
+			pStmt.setString(15, employeeBO.getHobbies());
+			pStmt.setBoolean(16, employeeBO.isActive());
+			pStmt.setTimestamp(17, employeeBO.getUpdatedDate());
+			pStmt.setInt(18, employeeBO.getUpdatedBy());
+			pStmt.setInt(19, employeeBO.getManagerId());
+			pStmt.setInt(20, employeeBO.getEmpId());
+			
+			recordsUpdated = pStmt.executeUpdate();
+			
+			logger.info("recordsUpdated : " + recordsUpdated);
+			
+		} catch (Exception exception) {
+			logger.error("Exception occurred while updating the data into the Database Table");
+			logger.error("Message : " + exception.getMessage());
+		} finally {
+			try {
+				if (null != pStmt)
+					pStmt.close();
+				if (null != conn)
+					conn.close();
+			} catch (SQLException sqlException) {
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
+				if(AppUtil.isAppDevMode) {
+					sqlException.printStackTrace();
+				}
+			}
+		}
+
+		logger.info("recordsUpdated  : " + recordsUpdated);
+		
+		return recordsUpdated;
+	}
+
+	@Override
+	public int deleteData(int empId) throws Exception {
+		logger.info("deleteData :: " + empId);
+
+		String sql = "DELETE FROM EMPLOYEE WHERE EMP_ID = ?";
+
+		logger.info("SQL Query :: " + sql);
+		Connection conn = null;
+		PreparedStatement pStmt = null;
+		int rowsDeleted = 0;
+		
+		try
+		{
+			conn = DBConnection.getConn();
+			pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, empId);
+			rowsDeleted = pStmt.executeUpdate();
+			
+			logger.info("recordsUpdated : " + rowsDeleted);
+			
+		} catch (Exception exception) {
+			logger.error("Exception occurred while deleting employee"
+					+ " from the Database Table");
+			logger.error("Message : " + exception.getMessage());
+		} finally {
+			try {
+				if (null != pStmt)
+					pStmt.close();
+				if (null != conn)
+					conn.close();
+			} catch (SQLException sqlException) {
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
+				if(AppUtil.isAppDevMode) {
+					sqlException.printStackTrace();
+				}
+			}
+		}
+		
+		return rowsDeleted;
 	}
 }

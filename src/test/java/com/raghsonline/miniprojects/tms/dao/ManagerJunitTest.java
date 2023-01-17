@@ -1,6 +1,6 @@
 package com.raghsonline.miniprojects.tms.dao;
 import com.raghsonline.miniprojects.tms.bo.EmployeeBO;
-import com.raghsonline.miniprojects.tms.junit.EmployeeDAOTest;
+import com.raghsonline.miniprojects.tms.junit.EmployeeDAOJUnitTest;
 import com.raghsonline.miniprojects.tms.util.AppUtil;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,8 +12,8 @@ import org.apache.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class ManagerJunitTest {
-	static Logger logger = Logger.getLogger(EmployeeDAOTest.class);
+public class ManagerJUnitTest {
+	static Logger logger = Logger.getLogger(EmployeeDAOJUnitTest.class);
 	
 	@Test
 	@DisplayName("Manager test")

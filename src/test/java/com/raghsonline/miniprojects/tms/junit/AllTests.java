@@ -9,7 +9,7 @@ import com.raghsonline.miniprojects.tms.util.PropertyUtilTest;
 @Suite
 @SelectClasses({ 
 			EmployeeBOJUnitTest.class,
-			EmployeeDAOTest.class, 
+			EmployeeDAOJUnitTest.class, 
 			DBCheckerJUnitTest.class,
 			PropertyUtilTest.class,
 			JavaMailJUnitTest.class

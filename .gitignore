@@ -1,3 +1,6 @@
+# 13Jan2023 - Restrict the PDF files (Sketchwow Training Doc)
+*.pdf
+
 # Any user specific config file
 *user.properties
 
