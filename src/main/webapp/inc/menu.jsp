@@ -15,17 +15,24 @@
 		        </li>-->		        
 		       <li class="nav-item dropdown">
 		         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		           Employee
+		           My profile
 		         </a>
 		         <ul class="dropdown-menu">
 		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/ViewMyDetails">View My Details</a></li>
 		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/EditEmployee">Edit My Details</a></li>
 		            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/EmployeeListServlet">View All Employees</a></li>
 		            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/delete.jsp">Delete My Profile</a></li>
-		           <li><hr class="dropdown-divider"></li>
-		           <li><a class="dropdown-item" href="#">Apply Leave</a></li>
 		         </ul>
 		       </li>
+		        <li class="nav-item dropdown">
+		         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		           Leave Details
+		         </a>
+		         <ul class="dropdown-menu">
+		           <li><a class="dropdown-item" href="">Apply</a></li>
+		           <li><a class="dropdown-item" href="">View My Leaves</a></li>
+		           <li><a class="dropdown-item" href="">View My Teams Leave</a></li>
+  		         </ul>
 		       <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/techstack.jsp">Tech. Stack</a>
 		        </li>
