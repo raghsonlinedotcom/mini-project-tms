@@ -1,4 +1,8 @@
-		<!-- Fixed navbar -->
+<%@page import="com.raghsonline.miniprojects.tms.bo.EmployeeBO"%>
+	<% 
+	EmployeeBO managerInsession = (EmployeeBO)session.getAttribute("managerInsession");
+	%>
+	<!-- Fixed navbar -->
 		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="#">TMS</a>
@@ -23,18 +27,26 @@
 		            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/EmployeeListServlet">View All Employees</a></li>
 		            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/delete.jsp">Delete My Profile</a></li>
 		         </ul>
-		       </li>
+		        </li>
 		        <li class="nav-item dropdown">
 		         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		           Leave Details
 		         </a>
-		         <ul class="dropdown-menu">
-		           <li><a class="dropdown-item" href="">Apply</a></li>
-		           <li><a class="dropdown-item" href="">View My Leaves</a></li>
-		           <li><a class="dropdown-item" href="">View My Teams Leave</a></li>
-  		         </ul>
+		         <%
+		         {
+		        	 out.println("<ul class='dropdown-menu'>");
+		        	 out.println("<li>"+"<a class='dropdown-item' href='"+"'>Apply"+"</a>" +"</li>");
+		        	 out.println("<li>"+"<a class='dropdown-item' href='"+"'>View My Leaves"+"</a>"+"</li>");
+		        	 if(null!=managerInsession)
+		        	 {
+		        		 out.println("<li>"+"<a class='dropdown-item' href='"+ "'>View My Teams Leave" +"</a>"+"</li>");
+		        	 }
+		        	 out.println("</ul>");
+		         }
+		         %>
+		         </li>
 		       <li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/techstack.jsp">Tech. Stack</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/techstack.jsp">Tech.Stack</a>
 		        </li>
 		       <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/issues.jsp">Issues</a>
@@ -49,7 +61,7 @@
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/team.jsp">Members</a>
 		        </li>
 		       <li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/version.jsp">Version History</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/version.jsp">VersionHistory</a>
 		        </li>		        		        
 		       <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/references.jsp">References</a>

@@ -9,7 +9,6 @@
 			if(null!=obj) {
 				employeeBOList = (List<EmployeeBO>) obj;
 			}
-			EmployeeBO managerInsession = (EmployeeBO)session.getAttribute("managerInsession");
 		%>
 				
 		<h3>Total list of employees is : <%= employeeBOList.size() %></h3>			
