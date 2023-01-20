@@ -141,6 +141,26 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		logger.info("Param - updatedBy : [" + updatedBy + "]");
 		errorMsgUI = validateField(employeeBO, updatedBy, "updatedBy", errorMsgUI);
 		
+		String inactivationReason = null;
+		String reactivationReason = null;
+		Timestamp inactivatedDate =java.sql.Timestamp.valueOf(ldt);
+		Timestamp reactivatedDate =java.sql.Timestamp.valueOf(ldt);
+		
+		if(isActive.equals(false))
+		{
+			inactivationReason = request.getParameter("inactivationReason");
+			logger.info("Param - inactivationReason : [" + inactivationReason + "]");
+			errorMsgUI = validateReasonField(employeeBO, inactivationReason, "inactivationReason", errorMsgUI);
+			employeeBO.setInactivatedDate(inactivatedDate);
+		} 
+		else
+		{
+			reactivationReason = request.getParameter("reactivationReason");
+			logger.info("Param - reactivationReason : [" + reactivationReason + "]");
+			errorMsgUI = validateReasonField(employeeBO, reactivationReason, "reactivationReason", errorMsgUI);
+			employeeBO.setReactivatedDate(reactivatedDate);
+		}
+		
 		if(validationError)
 		{
         	errorMsgUI += "</ul>";
@@ -170,6 +190,8 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		employeeBO.setHobbies(hobbies);
 		employeeBO.setActive(isActive);
 		employeeBO.setUpdatedBy(updatedBy);
+		employeeBO.setInactivationReason(inactivationReason);
+		employeeBO.setReactivationReason(reactivationReason);
 
 		String exceptionMsg = null;
 		int recordsUpdated = 0;
@@ -323,19 +345,32 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		return errorMsgUI;
 	}
 	
+	public String validateReasonField(EmployeeBO employeeBO, String value,
+			String fieldName, String errorMsgUI)
+	{
+		if(value.trim().length()>250) 
+		{	
+			validationError = true;
+			logger.error(fieldName + " is in invalid format");			
+			errorMsgUI += addError(fieldName + "  can be optional when there is no Action performed or must contain 250 or fewer characters");
+		} 
+		
+		setField(employeeBO, fieldName, value);
+		return errorMsgUI;
+	}
 	public void setField(EmployeeBO employeeBO, String fieldName ,int value)
 	{
 		switch(fieldName) 
 		{
 			case "id":
 			employeeBO.setId(value);
-			break;
-			
+			    break;
 			case "empId":
 				employeeBO.setEmpId(value);
 				break;	
 			case "updatedBy" :
 				employeeBO.setUpdatedBy(value);	
+				break;
 		}
 	}
 	
@@ -391,11 +426,19 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 				break;
 			case "highestQualification" :
 				employeeBO.setHighestQualification(value);
+				break;
 			case "skillsets" :
 				employeeBO.setSkillsets(value);
+				break;
 			case "hobbies" :
 				employeeBO.setHobbies(value);
-			
+				break;
+			case "inactivationReason" :
+				employeeBO.setInactivationReason(value);
+				break;
+			case "reactivationReason" :
+				employeeBO.setReactivationReason(value);
+				break;
 		}
 	}
 }

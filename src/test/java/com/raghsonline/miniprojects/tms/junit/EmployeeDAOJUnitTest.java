@@ -1,10 +1,13 @@
 package com.raghsonline.miniprojects.tms.junit;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -652,7 +655,6 @@ public class EmployeeDAOJUnitTest
 		assertTrue(employeeBOFromDB.getCreatedDate() !=  time );
 	}
 	
-	
 	@Test
 	@DisplayName("ManagerEditMember JUnitTest ")
 	public void testManagerEdit() 
@@ -684,5 +686,66 @@ public class EmployeeDAOJUnitTest
 		assertTrue(recordsUpdated>0);		
 		assertTrue(employeeBO.getManagerId() == 140);
 		assertTrue(employeeBO.getUpdatedBy() == 140);
+		logger.info(employeeBO.getUpdatedDate());
+	}
+	
+	@Test
+	@DisplayName("ManagerEditEmployeeStatus JUnitTest ")
+	public void testManagerEditStatus() 
+	{
+		logger.info("----------- ManagerEditMemberStatusJUnitTest - Invoked --------------");
+		
+		//Getting the Data From DB.
+		try {
+			employeeBO = employeeDAO.getEmployeeByEmpId(81);
+		} catch (Exception exception) {
+			logger.error("Exception occurred while fetching an employee with the ID : " + 81);
+			logger.error("Error Message : " + exception.getMessage());
+
+			if (AppUtil.isAppDevMode) {
+				exception.getStackTrace();
+			}
+		}
+		
+		int recordsUpdated = 0;
+		LocalDateTime ldt = LocalDateTime.now();
+		Timestamp Date =java.sql.Timestamp.valueOf(ldt);
+		//modify the values
+		employeeBO.setUpdatedBy(140);
+		employeeBO.setActive(false);
+		employeeBO.setInactivationReason("HE LEFT THE COMPANY.");
+		employeeBO.setInactivatedDate(Date);
+		employeeBO.setReactivatedDate(null);
+		employeeBO.setReactivationReason(null);
+
+		try 
+		{
+			recordsUpdated = employeeDAO.managerEditMember(employeeBO);
+			logger.info("ID :" + employeeBO.getEmpId());
+			logger.info("EmployeeBO : " + employeeBO);
+		} 
+		catch (Exception exception) 
+		{
+			logger.error("Exception occurred while updating the data into the Database Table");
+			logger.error("Error Message : " + exception.getMessage());
+			if (AppUtil.isAppDevMode) 
+			{
+				exception.printStackTrace();
+			}
+		}
+		logger.info("recordsUpdated  : " + recordsUpdated);
+		assertTrue(recordsUpdated>0);		
+		assertTrue(employeeBO.getManagerId() == 140);
+		assertTrue(employeeBO.getUpdatedBy() == 140);
+		logger.info("Created Date :" + employeeBO.getCreatedDate());
+		logger.info("InactivatedDate   :"+ employeeBO.getInactivatedDate());
+		logger.info("ReactivatedDate   :"+ employeeBO.getReactivatedDate());
+		logger.info("InactivationReason :" + employeeBO.getInactivationReason());
+		logger.info("ReactivationReason :" + employeeBO.getReactivationReason());
+		assertTrue(employeeBO.getInactivationReason().equals("HE LEFT THE COMPANY."));
+		assertTrue(employeeBO.isActive() != true);
+		assertTrue(employeeBO.getInactivatedDate() != employeeBO.getCreatedDate());
+		assertNull(employeeBO.getReactivatedDate());
+		assertNull(employeeBO.getReactivationReason());
 	}
 }
