@@ -85,14 +85,14 @@
 								</td>		
 								</tr>
 								<tr>
-								<td>EmployeeId</td>
+								<td>EmployeeId<span class="required">*</span></td>
 								<td>
 									${employeeBO.empId}
 									<input type="hidden"  name="empId"  value="${employeeBO.empId}"/>
 								</td>		
 								</tr> 
 							<tr>
-								<td>First Name</td>
+								<td>First Name<span class="required">*</span></td>
 								<td>
 									<input type="text" class="form-control"  id="firstName" name="firstName"  
 										placeholder="Your FirstName" value="${employeeBO.firstName}"
@@ -100,7 +100,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Last Name</td>
+								<td>Last Name <span class="required">*</span></td>
 								<td>
 									<input type="text" class="form-control"  id="lastName" name="lastName"  
 										placeholder="Your LastName" value="${employeeBO.lastName}"
@@ -108,7 +108,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Date Of Birth</td>
+								<td>Date Of Birth <span class="required">*</span></td>
 								<td>
 									<input readonly  type="date" class="form-control"  id="dob" name="dob" 
 										min="1960-01-01" max="2004-01-01"  
@@ -117,7 +117,7 @@
 								</td>
 							</tr>
 						<tr>
-						<td>Gender</td>
+						<td>Gender <span class="required">*</span></td>
 						<td>
 						<input  type="radio" name="gender" id="genderM" value="M" onclick="return false;"
 									<%
@@ -134,7 +134,7 @@
                      </td>
 					 </tr>
 							<tr>
-								<td>AadharId </td>
+								<td>AadharId <span class="required">*</span></td>
 								<td>
 										<input readonly  type="number" class="form-control" id="aadharId" name="aadharId" size="12" 
 										placeholder="Your AadharId" 
@@ -142,7 +142,7 @@
 								</td>
 							</tr>
 							<tr>
-						<td> BloodGroup </td>
+						<td> BloodGroup <span class="required">*</span></td>
 						<td>
 							<select class="form-select" aria-label=".select example" style= background-color:#CCCACA; name="bloodGroup" 
 							          id="bloodGroup" required>
@@ -160,7 +160,7 @@
 						</td>
 					<tr>
 					<tr>
-						<td>City</td>
+						<td>City <span class="required">*</span></td>
 						<td>
 							<input type="text" class="form-control"  
 	                    	id="city" name="city" placeholder="city" 
@@ -169,7 +169,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>PersonalEmail</td>
+						<td>PersonalEmail <span class="required">*</span></td>
 						<td>
 							<input type="Email" class="form-control" 
 	                    	id="persoalEmail" name="personalEmail" 
@@ -179,7 +179,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>OfficialEmail</td>
+						<td>OfficialEmail <span class="required">*</span></td>
 						<td>
 							<input  readonly type="Email" class="form-control" 
 	                    id="officialEmail" name="officialEmail" 
@@ -188,7 +188,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Primary Contact Number </td>
+						<td>Primary Contact Number <span class="required">*</span></td>
 						<td>
 							<input type="tel" class="form-control" 
 								id="primaryContactNumber" 
@@ -209,7 +209,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Highest Qualification</td>
+						<td>Highest Qualification <span class="required">*</span></td>
 						<td>
 							<input type="text" class="form-control" 
 								id="highestQualification" 
@@ -219,7 +219,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Skill Sets</td>
+						<td>Skill Sets <span class="required">*</span></td>
 						<td>
 							<textarea class="form-control" rows="4" cols="50"  
 								id="skillSets" name="skillSets" placeholder="your skill set" maxlength="100"								  
@@ -228,7 +228,7 @@
 					</tr>
 					
 					<tr>
-						<td>Date Of Joining </td>
+						<td>Date Of Joining <span class="required">*</span></td>
 						<td>
 							<input  readonly type="date" class="form-control" 
 								id="doj" name="doj"  value="${employeeBO.dateOfJoining}"
@@ -249,7 +249,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td> Manager Id </td>
+						<td> Manager Id <span class="required">*</span></td>
 						<td>
 							<select class="form-select" aria-label=".select example" style= background-color:#CCCACA; 
                        			id="managerId" name="managerId"required>
