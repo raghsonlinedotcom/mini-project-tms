@@ -32,18 +32,19 @@
 		         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		           Leave Details
 		         </a>
+		         <ul class="dropdown-menu">
+		           <li><a class="dropdown-item" href="">Apply</a></li>
+		           <li><a class="dropdown-item" href="">View My Leaves</a></li>
 		         <%
-		         {
-		        	 out.println("<ul class='dropdown-menu'>");
-		        	 out.println("<li>"+"<a class='dropdown-item' href='"+"'>Apply"+"</a>" +"</li>");
-		        	 out.println("<li>"+"<a class='dropdown-item' href='"+"'>View My Leaves"+"</a>"+"</li>");
 		        	 if(null!=managerInsession)
 		        	 {
-		        		 out.println("<li>"+"<a class='dropdown-item' href='"+ "'>View My Teams Leave" +"</a>"+"</li>");
-		        	 }
-		        	 out.println("</ul>");
-		         }
 		         %>
+		        	 <li><a class="dropdown-item" href="">View My Teams Leave</a></li>
+		            
+		         <% 
+		        	 }
+		          %>
+		         </ul>
 		         </li>
 		       <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/techstack.jsp">Tech.Stack</a>
