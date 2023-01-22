@@ -39,7 +39,7 @@
 		        	 if(null!=managerInsession)
 		        	 {
 		         %>
-		        	 <li><a class="dropdown-item" href="">View My Teams Leave</a></li>
+		        	 <li><a class="dropdown-item" href="<%=request.getContextPath()%>/ViewMyTeamsLeave">View My Teams Leave</a></li>
 		            
 		         <% 
 		        	 }
