@@ -44,7 +44,7 @@ public class LeaveDetailsDAOJUnitTest {
 	}
 	@Test
 	@DisplayName("View My Leave Details")
-	public void viewMyleaveDetailsTest()
+	public void viewMyLeaveDetailsTest()
 	{
 		logger.info("----------- ViewMyLeaveDetailsJUnitTest - Invoked ------------");	
 		List<LeaveDetailsBO> leaveDetailsList = null;
@@ -64,7 +64,7 @@ public class LeaveDetailsDAOJUnitTest {
 			// using the lifecycle methods. For testing purpose I have 
 			// inserted sample leave data from database and it worked well. 
 			
-			fail("viewMyleaveDetailsTest() failed - " + exception.getMessage());
+			fail("viewMyLeaveDetailsTest() failed - " + exception.getMessage());
 		}
 		
 		logger.info("Leave Details List from DAO is " + leaveDetailsList);
