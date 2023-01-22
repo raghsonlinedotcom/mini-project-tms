@@ -64,7 +64,7 @@ public class LeaveDetailsDAOJUnitTest {
 			// using the lifecycle methods. For testing purpose I have 
 			// inserted sample leave data from database and it worked well. 
 			
-			fail("leaveDetailsTest() failed - " + exception.getMessage());
+			fail("viewMyleaveDetailsTest() failed - " + exception.getMessage());
 		}
 		
 		logger.info("Leave Details List from DAO is " + leaveDetailsList);
