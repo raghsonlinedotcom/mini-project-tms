@@ -749,3 +749,4 @@ public class EmployeeDAOJUnitTest
 		assertNull(employeeBO.getReactivationReason());
 	}
 }
+
