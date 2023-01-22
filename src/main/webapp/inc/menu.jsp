@@ -34,7 +34,7 @@
 		         </a>
 		         <ul class="dropdown-menu">
 		           <li><a class="dropdown-item" href="">Apply</a></li>
-		           <li><a class="dropdown-item" href="">View My Leaves</a></li>
+		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/ViewAllMyLeaveDetailsServlet">View My Leaves</a></li>
 		         <%
 		        	 if(null!=managerInsession)
 		        	 {

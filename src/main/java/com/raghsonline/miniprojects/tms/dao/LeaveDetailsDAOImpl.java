@@ -152,5 +152,68 @@ public class LeaveDetailsDAOImpl implements LeaveDetailsDAO {
 		return leaveDetailsBO;
 
 	}
-
+	public List<LeaveDetailsBO> myLeaveDetails(int idParam) throws Exception 
+	{	
+		logger.info("LeaveDetailsDAOImpl --- getLeaveDetailsById - idParam ::" + idParam);
+		
+		String sql ="SELECT * FROM LEAVE_DETAILS WHERE EMP_ID =?";
+		
+		logger.info("SQL Query :: "+ sql);
+		ResultSet rs = null;
+		List<LeaveDetailsBO> leavedetailsBOList = new ArrayList<>();
+		LeaveDetailsBO leavedetailsBO = null;
+		Connection conn = null;
+		PreparedStatement pStmt = null;
+		try 
+		{
+			conn = DBConnection.getConn();
+			pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, idParam);
+			rs = pStmt.executeQuery();
+			while(rs.next())
+			{
+				leavedetailsBO = new LeaveDetailsBO();
+				
+				leavedetailsBO.setId(rs.getInt("ID"));
+				leavedetailsBO.setEmpId(rs.getInt("EMP_ID"));
+				leavedetailsBO.setManagerId(rs.getInt("MANAGER_ID"));
+				leavedetailsBO.setFromDate(rs.getTimestamp("FROM_DATE"));
+				leavedetailsBO.setToDate(rs.getTimestamp("TO_DATE"));
+				leavedetailsBO.setLeaveReason(rs.getString("LEAVE_REASON"));
+				leavedetailsBO.setStatus(rs.getString("STATUS"));
+				leavedetailsBO.setCreatedBy(rs.getInt("CREATED_BY"));
+				leavedetailsBOList.add(leavedetailsBO);	
+			}
+		} catch (SQLException sqlException) {
+			logger.error("SQLException occurred while Obtaining the data from the Database Table");
+			logger.error("Message : " + sqlException.getMessage());
+		} catch (Exception exception) {
+			logger.error("Exception occurred while Obtaining the data from the Database Table");
+			logger.error("Message : " + exception.getMessage());
+		} finally {
+			try {
+				if (null != rs)
+					rs.close();
+				if (null != pStmt)
+					pStmt.close();
+				if (null != conn)
+					conn.close();
+			} catch (SQLException sqlException) {
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
+				if(AppUtil.isAppDevMode) {
+					sqlException.printStackTrace();
+				}
+			}
+		}
+		
+		logger.info("LeaveDetailsBOList size : " + leavedetailsBOList.size());
+		
+		return leavedetailsBOList;
+	}
 }
+
+
+
+
+
