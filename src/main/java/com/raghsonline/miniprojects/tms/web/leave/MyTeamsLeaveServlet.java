@@ -21,7 +21,7 @@ import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAOImpl;
 /**
  * Servlet implementation class EmployeeListServlet
  */
-@WebServlet("/ViewMyTeamsLeave")
+@WebServlet("/MyTeamsLeave")
 public class MyTeamsLeaveServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
@@ -56,17 +56,17 @@ public class MyTeamsLeaveServlet extends HttpServlet
 		LeaveDetailsDAO leaveDetailsDAO = null;
 
 		leaveDetailsDAO = new LeaveDetailsDAOImpl();
-		List<LeaveDetailBO> leaveDetailsBOList = null;
+		List<LeaveDetailBO> leaveDetailBOList = null;
 		try 
 		{
-			leaveDetailsBOList = leaveDetailsDAO.getTeamLeaveDetails(empId);
+			leaveDetailBOList = leaveDetailsDAO.getTeamLeaveDetails(empId);
 		} 
 		catch (Exception exception)
 		{
 			logger.error("Exception occurred while Obtaining the data from the Database Table");
 			logger.error("Message" + exception);
 		}
-		request.setAttribute("leaveDetailsBOList", leaveDetailsBOList);
+		request.setAttribute("leaveDetailBOList", leaveDetailBOList);
 
 		request.getRequestDispatcher("/manager/teamleavedetails.jsp").forward(request, response);
 	}

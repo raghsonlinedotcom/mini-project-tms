@@ -11,5 +11,7 @@ public interface LeaveDetailsDAO {
 	public abstract LeaveDetailBO getLeaveDetailsById(int id) throws Exception;
 	
 	public abstract List<LeaveDetailBO> getLeaveDetails(int empId) throws Exception;
+	
+	public abstract int managerUpdateLeaveDetails (LeaveDetailBO leaveDetailBO) throws Exception;
 
 }

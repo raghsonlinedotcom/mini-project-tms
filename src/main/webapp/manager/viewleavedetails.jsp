@@ -4,7 +4,7 @@
 		<h1>View Leave Details</h1>
 		
 		<%
-				LeaveDetailBO leaveDetailsBO = (LeaveDetailBO) request.getAttribute("leaveDetailsBO");
+				LeaveDetailBO leaveDetailBO = (LeaveDetailBO) request.getAttribute("leaveDetailBO");
 					String message = (String) request.getAttribute("message");	
 					
 					if(null!=message)
@@ -20,7 +20,7 @@
 		<% 
 			}
 		
-			if(null!=leaveDetailsBO) 
+			if(null!=leaveDetailBO) 
 			{
 				
 		%>
@@ -37,57 +37,57 @@
 						
 						<tr>
 							<td>Id</td>
-							<td><%=leaveDetailsBO.getId()%></td>
+							<td><%=leaveDetailBO.getId()%></td>
 							
 						</tr>
 						<tr>
 							<td>Emp Id</td>
-							<td>${leaveDetailsBO.empId}</td>
+							<td>${leaveDetailBO.empId}</td>
 						</tr>
 						<tr>
 							<td>Manager Id</td>
-							<td>${leaveDetailsBO.managerId}</td>
+							<td>${leaveDetailBO.managerId}</td>
 						</tr>
 						<tr>
 							<td>From Date</td>
-							<td>${leaveDetailsBO.fromDate}</td>
+							<td>${leaveDetailBO.fromDate}</td>
 						</tr>
 						<tr>
 							<td>To Date</td>
-							<td>${leaveDetailsBO.toDate}</td>
+							<td>${leaveDetailBO.toDate}</td>
 						</tr>
 						<tr>
 							<td>Leave Reason</td>
-							<td>${leaveDetailsBO.leaveReason}</td>
+							<td>${leaveDetailBO.leaveReason}</td>
 						</tr>	
 						<tr>
 							<td>Status</td>
-							<td>${leaveDetailsBO.status}</td>
+							<td>${leaveDetailBO.status}</td>
 						</tr>
 						<tr>
 							<td>Action Comment</td>
-							<td>${leaveDetailsBO.actionComment}</td>
+							<td>${leaveDetailBO.actionComment}</td>
 						</tr>
 						<tr>
 							<td>Alternate Contact Number</td>
-							<td>${leaveDetailsBO.altContactNo}</td>
+							<td>${leaveDetailBO.altContactNo}</td>
 						</tr>
 						<tr>
 							<td>Created Date</td>
-							<td>${leaveDetailsBO.createdDate}</td>
+							<td>${leaveDetailBO.createdDate}</td>
 						</tr>
 						
 						<tr>
 							<td>Created By</td>
-							<td>${leaveDetailsBO.createdBy}</td>
+							<td>${leaveDetailBO.createdBy}</td>
 						</tr>	
 						<tr>
 							<td>Updated Date</td>
-							<td>${leaveDetailsBO.updatedDate}</td>
+							<td>${leaveDetailBO.updatedDate}</td>
 						</tr>
 						<tr>
 							<td>Updated By</td>
-							<td>${leaveDetailsBO.updatedBy}</td>
+							<td>${leaveDetailBO.updatedBy}</td>
 						</tr>
 					</tbody>
 				</table>

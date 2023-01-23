@@ -4,16 +4,16 @@
 
 		<h1>View My Teams Leave</h1>
 		<%
-		List<LeaveDetailBO> leaveDetailsBOList = new ArrayList<>();
-			Object obj = request.getAttribute("leaveDetailsBOList");
+		List<LeaveDetailBO> leaveDetailBOList = new ArrayList<>();
+			Object obj = request.getAttribute("leaveDetailBOList");
 			if(null!=obj) {
-				leaveDetailsBOList = (List<LeaveDetailBO>) obj;
+				leaveDetailBOList = (List<LeaveDetailBO>) obj;
 			}
 		%>
 				
-		<h3>Total number of leave requests is : <%=leaveDetailsBOList.size()%></h3>			
+		<h3>Total number of leave requests is : <%=leaveDetailBOList.size()%></h3>			
 		<%
-					if(leaveDetailsBOList.size()<=0) {
+					if(leaveDetailBOList.size()<=0) {
 					%>
 			<div class="row">
 						<div class="col-12" align="center">
@@ -43,21 +43,22 @@
 					</thead>
 			<tbody class="table-group-divider">	
 			<%
-				for(LeaveDetailBO leaveDetailsBO : leaveDetailsBOList)
+				for(LeaveDetailBO leaveDetailBO : leaveDetailBOList)
 						{
 							out.println("<tr>");
-							out.println("<td class='center'>" + leaveDetailsBO.getId());
-							out.println("<td>" + leaveDetailsBO.getEmpId() + "</td>");
-							out.println("<td class='center'>" + leaveDetailsBO.getManagerId() + "</td>");
-							out.println("<td class='center'>" + leaveDetailsBO.getFromDate() + "</td>");
-							out.println("<td>" + leaveDetailsBO.getToDate() + "</td>");
-							out.println("<td>" + leaveDetailsBO.getLeaveReason() + "</td>");
-							out.println("<td>" + leaveDetailsBO.getStatus() + "</td>");
+							out.println("<td class='center'>" + leaveDetailBO.getId());
+							out.println("<td>" + leaveDetailBO.getEmpId() + "</td>");
+							out.println("<td class='center'>" + leaveDetailBO.getManagerId() + "</td>");
+							out.println("<td class='center'>" + leaveDetailBO.getFromDate() + "</td>");
+							out.println("<td>" + leaveDetailBO.getToDate() + "</td>");
+							out.println("<td>" + leaveDetailBO.getLeaveReason() + "</td>");
+							out.println("<td>" + leaveDetailBO.getStatus() + "</td>");
 							out.println("<td>" + "<a href='ViewLeaveDetailsById?id=" + 
-							leaveDetailsBO.getId() + "'>View " + "</a> "+  "</td>");
-							if(leaveDetailsBO.getStatus().equalsIgnoreCase("Open"))
+									leaveDetailBO.getId() + "'>View " + "</a> "+  "</td>");
+							if(leaveDetailBO.getStatus().equalsIgnoreCase("Open"))
 							{
-								out.println("<td>Edit</td>");
+								out.println("<td>" + "<a href='ManagerEditLeaveDetails?id=" + 
+										leaveDetailBO.getId() + "'>Edit " + "</a> "+  "</td>");
 							}
 							
 							out.println("</tr>");

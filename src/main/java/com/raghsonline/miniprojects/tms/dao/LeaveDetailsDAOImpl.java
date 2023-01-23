@@ -248,4 +248,56 @@ public class LeaveDetailsDAOImpl implements LeaveDetailsDAO
 		
 		return leavedetailsBOList;
 	}
+
+	@Override
+	public int managerUpdateLeaveDetails(LeaveDetailBO leaveDetailBO) throws Exception {
+		logger.info("managerUpdateLeaveDetails :: " + leaveDetailBO);
+
+		String sql = "UPDATE LEAVE_DETAILS SET STATUS=?, ACTION_COMMENT=?, "
+				+ "UPDATED_DATE=?, UPDATED_BY=? WHERE ID= ?";
+
+		logger.info("SQL Query :: " + sql);
+		Connection conn = null;
+		PreparedStatement pStmt = null;
+		int recordsUpdated = 0;
+		
+		try
+		{
+			conn = DBConnection.getConn();
+			
+			pStmt = conn.prepareStatement(sql);
+			
+			pStmt.setString(1, leaveDetailBO.getStatus());
+			pStmt.setString(2, leaveDetailBO.getActionComment());
+			pStmt.setTimestamp(3, leaveDetailBO.getUpdatedDate());
+			pStmt.setInt(4, leaveDetailBO.getUpdatedBy());
+			pStmt.setInt(5, leaveDetailBO.getId());
+			
+			recordsUpdated = pStmt.executeUpdate();
+			
+			logger.info("recordsUpdated : " + recordsUpdated);
+			
+		} catch (Exception exception) {
+			logger.error("Exception occurred while updating the data into the Database Table");
+			logger.error("Message : " + exception.getMessage());
+		} finally {
+			try {
+				if (null != pStmt)
+					pStmt.close();
+				if (null != conn)
+					conn.close();
+			} catch (SQLException sqlException) {
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
+				if(AppUtil.isAppDevMode) {
+					sqlException.printStackTrace();
+				}
+			}
+		}
+
+		logger.info("recordsUpdated  : " + recordsUpdated);
+		
+		return recordsUpdated;
+
+	}
 }

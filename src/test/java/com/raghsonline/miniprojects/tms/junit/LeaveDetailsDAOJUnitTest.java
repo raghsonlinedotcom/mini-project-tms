@@ -2,6 +2,8 @@ package com.raghsonline.miniprojects.tms.junit;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -21,6 +23,7 @@ public class LeaveDetailsDAOJUnitTest
 	@DisplayName("View My Team Leave Details")
 	public void leaveDetailsTest()
 	{
+		logger.info("leaveDetailsTest() invoked()");
 		List<LeaveDetailBO> leaveDetailsList = null;
 		LeaveDetailsDAO leaveDetailsDAO = new LeaveDetailsDAOImpl();
 		try {
@@ -44,6 +47,54 @@ public class LeaveDetailsDAOJUnitTest
 		logger.info("Leave Details List from DAO is " + leaveDetailsList);
 		logger.info(leaveDetailsList);
 	}
+	
+	@Test
+	@DisplayName("Manager Update Leave Details")
+	public void managerUpdateLeaveDetailsTest()
+	{
+		logger.info("leaveDetailsTest() invoked()");
+		LeaveDetailBO leaveDetailBO = new LeaveDetailBO();
+		LeaveDetailsDAO leaveDetailsDAO = new LeaveDetailsDAOImpl();
+		try {
+			leaveDetailBO = leaveDetailsDAO.getLeaveDetailsById(2);
+		} catch (Exception exception) {
+			logger.error("Exception while fetching the Leave Details List - " );
+			logger.error("Error Message : " + exception.getMessage());
+			if (AppUtil.isAppDevMode) {
+				exception.printStackTrace();
+			}
+		}
+		
+		leaveDetailBO.setStatus("Rejected");
+		leaveDetailBO.setActionComment("Tight Deadlines");
+		leaveDetailBO.setUpdatedBy(140);
+		LocalDateTime ldt = LocalDateTime.now();
+		Timestamp updatedDate =java.sql.Timestamp.valueOf(ldt);
+		leaveDetailBO.setUpdatedDate(updatedDate);
+		int recordsUpdated = 0;
+		try {
+			recordsUpdated = leaveDetailsDAO.managerUpdateLeaveDetails(leaveDetailBO);
+		} catch (Exception exception) {
+			logger.error("Exception while updating the Leave Details List - " );
+			logger.error("Error Message : " + exception.getMessage());
+			if (AppUtil.isAppDevMode) {
+				exception.printStackTrace();
+			}
+			
+			// As of now I am just checking if there are any exceptions
+			// and failing test case based on that. 
+			// Since we don't have the create leave request method
+			// ready in DAO it is not possible to insert sample data 
+			// using the lifecycle methods. For testing purpose I have 
+			// inserted sample leave data from database and it worked well.
+			
+			fail("managerUpdateLeaveDetailsTest() failed - " + exception.getMessage());
+		}
+		
+		logger.info(recordsUpdated);
+		
+	}
+	
 	@Test
 	@DisplayName("View My Leave Details")
 	public void viewMyLeaveDetailsTest()
@@ -72,4 +123,5 @@ public class LeaveDetailsDAOJUnitTest
 		logger.info("Leave Details List from DAO is " + leaveDetailsList);
 		logger.info(leaveDetailsList);
 	}
+	
 }
