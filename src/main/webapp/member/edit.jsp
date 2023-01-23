@@ -1,6 +1,5 @@
 <%@page import="com.raghsonline.miniprojects.tms.bo.EmployeeBO"%>
 <%@include file="../inc/header.jsp" %>
- <link rel="stylesheet" href="<%=request.getContextPath()%>/inc/style.css"/>
 		<h1>Edit Profile</h1>
 		
 		<%

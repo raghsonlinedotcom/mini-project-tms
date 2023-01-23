@@ -66,7 +66,10 @@
 		        </li>		        		        
 		       <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/references.jsp">References</a>
-		        </li>		        
+		        </li>
+		       <li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/test/index.jsp">Test</a>
+		        </li>		        		        
 		       <!-- <li class="nav-item">
 		         <a class="nav-link disabled">Disabled</a>
 		       </li>-->
