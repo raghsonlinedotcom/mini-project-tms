@@ -10,6 +10,17 @@ public class EmailConfigBO
 	
 	private String emailBody;
 	
+	/**
+	 * <p>
+	 * A flag to control the email to be sent after any transaction
+	 * happening in the System. It is backed up by the property
+	 * <code>flag.email.send</code> in the properties file
+	 * <code>emailconfig.properties</code>
+	 * </p>
+	 */
+	private boolean sendEmail;
+
+
 	public EmailConfigBO() {
 		super();
 	}
@@ -86,9 +97,29 @@ public class EmailConfigBO
 		this.emailBody = emailBody;
 	}
 
+	/**
+	 * @return the sendEmail
+	 */
+	public boolean canSendEmail() {
+		return sendEmail;
+	}
+
+
+	/**
+	 * @param sendEmail the sendEmail to set
+	 */
+	public void setSendEmail(boolean sendEmail) {
+		this.sendEmail = sendEmail;
+	}
+	
 	@Override
 	public String toString() {
-		return "EmailConfigBO [emailFrom=" + emailFrom + ", emailTo=" + emailTo + ", emailSubject=" + emailSubject
-				+ ", emailBody=" + emailBody + ", hashCode()=" + hashCode() + "]";
+		return "EmailConfigBO [emailFrom=" + emailFrom 
+				+ ", emailTo=" + emailTo 
+				+ ", emailSubject=" + emailSubject
+				+ ", emailBody=" + emailBody 
+				+ ", sendEmail=" + sendEmail 
+				+ ", hashCode()=" + hashCode() 
+				+ "]";
 	}
 }

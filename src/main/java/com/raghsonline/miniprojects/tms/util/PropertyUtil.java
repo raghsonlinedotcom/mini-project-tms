@@ -102,7 +102,8 @@ public class PropertyUtil
 		try {
 			is = new FileInputStream(file);
 			_properties.load(is);
-			System.out.println("Properties has been loaded successfully with # "
+			System.out.println("Properties [" + propFileName 
+						+ "] has been loaded successfully with # "
 						+ _properties.size() + " entries");
 		}catch(FileNotFoundException fnfException) {
 			System.err.println("Exception while accessing the config file - " + propFileName);
