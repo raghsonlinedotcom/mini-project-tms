@@ -56,7 +56,7 @@
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/commands.jsp">Commands</a>
 		        </li>  
 		        <li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/paths.jsp">Paths</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/config.jsp">Config</a>
 		        </li>
 		       <li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/common/team.jsp">Members</a>

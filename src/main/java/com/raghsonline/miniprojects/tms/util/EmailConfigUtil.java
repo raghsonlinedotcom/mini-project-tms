@@ -44,12 +44,18 @@ public class EmailConfigUtil
 		emailConfigBO.setEmailSubject(PropertyUtil.getEmailPropertyValue(KEY_EMAIL_SUBJECT + key));
 		emailConfigBO.setEmailBody(PropertyUtil.getEmailPropertyValue(KEY_EMAIL_BODY + key));
 		
-		String flagEmailSend = PropertyUtil.getEmailPropertyValue(KEY_FLAG_EMAIL_SEND);
-		boolean canSendEmail = null!=flagEmailSend && flagEmailSend.equalsIgnoreCase("Y");
-		emailConfigBO.setSendEmail(canSendEmail);
+		emailConfigBO.setSendEmail(canSendEmail());
 				
 		logger.info("EmailConfigBO populated successfully!, emailConfigBO = " + emailConfigBO);
 		
 		return emailConfigBO;
+	}
+	
+	public static boolean canSendEmail()
+	{
+		String flagEmailSend = PropertyUtil.getEmailPropertyValue(KEY_FLAG_EMAIL_SEND);
+		boolean canSendEmail = null!=flagEmailSend && flagEmailSend.equalsIgnoreCase("Y");
+		
+		return canSendEmail;
 	}
 }
