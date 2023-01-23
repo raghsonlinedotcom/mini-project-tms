@@ -1,15 +1,15 @@
-<%@ page import="com.raghsonline.miniprojects.tms.bo.LeaveDetailsBO" %>
+<%@ page import="com.raghsonline.miniprojects.tms.bo.LeaveDetailBO" %>
 <%@include file="../inc/header.jsp" %>
 
 		<h1>View My LeaveDetails</h1>
 		
 		<%
-		LeaveDetailsBO leavedetailsBO = (LeaveDetailsBO) request.getAttribute("leavedetailsBO");
-			String message = (String) request.getAttribute("message");	
-			
-			if(null!=message)
-			{
-		%>
+				LeaveDetailBO leavedetailsBO = (LeaveDetailBO) request.getAttribute("leavedetailsBO");
+					String message = (String) request.getAttribute("message");	
+					
+					if(null!=message)
+					{
+				%>
 				<div class="row">
 					<div class="col-12" align="center">
 						<div class="alert alert-success" role="alert">

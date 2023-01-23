@@ -1,4 +1,4 @@
-package com.raghsonline.miniprojects.tms.web;
+package com.raghsonline.miniprojects.tms.web.leave;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.raghsonline.miniprojects.tms.bo.EmployeeBO;
-import com.raghsonline.miniprojects.tms.bo.LeaveDetailsBO;
+import com.raghsonline.miniprojects.tms.bo.LeaveDetailBO;
 import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAO;
 import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAOImpl;
 
@@ -22,7 +22,7 @@ import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAOImpl;
  * Servlet implementation class EmployeeListServlet
  */
 @WebServlet("/ViewMyTeamsLeave")
-public class ViewMyTeamsLeaveServlet extends HttpServlet 
+public class MyTeamsLeaveServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -31,7 +31,7 @@ public class ViewMyTeamsLeaveServlet extends HttpServlet
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ViewMyTeamsLeaveServlet() {
+	public MyTeamsLeaveServlet() {
 		super();
 	}
 
@@ -42,7 +42,7 @@ public class ViewMyTeamsLeaveServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{
-		logger.info("ViewMyTeamsLeaveServlet - doGet() invoked");
+		logger.info("MyTeamsLeaveServlet - doGet() invoked");
 		
 		// Get the Manager id from the session
 		
@@ -56,10 +56,10 @@ public class ViewMyTeamsLeaveServlet extends HttpServlet
 		LeaveDetailsDAO leaveDetailsDAO = null;
 
 		leaveDetailsDAO = new LeaveDetailsDAOImpl();
-		List<LeaveDetailsBO> leaveDetailsBOList = null;
+		List<LeaveDetailBO> leaveDetailsBOList = null;
 		try 
 		{
-			leaveDetailsBOList = leaveDetailsDAO.viewMyTeamsLeave(empId);
+			leaveDetailsBOList = leaveDetailsDAO.getTeamLeaveDetails(empId);
 		} 
 		catch (Exception exception)
 		{

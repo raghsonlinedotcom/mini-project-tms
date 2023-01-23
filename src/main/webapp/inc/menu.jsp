@@ -33,13 +33,13 @@
 		           Leave Details
 		         </a>
 		         <ul class="dropdown-menu">
-		           <li><a class="dropdown-item" href="">Apply</a></li>
-		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/ViewAllMyLeaveDetailsServlet">View My Leaves</a></li>
+		           <li><a class="dropdown-item" href="#">Apply</a></li>
+		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/MyLeaveHistory">View My Leaves</a></li>
 		         <%
 		        	 if(null!=managerInsession)
 		        	 {
 		         %>
-		        	 <li><a class="dropdown-item" href="<%=request.getContextPath()%>/ViewMyTeamsLeave">View My Teams Leave</a></li>
+		        	 <li><a class="dropdown-item" href="<%=request.getContextPath()%>/MyTeamsLeave">View My Teams Leave</a></li>
 		            
 		         <% 
 		        	 }

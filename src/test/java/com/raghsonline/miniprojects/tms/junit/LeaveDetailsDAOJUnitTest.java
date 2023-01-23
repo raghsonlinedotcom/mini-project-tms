@@ -8,21 +8,23 @@ import org.apache.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.raghsonline.miniprojects.tms.bo.LeaveDetailsBO;
+import com.raghsonline.miniprojects.tms.bo.LeaveDetailBO;
 import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAO;
 import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAOImpl;
 import com.raghsonline.miniprojects.tms.util.AppUtil;
 
-public class LeaveDetailsDAOJUnitTest {
+public class LeaveDetailsDAOJUnitTest 
+{
 	static Logger logger = Logger.getLogger(LeaveDetailsDAOJUnitTest.class);
+
 	@Test
 	@DisplayName("View My Team Leave Details")
 	public void leaveDetailsTest()
 	{
-		List<LeaveDetailsBO> leaveDetailsList = null;
+		List<LeaveDetailBO> leaveDetailsList = null;
 		LeaveDetailsDAO leaveDetailsDAO = new LeaveDetailsDAOImpl();
 		try {
-			leaveDetailsList = leaveDetailsDAO.viewMyTeamsLeave(140);
+			leaveDetailsList = leaveDetailsDAO.getTeamLeaveDetails(140);
 		} catch (Exception exception) {
 			logger.error("Exception while fetching the Leave Details List - " );
 			logger.error("Error Message : " + exception.getMessage());
@@ -47,10 +49,10 @@ public class LeaveDetailsDAOJUnitTest {
 	public void viewMyLeaveDetailsTest()
 	{
 		logger.info("----------- ViewMyLeaveDetailsJUnitTest - Invoked ------------");	
-		List<LeaveDetailsBO> leaveDetailsList = null;
+		List<LeaveDetailBO> leaveDetailsList = null;
 		LeaveDetailsDAO leaveDetailsDAO = new LeaveDetailsDAOImpl();
 		try {
-			leaveDetailsList = leaveDetailsDAO.myLeaveDetails(137);
+			leaveDetailsList = leaveDetailsDAO.getLeaveDetails(137);
 		} catch (Exception exception) {
 			logger.error("Exception while fetching the Leave Details List - " );
 			logger.error("Error Message : " + exception.getMessage());

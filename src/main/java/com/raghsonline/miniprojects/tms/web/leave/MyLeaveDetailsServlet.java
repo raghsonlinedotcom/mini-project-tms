@@ -1,4 +1,4 @@
-package com.raghsonline.miniprojects.tms.web;
+package com.raghsonline.miniprojects.tms.web.leave;
 
 import java.io.IOException;
 
@@ -7,23 +7,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.raghsonline.miniprojects.tms.bo.EmployeeBO;
-import com.raghsonline.miniprojects.tms.bo.LeaveDetailsBO;
-import com.raghsonline.miniprojects.tms.dao.EmployeeDAO;
-import com.raghsonline.miniprojects.tms.dao.EmployeeDAOImpl;
+import com.raghsonline.miniprojects.tms.bo.LeaveDetailBO;
 import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAO;
 import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAOImpl;
 import com.raghsonline.miniprojects.tms.util.AppUtil;
 
 /**
- * Servlet implementation class ViewMyLeaveDetailsServlet
+ * Servlet implementation class MyLeaveDetailsServlet
  */
-@WebServlet({ "/ViewMyLeaveDetailsServlet", "/ViewMyLeaveDetails" })
-public class ViewMyLeaveDetailsServlet extends HttpServlet 
+@WebServlet({ "/MyLeaveDetailsServlet", "/MyLeaveDetails" })
+public class MyLeaveDetailsServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -32,7 +28,7 @@ public class ViewMyLeaveDetailsServlet extends HttpServlet
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ViewMyLeaveDetailsServlet() {
+	public MyLeaveDetailsServlet() {
 		super();
 	}
 
@@ -43,24 +39,20 @@ public class ViewMyLeaveDetailsServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{
-		System.out.println("ViewMyLeaveDetailsServlet - doGet() invoked");
-
-		// 1. Get the Employee Data from the request
-		//int empId;
-		//HttpSession session = request.getSession(true);
-		//LeaveDetailsBO leavedetailsBO = (LeaveDetailsBO) session.getAttribute("leavedetailsBO");
-		//empId = leavedetailsBO.getEmpId();
-		//LeaveDetailsDAO leavedetailsDAO = new LeaveDetailsDAOImpl();
+		logger.info("MyLeaveDetailsServlet - doGet() invoked");
+		
 		int id = 0;
 		String idStr = request.getParameter("id");
 		
 		if(null!=idStr && idStr.trim().length()>0) {
 			id = Integer.parseInt(idStr);
 		}
-		LeaveDetailsBO leavedetailsBO = new LeaveDetailsBO();
-		LeaveDetailsDAO leavedetailsDAO = new LeaveDetailsDAOImpl();
+		
+		LeaveDetailBO leaveDetailsBO = new LeaveDetailBO();
+		LeaveDetailsDAO leaveDetailsDAO = new LeaveDetailsDAOImpl();
+		
 		try {
-			leavedetailsBO = leavedetailsDAO.viewLeaveDetailsById(id);
+			leaveDetailsBO = leaveDetailsDAO.getLeaveDetailsById(id);
 		} catch (Exception exception) {
 			logger.error("Exception occurred while reading the data from the Database Table");
 			logger.error("Message : " + exception.getMessage());
@@ -68,16 +60,13 @@ public class ViewMyLeaveDetailsServlet extends HttpServlet
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
-			
 		}
-		logger.info("LeaveDetailsBO object from the database is " + leavedetailsBO);
+		logger.info("LeaveDetailBO object from the database is " + leaveDetailsBO);
 		
-
 		// 2. Store it in a way where the data is accessible in the JSP
-		request.setAttribute("leavedetailsBO", leavedetailsBO);
+		request.setAttribute("leavedetailsBO", leaveDetailsBO);
 
 		// 3. Forward / Delegate the control/flow the required JSP Page
 		request.getRequestDispatcher("/member/viewmyleavedetails.jsp").forward(request, response);
 	}
 }
-

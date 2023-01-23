@@ -2,47 +2,47 @@ package com.raghsonline.miniprojects.tms.bo;
 
 import java.sql.Timestamp;
 
-public class LeaveDetailsBO {
- 
-    private int id;
-    
-    private int empId;
+public class LeaveDetailBO {
 
-    private int managerId;
-    
-    private Timestamp fromDate;
-    
-    private Timestamp toDate;
-    
-    private String leaveReason;
-    
-    private String status;
-    
-    private String actionComment;
-    
-    private String altContactNo;
-    
-    private Timestamp createdDate;
-    
-    private int createdBy;
-    
-    private Timestamp updatedDate;
-    
-    private int updatedBy;
-    
-    public LeaveDetailsBO() {
+	private int id;
+
+	private int empId;
+
+	private int managerId;
+
+	private Timestamp fromDate;
+
+	private Timestamp toDate;
+
+	private String leaveReason;
+
+	private String status;
+
+	private String actionComment;
+
+	private String altContactNo;
+
+	private Timestamp createdDate;
+
+	private int createdBy;
+
+	private Timestamp updatedDate;
+
+	private int updatedBy;
+
+	public LeaveDetailBO() {
 	}
-	
 
-	public LeaveDetailsBO(int id, int empId, int managerId, String leaveReason,
-			String status) {
+	public LeaveDetailBO(int id, int empId, int managerId, 
+			String leaveReason, String status) 
+	{
 		super();
 		this.id = id;
 		this.empId = empId;
 		this.managerId = managerId;
 		this.leaveReason = leaveReason;
 		this.status = status;
-			}
+	}
 
 	public int getId() {
 		return id;
@@ -149,15 +149,10 @@ public class LeaveDetailsBO {
 	}
 
 	@Override
-	public String toString()
+	public String toString() 
 	{
-		return "LeaveDetailsBO ["
-				+ "hashCode()=" + hashCode()
-				+ ", id=" + id
-				+ ", empId=" + empId 
-				+ ", managerId=" + managerId 
-				+ ", leaveReason=" + leaveReason 
-				+ ", status=" + status;
-				
-	}     
+		return "LeaveDetailBO [" + "hashCode()=" + hashCode() + ", id=" + id + ", empId=" + empId + ", managerId="
+				+ managerId + ", leaveReason=" + leaveReason + ", status=" + status;
+
+	}
 }
