@@ -300,4 +300,57 @@ public class LeaveDetailsDAOImpl implements LeaveDetailsDAO
 		return recordsUpdated;
 
 	}
+
+	@Override
+	public int createLeaveDetails(LeaveDetailBO leaveDetailBO)
+	throws Exception 
+	{
+		logger.info("LeaveDetailsDAOImpl - createLeaveDetails() invoked");
+
+		// 1. Obtain the DB Connection
+		Connection conn = DBConnection.getConn();
+
+		// 2. Prepare the SQL Query and Statement Object
+		String sql = "INSERT INTO LEAVE_DETAILS(EMP_ID, MANAGER_ID, FROM_DATE,TO_DATE, LEAVE_REASON,"
+				+ "  ALT_CONTACT_NO,CREATED_BY)"
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+		PreparedStatement ps = null;
+		int rowsAdded = 0;
+		int lastInsertedId = 0;
+		ResultSet rs = null;
+
+		ps = conn.prepareStatement(sql);
+
+		// 3. Set/ Bind Values to the Prepared Statement
+		ps.setInt(1, leaveDetailBO.getEmpId());
+		if ( leaveDetailBO.getManagerId() == 0) { /* No Manager */
+			ps.setObject(2, null);
+		} else {
+			ps.setInt(2,  leaveDetailBO.getManagerId());
+		}
+		ps.setTimestamp(3, leaveDetailBO.getFromDate());
+		ps.setTimestamp(4, leaveDetailBO.getToDate());
+		ps.setString(5,  leaveDetailBO.getLeaveReason());
+		ps.setString(6,  leaveDetailBO.getAltContactNo());
+		ps.setInt(7,   leaveDetailBO.getCreatedBy());
+	
+        // 4. Execute the Statement
+		rowsAdded = ps.executeUpdate();
+
+		rs = ps.executeQuery("SELECT LAST_INSERT_ID()");
+
+		if (rs.next()) {
+			lastInsertedId = rs.getInt(1);
+		} else {
+			logger.error("There was no record inserted in this session!");
+		}
+
+		logger.info("Rows Added : " + rowsAdded);
+		logger.info("Last Inserted Id : " + lastInsertedId);
+		
+		conn.close();
+
+		return lastInsertedId;
+	}
 }

@@ -33,7 +33,7 @@
 		           Leave Details
 		         </a>
 		         <ul class="dropdown-menu">
-		           <li><a class="dropdown-item" href="#">Apply</a></li>
+		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/leave/createleavedetails.jsp">Apply</a></li>
 		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/MyLeaveHistory">View My Leaves</a></li>
 		         <%
 		        	 if(null!=managerInsession)
