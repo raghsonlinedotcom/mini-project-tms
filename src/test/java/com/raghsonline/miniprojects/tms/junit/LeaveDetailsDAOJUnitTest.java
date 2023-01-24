@@ -96,14 +96,14 @@ public class LeaveDetailsDAOJUnitTest
 	}
 	
 	@Test
-	@DisplayName("View My Leave Details")
-	public void viewMyLeaveDetailsTest()
+	@DisplayName(" My Leave Details")
+	public void myLeaveDetailsTest()
 	{
-		logger.info("----------- ViewMyLeaveDetailsJUnitTest - Invoked ------------");	
-		List<LeaveDetailBO> leaveDetailsList = null;
+		logger.info("myLeaveDetailsTest() - Invoked");	
+		List<LeaveDetailBO> leaveDetailBOList = null;
 		LeaveDetailsDAO leaveDetailsDAO = new LeaveDetailsDAOImpl();
 		try {
-			leaveDetailsList = leaveDetailsDAO.getLeaveDetails(137);
+			leaveDetailBOList = leaveDetailsDAO.getLeaveDetails(140);
 		} catch (Exception exception) {
 			logger.error("Exception while fetching the Leave Details List - " );
 			logger.error("Error Message : " + exception.getMessage());
@@ -117,11 +117,10 @@ public class LeaveDetailsDAOJUnitTest
 			// using the lifecycle methods. For testing purpose I have 
 			// inserted sample leave data from database and it worked well. 
 			
-			fail("viewMyLeaveDetailsTest() failed - " + exception.getMessage());
+			fail("myLeaveDetailsTest() failed - " + exception.getMessage());
 		}
 		
-		logger.info("Leave Details List from DAO is " + leaveDetailsList);
-		logger.info(leaveDetailsList);
-	}
-	
+		logger.info("Leave Details List from DAO is " + leaveDetailBOList);
+		logger.info(leaveDetailBOList);
+	}	
 }

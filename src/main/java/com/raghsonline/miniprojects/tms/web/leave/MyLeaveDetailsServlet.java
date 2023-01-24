@@ -48,11 +48,11 @@ public class MyLeaveDetailsServlet extends HttpServlet
 			id = Integer.parseInt(idStr);
 		}
 		
-		LeaveDetailBO leaveDetailsBO = new LeaveDetailBO();
+		LeaveDetailBO leaveDetailBO = new LeaveDetailBO();
 		LeaveDetailsDAO leaveDetailsDAO = new LeaveDetailsDAOImpl();
 		
 		try {
-			leaveDetailsBO = leaveDetailsDAO.getLeaveDetailsById(id);
+			leaveDetailBO = leaveDetailsDAO.getLeaveDetailsById(id);
 		} catch (Exception exception) {
 			logger.error("Exception occurred while reading the data from the Database Table");
 			logger.error("Message : " + exception.getMessage());
@@ -61,12 +61,12 @@ public class MyLeaveDetailsServlet extends HttpServlet
 				exception.printStackTrace();
 			}
 		}
-		logger.info("LeaveDetailBO object from the database is " + leaveDetailsBO);
+		logger.info("LeaveDetailBO object from the database is " + leaveDetailBO);
 		
 		// 2. Store it in a way where the data is accessible in the JSP
-		request.setAttribute("leavedetailsBO", leaveDetailsBO);
+		request.setAttribute("leaveDetailBO", leaveDetailBO);
 
 		// 3. Forward / Delegate the control/flow the required JSP Page
-		request.getRequestDispatcher("/member/viewmyleavedetails.jsp").forward(request, response);
+		request.getRequestDispatcher("/member/leave/myleavedetails.jsp").forward(request, response);
 	}
 }

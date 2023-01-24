@@ -99,7 +99,7 @@ public class LeaveDetailsDAOImpl implements LeaveDetailsDAO
 	public LeaveDetailBO getLeaveDetailsById(int id) 
 	throws Exception 
 	{
-		logger.info("viewLeaveDetailsById() invoked - idParam :: " + id);
+		logger.info("getLeaveDetailsById() invoked - idParam :: " + id);
 
 		String sql = "SELECT * FROM LEAVE_DETAILS WHERE ID=?";
 
@@ -180,15 +180,15 @@ public class LeaveDetailsDAOImpl implements LeaveDetailsDAO
 	public List<LeaveDetailBO> getLeaveDetails(int idParam) 
 	throws Exception 
 	{	
-		logger.info("LeaveDetailsDAOImpl --- getLeaveDetailsById - idParam ::" + idParam);
+		logger.info("getLeaveDetails() invoked- idParam ::" + idParam);
 		
 		String sql ="SELECT * FROM LEAVE_DETAILS WHERE EMP_ID=?";
 		
 		logger.info("SQL Query :: "+ sql);
 		
 		ResultSet rs = null;
-		List<LeaveDetailBO> leavedetailsBOList = new ArrayList<>();
-		LeaveDetailBO leavedetailsBO = null;
+		List<LeaveDetailBO> leaveDetailBOList = new ArrayList<>();
+		LeaveDetailBO leaveDetailBO = null;
 		Connection conn = null;
 		PreparedStatement pStmt = null;
 		
@@ -202,18 +202,18 @@ public class LeaveDetailsDAOImpl implements LeaveDetailsDAO
 			
 			while(rs.next())
 			{
-				leavedetailsBO = new LeaveDetailBO();
+				leaveDetailBO = new LeaveDetailBO();
 				
-				leavedetailsBO.setId(rs.getInt("ID"));
-				leavedetailsBO.setEmpId(rs.getInt("EMP_ID"));
-				leavedetailsBO.setManagerId(rs.getInt("MANAGER_ID"));
-				leavedetailsBO.setFromDate(rs.getTimestamp("FROM_DATE"));
-				leavedetailsBO.setToDate(rs.getTimestamp("TO_DATE"));
-				leavedetailsBO.setLeaveReason(rs.getString("LEAVE_REASON"));
-				leavedetailsBO.setStatus(rs.getString("STATUS"));
-				leavedetailsBO.setCreatedBy(rs.getInt("CREATED_BY"));
+				leaveDetailBO.setId(rs.getInt("ID"));
+				leaveDetailBO.setEmpId(rs.getInt("EMP_ID"));
+				leaveDetailBO.setManagerId(rs.getInt("MANAGER_ID"));
+				leaveDetailBO.setFromDate(rs.getTimestamp("FROM_DATE"));
+				leaveDetailBO.setToDate(rs.getTimestamp("TO_DATE"));
+				leaveDetailBO.setLeaveReason(rs.getString("LEAVE_REASON"));
+				leaveDetailBO.setStatus(rs.getString("STATUS"));
+				leaveDetailBO.setCreatedBy(rs.getInt("CREATED_BY"));
 				
-				leavedetailsBOList.add(leavedetailsBO);	
+				leaveDetailBOList.add(leaveDetailBO);	
 			}
 		} catch (SQLException sqlException) {
 			logger.error("SQLException occurred while Obtaining the data from the Database Table");
@@ -244,9 +244,9 @@ public class LeaveDetailsDAOImpl implements LeaveDetailsDAO
 			}
 		}
 		
-		logger.info("LeaveDetailsBOList size : " + leavedetailsBOList.size());
+		logger.info("LeaveDetailBOList size : " + leaveDetailBOList.size());
 		
-		return leavedetailsBOList;
+		return leaveDetailBOList;
 	}
 
 	@Override

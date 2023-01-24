@@ -55,20 +55,19 @@ public class MyLeaveHistoryServlet extends HttpServlet
 			LeaveDetailsDAO leaveDetailsDAO = null;
 			
 			leaveDetailsDAO = new LeaveDetailsDAOImpl();
-			List<LeaveDetailBO> leaveDetailsBOList = null;
+			List<LeaveDetailBO> leaveDetailBOList = null;
 				
 			try 
 			{
-				leaveDetailsBOList= leaveDetailsDAO.getLeaveDetails(empId);
+				leaveDetailBOList= leaveDetailsDAO.getLeaveDetails(empId);
 			} 
 			catch (Exception exception)
 			{
 				logger.error("Exception occurred while Obtaining the data from the Database Table");
 				logger.error("Message" + exception);
 			}
-			request.setAttribute("leavedetailsBOList", leaveDetailsBOList);
+			request.setAttribute("leaveDetailBOList", leaveDetailBOList);
 
-			request.getRequestDispatcher("/member/viewallmyleavedetails.jsp").forward(request, response);
+			request.getRequestDispatcher("/member/leave/myleavehistory.jsp").forward(request, response);
 		}
 	}
-
