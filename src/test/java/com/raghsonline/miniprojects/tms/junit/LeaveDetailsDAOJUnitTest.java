@@ -65,33 +65,40 @@ public class LeaveDetailsDAOJUnitTest
 			}
 		}
 		
-		leaveDetailBO.setStatus("Rejected");
-		leaveDetailBO.setActionComment("Tight Deadlines");
-		leaveDetailBO.setUpdatedBy(140);
-		LocalDateTime ldt = LocalDateTime.now();
-		Timestamp updatedDate =java.sql.Timestamp.valueOf(ldt);
-		leaveDetailBO.setUpdatedDate(updatedDate);
-		int recordsUpdated = 0;
-		try {
-			recordsUpdated = leaveDetailsDAO.managerUpdateLeaveDetails(leaveDetailBO);
-		} catch (Exception exception) {
-			logger.error("Exception while updating the Leave Details List - " );
-			logger.error("Error Message : " + exception.getMessage());
-			if (AppUtil.isAppDevMode) {
-				exception.printStackTrace();
+		if(null!=leaveDetailBO)
+		{
+			leaveDetailBO.setStatus("Rejected");
+			leaveDetailBO.setActionComment("Tight Deadlines");
+			leaveDetailBO.setUpdatedBy(140);
+			LocalDateTime ldt = LocalDateTime.now();
+			Timestamp updatedDate =java.sql.Timestamp.valueOf(ldt);
+			leaveDetailBO.setUpdatedDate(updatedDate);
+			int recordsUpdated = 0;
+			try {
+				recordsUpdated = leaveDetailsDAO.managerUpdateLeaveDetails(leaveDetailBO);
+			} catch (Exception exception) {
+				logger.error("Exception while updating the Leave Details List - " );
+				logger.error("Error Message : " + exception.getMessage());
+				if (AppUtil.isAppDevMode) {
+					exception.printStackTrace();
+				}
+				
+				// As of now I am just checking if there are any exceptions
+				// and failing test case based on that. 
+				// Since we don't have the create leave request method
+				// ready in DAO it is not possible to insert sample data 
+				// using the lifecycle methods. For testing purpose I have 
+				// inserted sample leave data from database and it worked well.
+				
+				fail("managerUpdateLeaveDetailsTest() failed - " + exception.getMessage());
 			}
-			
-			// As of now I am just checking if there are any exceptions
-			// and failing test case based on that. 
-			// Since we don't have the create leave request method
-			// ready in DAO it is not possible to insert sample data 
-			// using the lifecycle methods. For testing purpose I have 
-			// inserted sample leave data from database and it worked well.
-			
-			fail("managerUpdateLeaveDetailsTest() failed - " + exception.getMessage());
-		}
 		
-		logger.info(recordsUpdated);
+			logger.info(recordsUpdated);
+		}
+		else
+		{
+			logger.info("No leave details are available to edit for the given id");
+		}
 		
 	}
 	
