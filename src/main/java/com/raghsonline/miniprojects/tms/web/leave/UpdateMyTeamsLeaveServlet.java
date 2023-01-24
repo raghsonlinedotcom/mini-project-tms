@@ -4,6 +4,9 @@ package com.raghsonline.miniprojects.tms.web.leave;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.sql.Timestamp;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,11 +16,16 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.raghsonline.miniprojects.tms.bo.EmailConfigBO;
 import com.raghsonline.miniprojects.tms.bo.EmployeeBO;
 import com.raghsonline.miniprojects.tms.bo.LeaveDetailBO;
+import com.raghsonline.miniprojects.tms.dao.EmployeeDAO;
+import com.raghsonline.miniprojects.tms.dao.EmployeeDAOImpl;
 import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAO;
 import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAOImpl;
+import com.raghsonline.miniprojects.tms.exception.MissingConfigException;
 import com.raghsonline.miniprojects.tms.util.AppUtil;
+import com.raghsonline.miniprojects.tms.util.EmailUtil;
 
 /**
  * Servlet implementation class UpdateEmployeeServlet
@@ -161,10 +169,75 @@ public class UpdateMyTeamsLeaveServlet extends HttpServlet
 		else if (recordsUpdated > 0) {
 			request.setAttribute("message", "Record updated successfully!");
 			leaveDetailsDAO = new LeaveDetailsDAOImpl();
+			EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 			try {
+				
+				// Getting updated leaveDetailBO from the DB
 				leaveDetailBO = leaveDetailsDAO.getLeaveDetailsById(id);
+				
+				// Sending Email
+				EmailConfigBO emailConfigBO = new EmailConfigBO();
+				boolean emailSent = false;
+				emailConfigBO.setSendEmail(true);
+				emailConfigBO.setEmailFrom(managerInsession.getOfficialEmail());
+				int receiverEmpId = leaveDetailBO.getEmpId();
+				EmployeeBO receiverBO = employeeDAO.getEmployeeByEmpId(receiverEmpId);
+				emailConfigBO.setEmailTo(receiverBO.getOfficialEmail());
+				
+				if(leaveDetailBO.getStatus().equalsIgnoreCase("Approved"))
+				{
+					emailConfigBO.setEmailSubject("#TMS# Leave Request has been Approved");
+					emailConfigBO.setEmailBody("Dear User! Your leave request with the id "
+							+ leaveDetailBO.getId() + " has been Approved. " + leaveDetailBO.getActionComment());
+				}
+				
+				if(leaveDetailBO.getStatus().equalsIgnoreCase("Rejected"))
+				{
+					emailConfigBO.setEmailSubject("#TMS# Leave Request has been Rejected");
+					emailConfigBO.setEmailBody("Dear User! Your leave request with the id "
+							+ leaveDetailBO.getId() + " has been Rejected, due to the following reason:  " +leaveDetailBO.getActionComment());
+				}
+				
+				logger.info("Populated emailConfigBO object using leave details " + emailConfigBO);
+				
+				if(leaveDetailBO.getStatus().equalsIgnoreCase("Approved")||leaveDetailBO.getStatus().equalsIgnoreCase("Rejected"))
+				{
+					try {
+						emailSent = new EmailUtil().sendMail(emailConfigBO);
+					} catch (AddressException addressException) {
+						logger.error("AddressException while sending an email to the employee");
+						String errorMsg2 = addressException.getMessage();
+						logger.error("Error Message : " + errorMsg2);
+						if (AppUtil.isAppDevMode) {
+							addressException.printStackTrace();
+						}
+					} catch (MessagingException messagingException) {
+						logger.error("MessagingException while sending an email to the employee");
+						String errorMsg3 = messagingException.getMessage();
+						logger.error("Error Message : " + errorMsg3);
+						if (AppUtil.isAppDevMode) {
+							messagingException.printStackTrace();
+						}
+					} catch (MissingConfigException missingConfigException) {
+						logger.error("MissingConfigException while sending an email to the employee");
+						String errorMsg4 = missingConfigException.getMessage();
+						logger.error("Error Message : " + errorMsg4);
+						if (AppUtil.isAppDevMode) {
+							missingConfigException.printStackTrace();
+						}
+					}
+					
+					if(emailSent) {
+						logger.info("Email has been successfully sent to [" + emailConfigBO.getEmailTo() + "]");	
+					} else {
+						logger.info("The email was not sent to the employee [" + emailConfigBO.getEmailTo() + "]");
+					}
+				}
+				
+				
+				
 			} catch (Exception exception) {
-				logger.error("Exception occurred while reading the data from the Database Table");
+				logger.error("Exception occurred while reading the leave Details data from the Database Table");
 				logger.error("Message : " + exceptionMsg);
 				
 				if (AppUtil.isAppDevMode) {
