@@ -353,4 +353,69 @@ public class LeaveDetailsDAOImpl implements LeaveDetailsDAO
 
 		return lastInsertedId;
 	}
+
+	@Override
+	public int updateLeave(LeaveDetailBO leaveDetailBO) 
+	throws Exception 
+	{
+		logger.info("updateLeave :: " + leaveDetailBO);
+
+		String sql = "UPDATE LEAVE_DETAILS SET " + "FROM_DATE=?, TO_DATE=?, LEAVE_REASON=?, STATUS=?,"
+				+ " ACTION_COMMENT=?, ALT_CONTACT_NO=?,"
+				+ " UPDATED_DATE=?,UPDATED_BY=?"
+				+ " WHERE ID= ?";
+
+		logger.info("SQL Query :: " + sql);
+		Connection conn = null;
+		PreparedStatement pStmt = null;
+		int recordsUpdated = 0;
+		
+		try
+		{
+			conn = DBConnection.getConn();
+			
+			pStmt = conn.prepareStatement(sql);
+			
+			pStmt.setTimestamp(1, leaveDetailBO.getFromDate());
+			pStmt.setTimestamp(2, leaveDetailBO.getToDate());
+			pStmt.setString(3, leaveDetailBO.getLeaveReason());
+			pStmt.setString(4, leaveDetailBO.getStatus());
+			pStmt.setString(5, leaveDetailBO.getActionComment());
+			pStmt.setString(6, leaveDetailBO.getAltContactNo());
+			pStmt.setTimestamp(7, leaveDetailBO.getUpdatedDate());
+			pStmt.setInt(8, leaveDetailBO.getUpdatedBy());
+			pStmt.setInt(9, leaveDetailBO.getId());
+			
+			recordsUpdated = pStmt.executeUpdate();
+			
+			logger.info("recordsUpdated : " + recordsUpdated);
+			
+		} 
+		catch (Exception exception) 
+		{
+			logger.error("Exception occurred while updating the data into the Database Leave Details Table");
+			logger.error("Message : " + exception.getMessage());
+		} 
+		finally 
+		{
+			try 
+			{
+				if (null != pStmt)
+					pStmt.close();
+				if (null != conn)
+					conn.close();
+			} 
+			catch (SQLException sqlException)
+			{
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
+				if(AppUtil.isAppDevMode) 
+				{
+					sqlException.printStackTrace();
+				}
+			}
+		}
+		logger.info("recordsUpdated  : " + recordsUpdated);
+		return recordsUpdated;
+	}
 }

@@ -58,7 +58,11 @@
 							//out.println("<td>" + leavedetailsBO.getAltContactNo() + "</td>");
 							out.println("<td>" + "<a href='MyLeaveDetails?id=" + 
 									leaveDetailBO.getId() + "'>View " + "</a> "+  "</td>");
-							out.println("<td>Edit</td>");
+							if(leaveDetailBO.getStatus().equalsIgnoreCase("OPEN"))
+							{
+								out.println("<td>" + "<a href='EditLeave?id=" + 
+										leaveDetailBO.getId() + "'>Edit" + "</a> "+  "</td>");
+							}
 							out.println("</tr>");
 						}
 				%>					

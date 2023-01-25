@@ -84,15 +84,19 @@
 							<td>Updated By</td>
 							<td>${leaveDetailBO.updatedBy}</td>
 						</tr>
-						<tr>
-							<td colspan="2">
-								<!-- <form id="editForm" name="EditForm" action="Edit" action="post">
-									<input type="submit" name="Edit" Value="Edit"/>
-								</form>-->
-								Edit &nbsp;&nbsp;
-			
-							</td>
-						</tr>			
+						<%
+						 	System.out.println("leaveDetailBO :" + leaveDetailBO);
+							if(leaveDetailBO.getStatus().equalsIgnoreCase("OPEN"))
+							{
+						%>
+								<tr>
+									<td colspan="2">
+										<a href="<%=request.getContextPath()%>/member/leave/editleave.jsp">Edit</a> &nbsp;&nbsp;
+									</td>
+								</tr>
+						<%
+							}
+						%>					
 					</tbody>
 				</table>
 		<%
