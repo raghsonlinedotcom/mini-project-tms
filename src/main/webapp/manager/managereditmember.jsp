@@ -1,11 +1,59 @@
 <%@page import="com.raghsonline.miniprojects.tms.bo.EmployeeBO"%>
 <%@include file="../inc/header.jsp" %>
+<script type="text/javascript">
+function validate()
+{
+	var pvs = document.getElementsByName('isActive');
+	var pv1 = document.getElementById("inactivationReason");
+	var pv0 = document.getElementById("reactivationReason");
+
+	if (pvs[0].checked){	 
+		   pv0.style.display='inline-block';
+		   pv1.style.display='none';  
+		}
+	else {
+		   pv0.style.display='none';
+		   pv1.style.display='inline-block'; 
+	    }
+}
+function check()
+{    
+	var isActive = document.forms["UpdateForm"]["isActive"].value;
+	 var inactive = document.forms["UpdateForm"]["inactivationReason"].value;
+	 
+	  if (isActive == "false"){
+		  if(inactive == ""){
+	 		 alert("Please specify the reason for inactivation");
+		      return false;
+	    }
+		  
+	  }
+	  	  if (isActive == "true"){
+		       return check1();
+	  }
+	 
+}
+
+function check1()
+{    
+	var isActive = document.forms["UpdateForm"]["isActive"].value;
+	 var reactive = document.forms["UpdateForm"]["reactivationReason"].value;
+	 if (isActive == "true"){
+	 	 if (reactive == "") {
+	 		 alert("Please specify the reason for reactivation");
+		      return false;
+	    }	  
+	}
+}
+</script>
  <link rel="stylesheet" href="<%=request.getContextPath()%>/inc/style.css"/>
 		<h1>Edit Profile</h1>
 		
 		<%
 			EmployeeBO employeeBO = (EmployeeBO) request.getAttribute("employeeBO");
-			
+		    boolean isActiveFromDB = employeeBO.isActive();
+		    System.out.println("isActiveFromDB :"+isActiveFromDB);
+		    
 			if(null==employeeBO) {
 				employeeBO = (EmployeeBO) session.getAttribute("employeeBO");	
 			}		
@@ -72,7 +120,8 @@
 		<%		
 			} else {
 		%>	
-				<form id="updateForm" name="UpdateForm" action="<%=request.getContextPath()%>/ManagerUpdateMember" method="post">
+				<form id="updateForm" name="UpdateForm" onsubmit="return check()"
+				action="<%=request.getContextPath()%>/ManagerUpdateMember"  method="post">
 					<table class="table table-striped table-hover table-bordered 
 					table-responsive caption-top">
 						
@@ -247,16 +296,16 @@
 	    						</div>
 						</td>
 					</tr>
-				<tr>
+				  <tr>
 						<td>Is Active<span class="required">*</span></td>
 						<td>
-						<input  type="radio" name="isActive" id="isActive" value="true" 
+						<input  type="radio" name="isActive" id="isActive" onClick="validate();check1();" value="true" 
 									<%
                                         if(employeeBO.isActive()==true) {
                                             out.println(" checked");
                                         }
                                     %>>True
-						<input type="radio" name="isActive" id="isActive" value="false"
+						<input type="radio" name="isActive" id="isActives" onClick="validate();check();" value="false"
 									<%
                                         if(employeeBO.isActive()==false) {
                                             out.println(" checked");
@@ -300,10 +349,41 @@
 										required/>
 				     	</td>
 					</tr>
+					<tr>
+					    <td> InactivationReason</td>
+					    <td> 
+					   		<div id='inactivationReason' style ="display:none;"> 
+						  	  <input type="text"  class="form-control"  id="inactivationReason" name="inactivationReason" 
+							   size="250" maxlength="250" value="${employeeBO.inactivationReason}" />
+								  <div id="inactivationReasonCondition" class="form-text" >
+    								InactivationReason is Mandatory if the isActive is false.
+    							  </div>
+    						</div>
+				     	</td>			    
+					</tr> 
+					<tr>
+					    <td>ReactivationReason  </td> 
+					    <td> 
+					  		 <div id='reactivationReason' style ="display:none;">
+						       <input type="text" class="form-control"  id="reactivationReason" name="reactivationReason"  
+							    size="250" maxlength="250" value="${employeeBO.reactivationReason}" />
+								 <div id="reactivationReasonCondition" class="form-text">
+    								ReactivationReason is Mandatory if the isActive is true.
+    						     </div>
+							 </div>	 
+				     	</td>
+					</tr>
+			    	<tr>
+						<td>InactivatedDate</td>
+						<td>${employeeBO.inactivatedDate}</td>
+						</tr>		
+			    	<tr>
+						<td>ReactivatedDate</td>
+						<td>${employeeBO.reactivatedDate}</td>
+						</tr>		
 							<tr>
 								<td colspan="2">
-									<input type="submit" name="Update" Value="Update"/>
-
+									<input type="submit" name="Update"   Value="Update"  />
 								</td>
 							</tr>			
 						</tbody>

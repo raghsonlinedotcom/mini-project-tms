@@ -36,24 +36,24 @@
 					<tbody class="table-group-divider">	
 						
 						<tr>
-							<td>EmpId</td>
+							<td>Emp Id</td>
 							<td><%=leaveDetailBO.getEmpId()%></td>
 							
 						</tr>
 						<tr>
-							<td>ManagerId</td>
+							<td>Manager Id</td>
 							<td>${leaveDetailBO.managerId}</td>
 						</tr>
 						<tr>
-							<td>FromDate</td>
+							<td>From Date</td>
 							<td>${leaveDetailBO.fromDate}</td>
 						</tr>
 						<tr>
-							<td>ToDate</td>
+							<td>To Date</td>
 							<td>${leaveDetailBO.toDate}</td>
 						</tr>
 						<tr>
-							<td>LeaveReason</td>
+							<td>Leave Reason</td>
 							<td>${leaveDetailBO.leaveReason}</td>
 						</tr>
 						<tr>
@@ -61,7 +61,7 @@
 							<td>${leaveDetailBO.status}</td>
 						</tr>	
 						<tr>
-							<td>ActionComment</td>
+							<td>Action Comment</td>
 							<td>${leaveDetailBO.actionComment}</td>
 						</tr>
 						<tr>
