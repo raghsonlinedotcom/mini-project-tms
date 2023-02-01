@@ -26,6 +26,7 @@ function validateDate()
 			if(null==leaveDetailBO) 
 			{
 				leaveDetailBO = (LeaveDetailBO) session.getAttribute("leaveDetailBO");	
+				System.out.println("LeaveDetailBO from session :" + leaveDetailBO);
 			}
 			System.out.println("LeaveDetailBO from session :" + leaveDetailBO);
 		%>

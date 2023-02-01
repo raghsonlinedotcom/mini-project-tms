@@ -50,7 +50,7 @@ public class UpdateLeaveDetailsServlet extends HttpServlet
 	throws ServletException, 
 	IOException 
 	{
-		logger.info("UpdateEmployeeServlet - doPost() invoked");
+		logger.info("UpdateLeaveDetailsServlet - doPost() invoked");
 		
 		String errorMsgUI = "<ul>";
 		LeaveDetailBO leaveDetailBO = new LeaveDetailBO();

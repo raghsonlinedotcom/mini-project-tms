@@ -61,7 +61,6 @@ public class ManagerEditMemberServlet extends HttpServlet
 			{
 				exception.printStackTrace();
 			}
-			
 		}
 		logger.info("EmployeeBO object from the database is " + employeeBO);
 		
