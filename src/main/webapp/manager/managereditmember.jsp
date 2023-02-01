@@ -14,7 +14,7 @@ function validate()
 	else {
 		   pv0.style.display='none';
 		   pv1.style.display='inline-block'; 
-	    }
+	     }
 }
 function check()
 {    
@@ -25,14 +25,12 @@ function check()
 		  if(inactive == ""){
 	 		 alert("Please specify the reason for inactivation");
 		      return false;
-	    }
-		  
-	  }
+	       }
+		 }
 	  	  if (isActive == "true"){
 		       return check1();
-	  }
-	 
-}
+	     } 
+ }
 
 function check1()
 {    
