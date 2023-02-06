@@ -220,8 +220,8 @@ function validateDate()
 								<td>Alternate Contact Number</td>
 								<td>
 									<input type="tel" class="form-control" 
-										id="altContactNumber" 
-										name="altContactNumber" 
+										id="altContactNo" 
+										name="altContactNo" 
 										size="10" maxlength="10" value="${leaveDetailBO.altContactNo}"
 										aria-describedby="altContactNumberHelp">
 				    				<div id="altContactNumberHelp" class="form-text">

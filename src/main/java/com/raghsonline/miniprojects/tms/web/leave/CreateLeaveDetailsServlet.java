@@ -43,31 +43,23 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	throws ServletException, IOException 
+	{
 		logger.info("LeaveDetailsCreateServlet - doPost() invoked");
-
-		// response.setContentType("text/html");
-		// response.getWriter().println("RegisterServlet invoked!");
 
 		// 1. Collect the input data
 		String errorMsgUI = "<ul>";
 		LeaveDetailBO leaveDetailBO = new LeaveDetailBO();
+		
 		String empIdStr = request.getParameter("empId");
 		int empId = empIdStr != null ? Integer.parseInt(empIdStr) : 0;
-
-		// String empId = String.valueOf(request.getParameter("empId"));
 		logger.info("Param - empId : [" + empId + "]");
 		errorMsgUI = validateField(leaveDetailBO, empId, "empId", errorMsgUI);
 
-		/*
-		 * if(null==empId || empId.trim().length()<=0) {
-		 * logger.error("EmpId cannot be null"); employeeBO.setEmpId(""); errorMsgUI +=
-		 * addError("Employee Id cannot be null"); }
-		 */
-		String manageridStr = request.getParameter("managerId");
-		logger.info("Param - managerId : [" + manageridStr + "]");
-
-		int managerid = manageridStr != null ? Integer.parseInt(manageridStr) : 0;
+		String managerIdStr = request.getParameter("managerId");
+		logger.info("Param - managerId : [" + managerIdStr + "]");
+		int managerId = managerIdStr != null ? Integer.parseInt(managerIdStr) : 0;
+		errorMsgUI = validateField(leaveDetailBO, managerId, "managerId", errorMsgUI);
 
 		String fromDateStr = request.getParameter("fromDate");
 		logger.info("Param - fromDate : [" + fromDateStr + "]");
@@ -106,7 +98,7 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 
 		// 2. Prepare the BO object
 		leaveDetailBO.setEmpId(empId);
-		leaveDetailBO.setManagerId(managerid);
+		leaveDetailBO.setManagerId(managerId);
 		leaveDetailBO.setLeaveReason(leaveReason);
 		leaveDetailBO.setFromDate(fromDate);
 		leaveDetailBO.setToDate(toDate);
@@ -114,18 +106,17 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		leaveDetailBO.setCreatedBy(createdBy);
 		
 		// 3. Save it into the Database
-		LeaveDetailsDAO leavedetailsDAO = new LeaveDetailsDAOImpl();
+		LeaveDetailsDAO leaveDetailsDAO = new LeaveDetailsDAOImpl();
 		int lastInsertedId = -1;
 		String errorMsg = "<ul>";
 		Exception exceptionObj = null;
-		/* MEMS-18, MEMS-19 */
 		int sqlErrorCode = -1;
 		String sqlState = null;
 
 		boolean isError = false;
 
 		try {
-			lastInsertedId = leavedetailsDAO.createLeaveDetails(leaveDetailBO);
+			lastInsertedId = leaveDetailsDAO.createLeaveDetails(leaveDetailBO);
 		} catch (ClassNotFoundException classNotFoundException) {
 			isError = true;
 			exceptionObj = classNotFoundException;
@@ -158,12 +149,12 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		String url = null;
 
 		if (lastInsertedId <= 0) { /* Error */
-			message = "Error while registering the LeaveDetailsBO. ";
+			message = "Error while Applying the Leave. ";
 
 			if (exceptionObj instanceof ClassNotFoundException) {
 				message = "Error connecting with the Database. Please contact Admin.";
 			} else if (exceptionObj instanceof SQLIntegrityConstraintViolationException) {
-				message = message + "User already exists";
+				message = message + "ManagerId Can't be Null";
 			} else {
 				message = message + " Reason : " + errorMsg;
 			}
@@ -172,7 +163,7 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		
 		else { /* Success */
 			try {
-				leaveDetailBO = leavedetailsDAO.getLeaveDetailsById(lastInsertedId);
+				leaveDetailBO = leaveDetailsDAO.getLeaveDetailsById(lastInsertedId);
 			} 
 			catch (Exception exception) 
 			{
@@ -201,19 +192,26 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		return "<li>" + errorMsg + "</li>";
 	}
 
-	public Timestamp timestampFromString(String dateTime) {
+	public Timestamp timestampFromString(String dateTime) 
+	{
 		logger.info("Input dateTime : [" + dateTime + "]");
+		
 		DateTimeFormatter pattern = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 		LocalDateTime ldtObj = LocalDateTime.parse(dateTime, pattern);
+		
 		logger.info("dateTimeObj : [" + ldtObj + "]");
+		
 		Timestamp timestamp = Timestamp.valueOf(ldtObj);
 		logger.info("Timestamp value : [" + timestamp + "]");
+		
 		return timestamp;
 	}
 
 	// Method OverLoading
-	public String validateField(LeaveDetailBO leaveDetailBO, String value, String fieldName, String errorMsgUI) {
-		if (null == value || value.trim().length() <= 0) {
+	public String validateField(LeaveDetailBO leaveDetailBO, String value, String fieldName, String errorMsgUI) 
+	{
+		if (null == value || value.trim().length() <= 0)
+		{
 			validationError = true;
 			logger.error(fieldName + " cannot be null");
 			errorMsgUI += addError(fieldName + " cannot be null");
@@ -225,8 +223,10 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 	}
 
 	// Method OverLoading
-	public String validateField(LeaveDetailBO leaveDetailBO, int value, String fieldName, String errorMsgUI) {
-		if (value == 0) {
+	public String validateField(LeaveDetailBO leaveDetailBO, int value, String fieldName, String errorMsgUI) 
+	{
+		if (value == 0) 
+		{
 			validationError = true;
 			logger.error(fieldName + " cannot be Zero(0)");
 			errorMsgUI += addError(fieldName + " cannot be Zero(0)");
@@ -238,8 +238,10 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 	}
 
 	// Method OverLoading
-	public String validateField(LeaveDetailBO leaveDetailBO, Timestamp value, String fieldName, String errorMsgUI) {
-		if (null == value) {
+	public String validateField(LeaveDetailBO leaveDetailBO, Timestamp value, String fieldName, String errorMsgUI) 
+	{
+		if (null == value) 
+		{
 			validationError = true;
 			logger.error(fieldName + " cannot be null");
 			errorMsgUI += addError(fieldName + " cannot be null");
@@ -250,49 +252,53 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		return errorMsgUI;
 	}
 
-	public void setField(LeaveDetailBO leaveDetailBO, String fieldName, String value) {
-		switch (fieldName) {
-		case "leaveReason":
-			leaveDetailBO.setLeaveReason(value);
-			break;
-		case "status":
-			leaveDetailBO.setStatus(value);
-			break;
-		case "actionComment":
-			leaveDetailBO.setActionComment(value);
-			break;
-		case "altContactNo":
-			leaveDetailBO.setAltContactNo(value);
-			break;
-
+	public void setField(LeaveDetailBO leaveDetailBO, String fieldName, String value) 
+	{
+		switch (fieldName) 
+		{
+			case "leaveReason":
+				leaveDetailBO.setLeaveReason(value);
+				break;
+			case "status":
+				leaveDetailBO.setStatus(value);
+				break;
+			case "actionComment":
+				leaveDetailBO.setActionComment(value);
+				break;
+			case "altContactNo":
+				leaveDetailBO.setAltContactNo(value);
+				break;
 		}
 	}
 
 	// Method OverLoading
-	public void setField(LeaveDetailBO leaveDetailBO, String fieldName, int value) {
-		switch (fieldName) {
-		case "empId":
-			leaveDetailBO.setEmpId(value);
-			break;
-		case "managerId":
-			leaveDetailBO.setManagerId(value);
-			break;
-		case "createdBy":
-			leaveDetailBO.setCreatedBy(value);
-			break;
-
+	public void setField(LeaveDetailBO leaveDetailBO, String fieldName, int value)
+	{
+		switch (fieldName) 
+		{
+			case "empId":
+				leaveDetailBO.setEmpId(value);
+				break;
+			case "managerId":
+				leaveDetailBO.setManagerId(value);
+				break;
+			case "createdBy":
+				leaveDetailBO.setCreatedBy(value);
+				break;
 		}
 	}
 
 	// Method OverLoading
-	public void setField(LeaveDetailBO leaveDetailBO, String fieldName, Timestamp value) {
-		switch (fieldName) {
-		case "fromDate":
-			leaveDetailBO.setFromDate(value);
-			break;
-		case "toDate":
-			leaveDetailBO.setToDate(value);
-			break;
+	public void setField(LeaveDetailBO leaveDetailBO, String fieldName, Timestamp value) 
+	{
+		switch (fieldName)
+		{
+			case "fromDate":
+				leaveDetailBO.setFromDate(value);
+				break;
+			case "toDate":
+				leaveDetailBO.setToDate(value);
+				break;
 		}
 	}
 }

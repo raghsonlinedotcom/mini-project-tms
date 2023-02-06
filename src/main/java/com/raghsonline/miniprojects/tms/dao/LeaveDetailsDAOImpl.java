@@ -418,4 +418,56 @@ public class LeaveDetailsDAOImpl implements LeaveDetailsDAO
 		logger.info("recordsUpdated  : " + recordsUpdated);
 		return recordsUpdated;
 	}
+
+	//For JUnit Test Case
+	@Override
+	public int deleteLeave(int id) throws Exception 
+	{
+		logger.info("deleteData :: " + id);
+
+		String sql = "DELETE FROM LEAVE_DETAILS WHERE ID = ?";
+
+		logger.info("SQL Query :: " + sql);
+		Connection conn = null;
+		PreparedStatement pStmt = null;
+		int rowsDeleted = 0;
+		
+		try
+		{
+			conn = DBConnection.getConn();
+			pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, id);
+			rowsDeleted = pStmt.executeUpdate();
+			
+			logger.info("recordsUpdated : " + rowsDeleted);
+			
+		} 
+		catch (Exception exception)
+		{
+			logger.error("Exception occurred while deleting the Leave Record"
+					+ " from the Database Table");
+			logger.error("Message : " + exception.getMessage());
+		} 
+		finally 
+		{
+			try
+			{
+				if (null != pStmt)
+					pStmt.close();
+				if (null != conn)
+					conn.close();
+			} 
+			catch (SQLException sqlException) 
+			{
+				logger.error("Exception occurred while closing the JDBC Resources");
+				logger.error("Message : " + sqlException.getMessage());
+				
+				if(AppUtil.isAppDevMode) 
+				{
+					sqlException.printStackTrace();
+				}
+			}
+		}
+		return rowsDeleted;
+	}
 }

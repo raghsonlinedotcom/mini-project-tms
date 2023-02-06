@@ -17,4 +17,6 @@ public interface LeaveDetailsDAO {
 	public abstract int createLeaveDetails(LeaveDetailBO leaveDetailBO) throws Exception;
 	
 	public abstract int updateLeave(LeaveDetailBO leaveDetailBO) throws Exception;
+	
+	public abstract int deleteLeave(int id) throws Exception;;
 }
