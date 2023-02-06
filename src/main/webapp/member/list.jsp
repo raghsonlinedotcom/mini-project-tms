@@ -62,14 +62,16 @@
 					out.println("<td>" + employeeBO.getPrimaryContactNo() + "</td>");
 					out.println("<td>" + employeeBO.getManagerId() + "</td>");
 					out.println("<td>" + employeeBO.isActive() + "</td>");
-						if(null!=managerInsession && (employeeBO.getManagerId()==managerInsession.getEmpId()))
-						{
-							out.println("<td>" + "<a href='ViewEmployeeDetails?empId=" + 
-							employeeBO.getEmpId() + "'>View " + "</a> "+  "</td>");
-							out.println("<td>" + "<a href='ManagerEditMember?empId=" + 
-							employeeBO.getEmpId() + "'>Edit " + "</a> "+  "</td>");
-	
-						}
+					if(null!=managerInsession)
+					{
+						out.println("<td>" + "<a href='ViewEmployeeDetails?empId=" + 
+						employeeBO.getEmpId() + "'>View " + "</a> "+  "</td>");
+					}
+					if(null!=managerInsession && (employeeBO.getManagerId()==managerInsession.getEmpId()))
+					{
+						out.println("<td>" + "<a href='ManagerEditMember?empId=" + 
+						employeeBO.getEmpId() + "'>Edit " + "</a> "+  "</td>");
+					}
 					out.println("</tr>");
 				}
 							
