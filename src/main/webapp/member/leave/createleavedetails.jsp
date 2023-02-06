@@ -6,6 +6,23 @@
 <%@page import="com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAOImpl"%>
 <%@ page import="java.util.List, java.util.ArrayList , java.sql.Timestamp" %>
 <%@include file="../../inc/header.jsp" %>
+
+<script type="text/javascript">
+function validateDate()
+{    
+ var fromDate = document.getElementById('fromDate').value;
+ var toDate = document.getElementById('toDate').value;
+    if (fromDate > toDate) {
+            alert('From Date should be less than To Date');
+            return false;
+    	}
+    else if (toDate < fromDate) {
+	    	alert('To Date should be greater than From Date');
+	        return false;
+    	}
+    return true;
+}
+</script>
                
 			<%
 				EmployeeDAO employeeDAO = new EmployeeDAOImpl();
@@ -49,7 +66,7 @@
 			 	}
 			 %>
 		<h2>Leave Request Form</h2>
-		<form id="create" name="create" action="<%=request.getContextPath()%>/CreateLeaveDetails" method="post" >
+		<form id="create" name="create" onsubmit="return validateDate()" action="<%=request.getContextPath()%>/CreateLeaveDetails" method="post" >
 		     <table class="table table-striped table-hover table-bordered 
 				table-responsive caption-top">
   				<caption>Leave Details</caption>
@@ -82,14 +99,14 @@
 						<td>From Date <span class="required">*</span></td>
 						<td>
 							<input type="datetime-local" class="form-control" id="fromDate" name="fromDate"  
-								required >
+								onchange ="validateDate()" required >
 						</td>
 					</tr>
 					<tr>
 						<td>To Date <span class="required">*</span></td>
 						<td>
 							<input type="datetime-local" class="form-control" id="toDate" name="toDate"  
-								required >
+								onchange ="validateDate()" required >
 						</td>
 					</tr>
 					
@@ -109,6 +126,15 @@
 	                    maxlength="10" required>
 	                    </td>
 	                </tr>
+	                
+	                <tr>
+						<td>Created By <span class="required">*</span></td>
+						<td>
+							<input type ="number" Readonly class="form-control" id="createdBy" 
+								name="createdBy" size="10" value = "<%=employeeBO.getEmpId()%>"
+								 required size="20" >									
+						</td>
+					</tr>
 	               
 	            	<tr>
 						<td colspan="2">							

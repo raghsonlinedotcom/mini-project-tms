@@ -84,9 +84,16 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		logger.info("Param - leaveReason : [" + leaveReason + "]");
 		errorMsgUI = validateField(leaveDetailBO, leaveReason, "leaveReason", errorMsgUI);
 
-		String altContactNo = String.valueOf(request.getParameter("altContactNo"));
+		String altContactNo = String.valueOf(request.getParameter("alternateContactNo"));
 		logger.info("Param - altContactNo : [" + altContactNo + "]");
 		errorMsgUI = validateField(leaveDetailBO, altContactNo, "altContactNo", errorMsgUI);
+		
+		String createdByStr = request.getParameter("createdBy");
+		int createdBy = createdByStr != null ? Integer.parseInt(createdByStr) : 0;
+
+		logger.info("Param - createdBy : [" + createdBy + "]");
+		errorMsgUI = validateField(leaveDetailBO, createdBy, "createdBy", errorMsgUI);
+
 
 		if (validationError) {
 			errorMsgUI += "</ul>";
@@ -104,7 +111,8 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		leaveDetailBO.setFromDate(fromDate);
 		leaveDetailBO.setToDate(toDate);
 		leaveDetailBO.setAltContactNo(altContactNo);
-
+		leaveDetailBO.setCreatedBy(createdBy);
+		
 		// 3. Save it into the Database
 		LeaveDetailsDAO leavedetailsDAO = new LeaveDetailsDAOImpl();
 		int lastInsertedId = -1;
@@ -160,8 +168,23 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 				message = message + " Reason : " + errorMsg;
 			}
 			url = "member/leave/createleavedetails.jsp";
-		} else { /* Success */
-			message = "Registration successful. Your Id  is : " + lastInsertedId;
+		} 
+		
+		else { /* Success */
+			try {
+				leaveDetailBO = leavedetailsDAO.getLeaveDetailsById(lastInsertedId);
+			} 
+			catch (Exception exception) 
+			{
+				logger.error("Exception occurred while reading the data from the Database Table");
+				logger.error("Message : " + exception.getMessage());
+				
+				if (AppUtil.isAppDevMode) 
+				{
+					exception.printStackTrace();
+				}
+			}
+			message = "Your leave request has been received. Your Leave Id  is : " + lastInsertedId;
 			url = "member/leave/myleavedetails.jsp";
 		}
 
@@ -253,6 +276,9 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 			break;
 		case "managerId":
 			leaveDetailBO.setManagerId(value);
+			break;
+		case "createdBy":
+			leaveDetailBO.setCreatedBy(value);
 			break;
 
 		}
