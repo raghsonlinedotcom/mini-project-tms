@@ -1,6 +1,35 @@
 <%@page import="com.raghsonline.miniprojects.tms.bo.EmployeeBO"%>
 <%@include file="../inc/header.jsp" %>
 <script type="text/javascript">
+var flag = false;
+window.addEventListener("load", function() {
+	document.getElementById("isActive").addEventListener("change", function() {
+	flag = true;
+	});
+});
+function validateForm() {
+	var isActive = document.forms["UpdateForm"]["isActive"].value;
+	var reactivationReason = document.forms["UpdateForm"]["reactivationReason"].value;
+	var inactivationReason = document.forms["UpdateForm"]["inactivationReason"].value;
+	console.log(inactivationReason);
+		if (!flag) {
+		return true;
+		}
+		else{
+		if (isActive == "true") {
+			if (reactivationReason == "") {
+			alert("Please specify the reason for reactivation");
+			return false;
+			}
+		}
+	    if (isActive == "false") {
+	    	if (inactivationReason == "") {
+			alert("Please specify the reason for inactivation");
+		    return false;
+			 }
+		  }
+		}
+}
 function validate()
 {
 	var pvs = document.getElementsByName('isActive');
@@ -9,39 +38,14 @@ function validate()
 
 	if (pvs[0].checked){	 
 		   pv0.style.display='inline-block';
-		   pv1.style.display='none';  
+		   pv1.style.display='none'; 
+		   alert("Please specify the reason for reactivation");
 		}
 	else {
 		   pv0.style.display='none';
 		   pv1.style.display='inline-block'; 
+		   alert("Please specify the reason for inactivation");
 	     }
-}
-function check()
-{    
-	var isActive = document.forms["UpdateForm"]["isActive"].value;
-	 var inactive = document.forms["UpdateForm"]["inactivationReason"].value;
-	 
-	  if (isActive == "false"){
-		  if(inactive == ""){
-	 		 alert("Please specify the reason for inactivation");
-		      return false;
-	       }
-		 }
-	  	  if (isActive == "true"){
-		       return check1();
-	     } 
- }
-
-function check1()
-{    
-	var isActive = document.forms["UpdateForm"]["isActive"].value;
-	 var reactive = document.forms["UpdateForm"]["reactivationReason"].value;
-	 if (isActive == "true"){
-	 	 if (reactive == "") {
-	 		 alert("Please specify the reason for reactivation");
-		      return false;
-	    }	  
-	}
 }
 </script>
  <link rel="stylesheet" href="<%=request.getContextPath()%>/inc/style.css"/>
@@ -118,7 +122,7 @@ function check1()
 		<%		
 			} else {
 		%>	
-				<form id="updateForm" name="UpdateForm" onsubmit="return check()"
+				<form id="updateForm" name="UpdateForm" onsubmit="return validateForm()"
 				action="<%=request.getContextPath()%>/ManagerUpdateMember"  method="post">
 					<table class="table table-striped table-hover table-bordered 
 					table-responsive caption-top">
@@ -297,13 +301,13 @@ function check1()
 				  <tr>
 						<td>Is Active<span class="required">*</span></td>
 						<td>
-						<input  type="radio" name="isActive" id="isActive" onClick="validate();check1();" value="true" 
+						<input  type="radio" name="isActive" id="isActive" onClick="validate();validateForm()" value="true" 
 									<%
                                         if(employeeBO.isActive()==true) {
                                             out.println(" checked");
                                         }
                                     %>>True
-						<input type="radio" name="isActive" id="isActives" onClick="validate();check();" value="false"
+						<input type="radio" name="isActive" id="isActives" onClick="validate();validateForm()" value="false"
 									<%
                                         if(employeeBO.isActive()==false) {
                                             out.println(" checked");
@@ -381,7 +385,7 @@ function check1()
 						</tr>		
 							<tr>
 								<td colspan="2">
-									<input type="submit" name="Update"   Value="Update"  />
+									<input type="submit" name="Update" onclick ="validateForm()"  Value="Update"  />
 								</td>
 							</tr>			
 						</tbody>
