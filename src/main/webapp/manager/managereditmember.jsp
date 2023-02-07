@@ -3,32 +3,34 @@
 <script type="text/javascript">
 var flag = false;
 window.addEventListener("load", function() {
-	document.getElementById("isActive").addEventListener("change", function() {
-	flag = true;
-	});
+  document.getElementById("isActiveTrue").addEventListener("click", function() {
+    flag = true;
+    validateForm();
+  });
+  document.getElementById("isActiveFalse").addEventListener("click", function() {
+    flag = true;
+    validateForm();
+  });
 });
 function validateForm() {
-	var isActive = document.forms["UpdateForm"]["isActive"].value;
-	var reactivationReason = document.forms["UpdateForm"]["reactivationReason"].value;
-	var inactivationReason = document.forms["UpdateForm"]["inactivationReason"].value;
-	console.log(inactivationReason);
-		if (!flag) {
-		return true;
-		}
-		else{
-		if (isActive == "true") {
-			if (reactivationReason == "") {
-			alert("Please specify the reason for reactivation");
-			return false;
-			}
-		}
-	    if (isActive == "false") {
-	    	if (inactivationReason == "") {
-			alert("Please specify the reason for inactivation");
-		    return false;
-			 }
-		  }
-		}
+  var isActive = document.forms["UpdateForm"]["isActive"].value;
+  var reactivationReason = document.forms["UpdateForm"]["reactivationReason"].value;
+  var inactivationReason = document.forms["UpdateForm"]["inactivationReason"].value;
+  console.log(inactivationReason);
+
+  if (!flag) {
+    return true;
+    } 
+   else {
+	    if (isActive == "false" && inactivationReason == "") {
+	      alert("Please specify the reason for inactivation");
+	      return false;
+	    } 
+	    if (isActive == "true" && reactivationReason == "") {
+	      alert("Please specify the reason for reactivation");
+	      return false;
+	    }
+	  }
 }
 function validate()
 {
@@ -39,12 +41,10 @@ function validate()
 	if (pvs[0].checked){	 
 		   pv0.style.display='inline-block';
 		   pv1.style.display='none'; 
-		   alert("Please specify the reason for reactivation");
 		}
 	else {
 		   pv0.style.display='none';
 		   pv1.style.display='inline-block'; 
-		   alert("Please specify the reason for inactivation");
 	     }
 }
 </script>
@@ -301,13 +301,13 @@ function validate()
 				  <tr>
 						<td>Is Active<span class="required">*</span></td>
 						<td>
-						<input  type="radio" name="isActive" id="isActive" onClick="validate();validateForm()" value="true" 
+						<input  type="radio" name="isActive" id="isActiveTrue" onClick="validate()" value="true" 
 									<%
                                         if(employeeBO.isActive()==true) {
                                             out.println(" checked");
                                         }
                                     %>>True
-						<input type="radio" name="isActive" id="isActives" onClick="validate();validateForm()" value="false"
+						<input type="radio" name="isActive" id="isActiveFalse" onClick="validate()" value="false"
 									<%
                                         if(employeeBO.isActive()==false) {
                                             out.println(" checked");
@@ -385,7 +385,7 @@ function validate()
 						</tr>		
 							<tr>
 								<td colspan="2">
-									<input type="submit" name="Update" onclick ="validateForm()"  Value="Update"  />
+									<input type="submit" name="Update"   Value="Update"  />
 								</td>
 							</tr>			
 						</tbody>
