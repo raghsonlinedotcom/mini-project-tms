@@ -99,8 +99,7 @@ function validateDate()
 					<tr>
 						<td>From Date <span class="required">*</span></td>
 						<td>
-							<input type="datetime-local" class="form-control" id="fromDate" name="fromDate"  
-								onchange ="validateDate()"
+							<input type="datetime-local" class="form-control" id="fromDate" name="fromDate"
 								value="<% if(isValidationError) { 
 									out.println(leaveDetailBO.getFromDate());
 								} %>"
@@ -110,8 +109,7 @@ function validateDate()
 					<tr>
 						<td>To Date <span class="required">*</span></td>
 						<td>
-							<input type="datetime-local" class="form-control" id="toDate" name="toDate"  
-								onchange ="validateDate()" 
+							<input type="datetime-local" class="form-control" id="toDate" name="toDate"
 								value="<% if(isValidationError) { 
 									out.println(leaveDetailBO.getToDate());
 								} %>"

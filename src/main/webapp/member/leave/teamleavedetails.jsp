@@ -40,14 +40,8 @@
 							<th>To Date</th>
 							<th>Leave Reason</th>
 							<th>Status</th>
-							<%
-							if(null!=managerInsession)
-							{
-							%>
-								<th>Action</th>
-							<%
-							}
-							%>
+							<th>View</th>
+							<th>Edit</th>
 						</tr>				
 					</thead>
 			<tbody class="table-group-divider">	
@@ -66,11 +60,35 @@
 							{
 								out.println("<td>" + "<a href='ViewLeaveDetailsById?id=" + 
 								leaveDetailBO.getId() + "'>View " + "</a> "+  "</td>");
+								
 								if(leaveDetailBO.getStatus().equalsIgnoreCase("Open")&&
 										employeeBO.getEmpId()!=leaveDetailBO.getEmpId())
 								{
 									out.println("<td>" + "<a href='ManagerEditLeaveDetails?id=" + 
 									leaveDetailBO.getId() + "'>Edit " + "</a> "+  "</td>");
+								}
+								
+								if(leaveDetailBO.getStatus().equalsIgnoreCase("OPEN")&&
+										employeeBO.getEmpId()==leaveDetailBO.getEmpId())
+								{
+									out.println("<td>" + "<a href='EditLeave?id=" + 
+										leaveDetailBO.getId() + "'>Edit" + "</a> "+  "</td>");
+								}
+							}
+							
+							else
+							{
+								if(employeeBO.getEmpId()==leaveDetailBO.getEmpId())
+								{
+									out.println("<td>" + "<a href='ViewLeaveDetailsById?id=" + 
+											leaveDetailBO.getId() + "'>View " + "</a> "+  "</td>");
+								}
+								
+								if(leaveDetailBO.getStatus().equalsIgnoreCase("OPEN")&&
+										employeeBO.getEmpId()==leaveDetailBO.getEmpId())
+								{
+									out.println("<td>" + "<a href='EditLeave?id=" + 
+										leaveDetailBO.getId() + "'>Edit" + "</a> "+  "</td>");
 								}
 							}
 							
