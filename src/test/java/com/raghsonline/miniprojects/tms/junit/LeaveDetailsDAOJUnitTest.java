@@ -1,5 +1,6 @@
 package com.raghsonline.miniprojects.tms.junit;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -30,6 +31,7 @@ public class LeaveDetailsDAOJUnitTest
 	
 	static LeaveDetailBO leaveDetailBO;
 	static LeaveDetailsDAO leaveDetailsDAO; 
+	 private static int lastInsertedId;
 	
 	@BeforeAll
 	public static void prepareDAO()
@@ -55,7 +57,7 @@ public class LeaveDetailsDAOJUnitTest
 		leaveDetailBO.setAltContactNo("1234567890");
 		leaveDetailBO.setCreatedBy(81);
 		
-		int lastInsertedId = 0;
+		//int lastInsertedId =0;
 		try
 		{
 			lastInsertedId = leaveDetailsDAO.createLeaveDetails(leaveDetailBO);
@@ -325,4 +327,33 @@ public class LeaveDetailsDAOJUnitTest
 			logger.info("No leave details are available to edit for the given id");
 		}
 	}
+
+	@Test
+	@DisplayName("Get Leave Details By Id")
+	@Order(5)
+	public void getLeaveDetailsById()
+	{
+		logger.info("Order :" + 5);
+		logger.info(" getLeaveLeaveDetailsTest() - Invoked");
+		
+		logger.info("lastInsertedId :" + lastInsertedId);
+		LeaveDetailBO leaveDetailBO = null;
+		
+		try {
+			leaveDetailBO = leaveDetailsDAO.getLeaveDetailsById(lastInsertedId);
+			logger.info("LeaveDetailBO :" +leaveDetailBO);
+		} 
+		catch (Exception exception)
+		{
+			logger.error("Exception occurred while fetching an leave record with the ID : " + lastInsertedId);
+			logger.error("Error Message : " + exception.getMessage());
+
+			if (AppUtil.isAppDevMode) {
+				exception.getStackTrace();
+			}
+			fail("getLeaveDetailsById() failed - " + exception.getMessage());
+		}
+		assertNotNull(leaveDetailBO);
+	}
 }
+				
