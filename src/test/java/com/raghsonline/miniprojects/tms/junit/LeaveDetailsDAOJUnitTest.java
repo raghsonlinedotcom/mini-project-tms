@@ -158,18 +158,13 @@ public class LeaveDetailsDAOJUnitTest
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
-			// As of now I am just checking if there are any exceptions
-			// and failing test case based on that. 
-			// Since we don't have the create leave request method
-			// ready in DAO it is not possible to insert sample data 
-			// using the lifecycle methods. For testing purpose I have 
-			// inserted sample leave data from database and it worked well. 
 			
 			fail("leaveDetailsTest() failed - " + exception.getMessage());
 		}
 		
 		logger.info("Leave Details List from DAO is " + leaveDetailsList);
 		logger.info(leaveDetailsList);
+		assertNotNull(leaveDetailsList);
 	}
 	
 	@Test
@@ -179,11 +174,10 @@ public class LeaveDetailsDAOJUnitTest
 	{
 		logger.info("Order :" + 4);
 		logger.info("managerUpdateLeaveDetailsTest() invoked()");
-		int id =1;
-		//LeaveDetailBO leaveDetailBO = new LeaveDetailBO();
-		//LeaveDetailsDAO leaveDetailsDAO = new LeaveDetailsDAOImpl();
+		
+		
 		try {
-			leaveDetailBO = leaveDetailsDAO.getLeaveDetailsById(id);
+			leaveDetailBO = leaveDetailsDAO.getLeaveDetailsById(lastInsertedId);
 		} catch (Exception exception) {
 			logger.error("Exception while fetching the Leave Details List - " );
 			logger.error("Error Message : " + exception.getMessage());
@@ -212,17 +206,11 @@ public class LeaveDetailsDAOJUnitTest
 					exception.printStackTrace();
 				}
 				
-				// As of now I am just checking if there are any exceptions
-				// and failing test case based on that. 
-				// Since we don't have the create leave request method
-				// ready in DAO it is not possible to insert sample data 
-				// using the lifecycle methods. For testing purpose I have 
-				// inserted sample leave data from database and it worked well.
-				
 				fail("managerUpdateLeaveDetailsTest() failed - " + exception.getMessage());
 			}
 		
 			logger.info(recordsUpdated);
+			assertTrue(recordsUpdated>0);
 		}
 		else
 		{

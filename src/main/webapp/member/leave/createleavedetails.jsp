@@ -65,6 +65,7 @@ function validateDate()
 			 <% 
 			 	}
 			 %>
+			 
 		<h2>Leave Request Form</h2>
 		<form id="create" name="create" onsubmit="return validateDate()" action="<%=request.getContextPath()%>/CreateLeaveDetails" method="post" >
 		     <table class="table table-striped table-hover table-bordered 
@@ -99,14 +100,22 @@ function validateDate()
 						<td>From Date <span class="required">*</span></td>
 						<td>
 							<input type="datetime-local" class="form-control" id="fromDate" name="fromDate"  
-								onchange ="validateDate()" required >
+								onchange ="validateDate()"
+								value="<% if(isValidationError) { 
+									out.println(leaveDetailBO.getFromDate());
+								} %>"
+								 required >
 						</td>
 					</tr>
 					<tr>
 						<td>To Date <span class="required">*</span></td>
 						<td>
 							<input type="datetime-local" class="form-control" id="toDate" name="toDate"  
-								onchange ="validateDate()" required >
+								onchange ="validateDate()" 
+								value="<% if(isValidationError) { 
+									out.println(leaveDetailBO.getToDate());
+								} %>"
+								required >
 						</td>
 					</tr>
 					
@@ -114,7 +123,11 @@ function validateDate()
 						<td>Leave Reason <span class="required">*</span></td>
 						<td>
 							<input type="text" class="form-control" id="leaveReason" name="leaveReason" size="100" 
-								placeholder="Enter the reason" maxlength="100"	required>
+								placeholder="Enter the reason" maxlength="100"
+								value="<% if(isValidationError) { 
+									out.println(leaveDetailBO.getLeaveReason());
+								} %>"
+								required>
 						</td>
 					</tr>
 	                
@@ -123,7 +136,12 @@ function validateDate()
 	                    <td><input type="tel" class="form-control" 
 	                    id="alternateContactNo" name="alternateContactNo" 
 	                    size="10"  placeholder="1234567890" 
-	                    maxlength="10" required>
+	                    maxlength="10"
+	                    value="<% if(isValidationError) { 
+									out.println(leaveDetailBO.getAltContactNo());
+								} %>"
+	                    
+	                     required>
 	                    </td>
 	                </tr>
 	                

@@ -1,9 +1,11 @@
 <%@page import="com.raghsonline.miniprojects.tms.bo.LeaveDetailBO"%>
+<%@page import="com.raghsonline.miniprojects.tms.bo.EmployeeBO"%>
 <%@ page import="java.util.List,java.util.ArrayList" %>
-<%@include file="../inc/header.jsp" %>
+<%@include file="../../inc/header.jsp" %>
 
 		<h1>View My Teams Leave</h1>
 		<%
+		EmployeeBO employeeBO = (EmployeeBO)session.getAttribute("employeeBO");
 		List<LeaveDetailBO> leaveDetailBOList = new ArrayList<>();
 			Object obj = request.getAttribute("leaveDetailBOList");
 			if(null!=obj) {
@@ -38,7 +40,14 @@
 							<th>To Date</th>
 							<th>Leave Reason</th>
 							<th>Status</th>
-							<th>Action</th>
+							<%
+							if(null!=managerInsession)
+							{
+							%>
+								<th>Action</th>
+							<%
+							}
+							%>
 						</tr>				
 					</thead>
 			<tbody class="table-group-divider">	
@@ -53,12 +62,16 @@
 							out.println("<td>" + leaveDetailBO.getToDate() + "</td>");
 							out.println("<td>" + leaveDetailBO.getLeaveReason() + "</td>");
 							out.println("<td>" + leaveDetailBO.getStatus() + "</td>");
-							out.println("<td>" + "<a href='ViewLeaveDetailsById?id=" + 
-									leaveDetailBO.getId() + "'>View " + "</a> "+  "</td>");
-							if(leaveDetailBO.getStatus().equalsIgnoreCase("Open"))
+							if(null!=managerInsession)
 							{
-								out.println("<td>" + "<a href='ManagerEditLeaveDetails?id=" + 
-										leaveDetailBO.getId() + "'>Edit " + "</a> "+  "</td>");
+								out.println("<td>" + "<a href='ViewLeaveDetailsById?id=" + 
+								leaveDetailBO.getId() + "'>View " + "</a> "+  "</td>");
+								if(leaveDetailBO.getStatus().equalsIgnoreCase("Open")&&
+										employeeBO.getEmpId()!=leaveDetailBO.getEmpId())
+								{
+									out.println("<td>" + "<a href='ManagerEditLeaveDetails?id=" + 
+									leaveDetailBO.getId() + "'>Edit " + "</a> "+  "</td>");
+								}
 							}
 							
 							out.println("</tr>");
@@ -69,4 +82,4 @@
 		<%
 			}
 		%>
-<%@include file="../inc/footer.jsp" %>
+<%@include file="../../inc/footer.jsp" %>

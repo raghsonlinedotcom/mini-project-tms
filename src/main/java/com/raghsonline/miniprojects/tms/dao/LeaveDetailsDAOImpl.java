@@ -23,7 +23,7 @@ public class LeaveDetailsDAOImpl implements LeaveDetailsDAO
 	{
 		logger.info("viewMyTeamsLeave() Invoked");
 		
-		String sql = "SELECT * FROM LEAVE_DETAILS WHERE MANAGER_ID =?";
+		String sql = "SELECT * FROM LEAVE_DETAILS WHERE MANAGER_ID =? || EMP_ID = ?";
 		
 		logger.info("SQL Query :: "+ sql);
 		
@@ -38,6 +38,7 @@ public class LeaveDetailsDAOImpl implements LeaveDetailsDAO
 			conn = DBConnection.getConn();
 			pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1, managerId);
+			pStmt.setInt(2, managerId);
 
 			rs = pStmt.executeQuery();
 			

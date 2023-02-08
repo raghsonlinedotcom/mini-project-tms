@@ -144,8 +144,8 @@ function validate()
 								id="status" onchange ="validate()" required>
                        		  	<option value="${leaveDetailBO.status}">
                        		  	${leaveDetailBO.status}</option>
-			                    <option value="Approved" >Approved</option>
-			                    <option value="Rejected" >Rejected</option>
+			                    <option value="Approved" >Approve</option>
+			                    <option value="Rejected" >Reject</option>
 			                	</select>
 							</td>
 						</tr>

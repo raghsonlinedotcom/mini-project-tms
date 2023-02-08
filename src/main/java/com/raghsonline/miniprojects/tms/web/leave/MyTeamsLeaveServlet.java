@@ -48,10 +48,18 @@ public class MyTeamsLeaveServlet extends HttpServlet
 		
 		int empId;
 		HttpSession session = request.getSession(true);
-		EmployeeBO employeeBO = (EmployeeBO) session.getAttribute("managerInsession");
-		
-		// Manager's emp_id
-		empId = employeeBO.getEmpId();
+		EmployeeBO managerInsession = (EmployeeBO) session.getAttribute("managerInsession");
+		if(managerInsession!=null)
+		{
+			// Manager's emp_id
+			empId = managerInsession.getEmpId();
+		}	
+		else
+		{
+			EmployeeBO employeeBO = (EmployeeBO) session.getAttribute("employeeBO");
+			// Manager's emp_id
+			empId = employeeBO.getManagerId();
+		}
 		
 		LeaveDetailsDAO leaveDetailsDAO = null;
 
@@ -68,6 +76,6 @@ public class MyTeamsLeaveServlet extends HttpServlet
 		}
 		request.setAttribute("leaveDetailBOList", leaveDetailBOList);
 
-		request.getRequestDispatcher("/manager/teamleavedetails.jsp").forward(request, response);
+		request.getRequestDispatcher("/member/leave/teamleavedetails.jsp").forward(request, response);
 	}
 }

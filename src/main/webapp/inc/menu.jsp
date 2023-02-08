@@ -35,15 +35,7 @@
 		         <ul class="dropdown-menu">
 		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/leave/createleavedetails.jsp">Apply</a></li>
 		           <li><a class="dropdown-item" href="<%=request.getContextPath()%>/MyLeaveHistory">View My Leaves</a></li>
-		         <%
-		        	 if(null!=managerInsession)
-		        	 {
-		         %>
-		        	 <li><a class="dropdown-item" href="<%=request.getContextPath()%>/MyTeamsLeave">View My Teams Leave</a></li>
-		            
-		         <% 
-		        	 }
-		          %>
+		        	<li><a class="dropdown-item" href="<%=request.getContextPath()%>/MyTeamsLeave">View My Teams Leave</a></li>
 		         </ul>
 		         </li>
 		       <li class="nav-item">

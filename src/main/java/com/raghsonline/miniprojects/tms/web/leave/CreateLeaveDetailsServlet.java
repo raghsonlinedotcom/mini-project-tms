@@ -12,9 +12,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.raghsonline.miniprojects.tms.bo.EmployeeBO;
 import com.raghsonline.miniprojects.tms.bo.LeaveDetailBO;
 import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAO;
 import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAOImpl;
@@ -59,18 +61,32 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		String managerIdStr = request.getParameter("managerId");
 		logger.info("Param - managerId : [" + managerIdStr + "]");
 		int managerId = managerIdStr != null ? Integer.parseInt(managerIdStr) : 0;
-		errorMsgUI = validateField(leaveDetailBO, managerId, "managerId", errorMsgUI);
+		
+		HttpSession session = request.getSession(true);
+		EmployeeBO managerInsession = (EmployeeBO) session.getAttribute("managerInsession");
+		
+		if(null==managerInsession)
+		{
+			errorMsgUI = validateField(leaveDetailBO, managerId, "managerId", errorMsgUI);
+		}
+		
+		if(null!=managerInsession)
+		{
+			managerId = -1;
+		}
 
 		String fromDateStr = request.getParameter("fromDate");
 		logger.info("Param - fromDate : [" + fromDateStr + "]");
 		Timestamp fromDate = timestampFromString(fromDateStr);
 		logger.info("Timestamp - fromDate : [" + fromDate + "]");
+		leaveDetailBO.setFromDate(fromDate);
+		
 
 		String toDateStr = request.getParameter("toDate");
 		logger.info("Param - toDate : [" + toDateStr + "]");
-
 		Timestamp toDate = timestampFromString(toDateStr);
 		logger.info("Timestamp - toDate : [" + toDate + "]");
+		leaveDetailBO.setToDate(toDate);
 
 		String leaveReason = String.valueOf(request.getParameter("leaveReason"));
 		logger.info("Param - leaveReason : [" + leaveReason + "]");
@@ -90,7 +106,7 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		if (validationError) {
 			errorMsgUI += "</ul>";
 			request.setAttribute("errorMsgUI", errorMsgUI);
-			request.setAttribute("employeeForm", leaveDetailBO);
+			request.setAttribute("leaveDetailBO", leaveDetailBO);
 			validationError = false;
 			request.getRequestDispatcher("/member/leave/createleavedetails.jsp").forward(request, response);
 			return;
@@ -98,10 +114,9 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 
 		// 2. Prepare the BO object
 		leaveDetailBO.setEmpId(empId);
+		logger.info("manager id before setting it in BO object " +managerId);
 		leaveDetailBO.setManagerId(managerId);
 		leaveDetailBO.setLeaveReason(leaveReason);
-		leaveDetailBO.setFromDate(fromDate);
-		leaveDetailBO.setToDate(toDate);
 		leaveDetailBO.setAltContactNo(altContactNo);
 		leaveDetailBO.setCreatedBy(createdBy);
 		
