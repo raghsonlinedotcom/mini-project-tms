@@ -40,10 +40,10 @@ function validate()
 
 	if (pvs[0].checked){	 
 		   pv0.style.display='inline-block';
-		   pv1.style.display='none'; 
+		   pv1.style.visibility = 'hidden';
 		}
 	else {
-		   pv0.style.display='none';
+		   pv0.style.visibility = 'hidden';
 		   pv1.style.display='inline-block'; 
 	     }
 }
@@ -377,12 +377,18 @@ function validate()
 					</tr>
 			    	<tr>
 						<td>InactivatedDate</td>
-						<td>${employeeBO.inactivatedDate}</td>
-						</tr>		
-			    	<tr>
+						<td>
+							<input readonly type="datetime" class="form-control" id="inactivatedDate" name="inactivatedDate"  
+								value="${employeeBO.inactivatedDate}"required >	
+						</td>
+					</tr>		
+			    	 <tr>
 						<td>ReactivatedDate</td>
-						<td>${employeeBO.reactivatedDate}</td>
-						</tr>		
+						<td>
+							<input readonly type="datetime" class="form-control" id="reactivatedDate" name="reactivatedDate"  
+								value="${employeeBO.reactivatedDate}"required >
+						</td>
+					  </tr>			
 							<tr>
 								<td colspan="2">
 									<input type="submit" name="Update"   Value="Update"  />
