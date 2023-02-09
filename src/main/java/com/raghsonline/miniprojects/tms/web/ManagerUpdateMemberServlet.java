@@ -175,7 +175,7 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 			logger.info("Param - inactivationReason : [" + inactivationReason + "]");
 			errorMsgUI = validateInactivationReasonField(employeeBO, inactivationReason, "inactivationReason", errorMsgUI);
 			employeeBO.setInactivatedDate(inactivatedDate);
-			System.out.println("inactivatedDate1 :"+inactivatedDate);
+			logger.info("inactivatedDate :"+inactivatedDate);
 		} 
 		else if(isActive.equals(true) && Status.equals(false))
 		{
@@ -183,16 +183,16 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 			logger.info("Param - reactivationReason : [" + reactivationReason + "]");
 			errorMsgUI = validateReactivationReasonField(employeeBO, reactivationReason, "reactivationReason", errorMsgUI);
 			employeeBO.setReactivatedDate(reactivatedDate);
-			System.out.println("inactivatedDate1 :"+reactivatedDate);
+			logger.info("reactivatedDate :"+reactivatedDate);
 		}
 		else
 		{
 			String inactivatedDate1 = request.getParameter("inactivatedDate");
-			System.out.println("inactivatedDate1 :"+inactivatedDate1);
+			logger.info("inactivatedDate1 :"+inactivatedDate1);
 			
 			if(inactivatedDate1 == null || inactivatedDate1.trim().length() == 0)
 			{
-				System.out.println("inactivatedDate1 is null" +inactivatedDate1);
+				logger.info("inactivatedDate1 is null" +inactivatedDate1);
 			}
 			else
 			{
@@ -201,11 +201,11 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 			}
 			
 			String reactivatedDate1 = request.getParameter("reactivatedDate");
-			System.out.println("reactivatedDate :"+ reactivatedDate1);
+			logger.info("reactivatedDate1 :"+ reactivatedDate1);
 			
 			if(reactivatedDate1 == null || reactivatedDate1.trim().length() == 0)
 			{
-				System.out.println("reactivatedDate2 is null"+reactivatedDate1);
+				logger.info("reactivatedDate1 is null"+reactivatedDate1);
 			}
 			else
 			{
@@ -217,14 +217,14 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		if(isActive.equals(false))
 		{
 			String reactivatedDate2 = request.getParameter("reactivatedDate");
-			System.out.println("reactivatedDate2 for false:"+reactivatedDate2);
+			logger.info("reactivatedDate2 for false:"+reactivatedDate2);
 			Timestamp reactivatedDate3 =java.sql.Timestamp.valueOf(reactivatedDate2);
 			employeeBO.setReactivatedDate(reactivatedDate3);
 		}
 		else
 		{
 			String inactivatedDate2 = request.getParameter("inactivatedDate");
-			System.out.println("inactivatedDate2 for true :"+inactivatedDate2);
+			logger.info("inactivatedDate2 for true :"+inactivatedDate2);
 			Timestamp inactivatedDate3 =java.sql.Timestamp.valueOf(inactivatedDate2);
 			employeeBO.setInactivatedDate(inactivatedDate3);
 		}
