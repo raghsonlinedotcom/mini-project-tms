@@ -104,6 +104,7 @@ public class UpdateMyTeamsLeaveServlet extends HttpServlet
 		
 		String altContactNo = request.getParameter("altContactNo");
 		logger.info("Param - altContactNo : [" + altContactNo + "]");
+		errorMsgUI = validateAltContactNoField(leaveDetailBO, altContactNo, "altContactNo", errorMsgUI);
 		
 		Timestamp createdDate = Timestamp.valueOf(request.getParameter("createdDate"));
 		logger.info("Param - createdDate : [" + createdDate + "]");
@@ -263,6 +264,17 @@ public class UpdateMyTeamsLeaveServlet extends HttpServlet
 		return "<li>" + errorMsg + "</li>";
 	}
 	
+	public String validateAltContactNoField(LeaveDetailBO leaveDetailBO, String value, String fieldName, String errorMsgUI) {
+		if(null==value || value.trim().length()!=10) {	
+			validationError = true;
+			logger.error(fieldName + " is in invalid format");			
+			errorMsgUI += addError(fieldName + " must have exactly 10 digits");
+		} 
+		
+		setField(leaveDetailBO, fieldName, value);
+		return errorMsgUI;
+	}
+	
 	public String validateField(LeaveDetailBO leaveDetailBO, int value, String fieldName, String errorMsgUI) {
 		if(value==0) {	
 			validationError = true;
@@ -345,7 +357,8 @@ public class UpdateMyTeamsLeaveServlet extends HttpServlet
 			case "actionComment" :
 				leaveDetailBO.setActionComment(value);
 				break;
-		}
+			case "altContactNo" :
+				leaveDetailBO.setAltContactNo(value);		}
 	}
 	
 

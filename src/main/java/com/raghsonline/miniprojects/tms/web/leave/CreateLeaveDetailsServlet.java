@@ -80,6 +80,7 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		Timestamp fromDate = timestampFromString(fromDateStr);
 		logger.info("Timestamp - fromDate : [" + fromDate + "]");
 		leaveDetailBO.setFromDate(fromDate);
+		errorMsgUI = validateField(leaveDetailBO, fromDate, "fromDate", errorMsgUI);
 		
 
 		String toDateStr = request.getParameter("toDate");
@@ -87,6 +88,7 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		Timestamp toDate = timestampFromString(toDateStr);
 		logger.info("Timestamp - toDate : [" + toDate + "]");
 		leaveDetailBO.setToDate(toDate);
+		errorMsgUI = validateField(leaveDetailBO, toDate, "toDate", errorMsgUI);
 
 		String leaveReason = String.valueOf(request.getParameter("leaveReason"));
 		logger.info("Param - leaveReason : [" + leaveReason + "]");
@@ -94,7 +96,7 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 
 		String altContactNo = String.valueOf(request.getParameter("alternateContactNo"));
 		logger.info("Param - altContactNo : [" + altContactNo + "]");
-		errorMsgUI = validateField(leaveDetailBO, altContactNo, "altContactNo", errorMsgUI);
+		errorMsgUI = validateAltContactNoField(leaveDetailBO, altContactNo, "altContactNo", errorMsgUI);
 		
 		String createdByStr = request.getParameter("createdBy");
 		int createdBy = createdByStr != null ? Integer.parseInt(createdByStr) : 0;
@@ -221,6 +223,17 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		
 		return timestamp;
 	}
+	
+	public String validateAltContactNoField(LeaveDetailBO leaveDetailBO, String value, String fieldName, String errorMsgUI) {
+		if(null==value || value.trim().length()!=10) {	
+			validationError = true;
+			logger.error(fieldName + " is in invalid format");			
+			errorMsgUI += addError(fieldName + " must have exactly 10 digits");
+		} 
+		
+		setField(leaveDetailBO, fieldName, value);
+		return errorMsgUI;
+	}
 
 	// Method OverLoading
 	public String validateField(LeaveDetailBO leaveDetailBO, String value, String fieldName, String errorMsgUI) 
@@ -266,6 +279,7 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 
 		return errorMsgUI;
 	}
+	
 
 	public void setField(LeaveDetailBO leaveDetailBO, String fieldName, String value) 
 	{
