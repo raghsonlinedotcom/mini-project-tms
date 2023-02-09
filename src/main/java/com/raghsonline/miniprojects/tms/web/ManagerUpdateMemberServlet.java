@@ -164,24 +164,69 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		logger.info("Param - updatedBy : [" + updatedBy + "]");
 		errorMsgUI = validateField(employeeBO, updatedBy, "updatedBy", errorMsgUI);
 		
-		String inactivationReason = null;
-		String reactivationReason = null;
+		String inactivationReason = request.getParameter("inactivationReason");
+		String reactivationReason = request.getParameter("reactivationReason");
 		Timestamp inactivatedDate =java.sql.Timestamp.valueOf(ldt);
 		Timestamp reactivatedDate =java.sql.Timestamp.valueOf(ldt);
 		
 		if(isActive.equals(false) && Status.equals(true))
 		{
-			inactivationReason = request.getParameter("inactivationReason");
+			
 			logger.info("Param - inactivationReason : [" + inactivationReason + "]");
 			errorMsgUI = validateInactivationReasonField(employeeBO, inactivationReason, "inactivationReason", errorMsgUI);
 			employeeBO.setInactivatedDate(inactivatedDate);
+			System.out.println("inactivatedDate1 :"+inactivatedDate);
 		} 
 		else if(isActive.equals(true) && Status.equals(false))
 		{
-			reactivationReason = request.getParameter("reactivationReason");
+			
 			logger.info("Param - reactivationReason : [" + reactivationReason + "]");
 			errorMsgUI = validateReactivationReasonField(employeeBO, reactivationReason, "reactivationReason", errorMsgUI);
 			employeeBO.setReactivatedDate(reactivatedDate);
+			System.out.println("inactivatedDate1 :"+reactivatedDate);
+		}
+		else
+		{
+			String inactivatedDate1 = request.getParameter("inactivatedDate");
+			System.out.println("inactivatedDate1 :"+inactivatedDate1);
+			
+			if(inactivatedDate1 == null || inactivatedDate1.trim().length() == 0)
+			{
+				System.out.println("inactivatedDate1 is null" +inactivatedDate1);
+			}
+			else
+			{
+			Timestamp inactivatedDate2 =java.sql.Timestamp.valueOf(inactivatedDate1);
+			employeeBO.setInactivatedDate(inactivatedDate2);
+			}
+			
+			String reactivatedDate1 = request.getParameter("reactivatedDate");
+			System.out.println("reactivatedDate :"+ reactivatedDate1);
+			
+			if(reactivatedDate1 == null || reactivatedDate1.trim().length() == 0)
+			{
+				System.out.println("reactivatedDate2 is null"+reactivatedDate1);
+			}
+			else
+			{
+			Timestamp reactivatedDate2 =java.sql.Timestamp.valueOf(reactivatedDate1);
+			employeeBO.setReactivatedDate(reactivatedDate2);
+			}
+		}
+		
+		if(isActive.equals(false))
+		{
+			String reactivatedDate2 = request.getParameter("reactivatedDate");
+			System.out.println("reactivatedDate2 for false:"+reactivatedDate2);
+			Timestamp reactivatedDate3 =java.sql.Timestamp.valueOf(reactivatedDate2);
+			employeeBO.setReactivatedDate(reactivatedDate3);
+		}
+		else
+		{
+			String inactivatedDate2 = request.getParameter("inactivatedDate");
+			System.out.println("inactivatedDate2 for true :"+inactivatedDate2);
+			Timestamp inactivatedDate3 =java.sql.Timestamp.valueOf(inactivatedDate2);
+			employeeBO.setInactivatedDate(inactivatedDate3);
 		}
 	
 		if(validationError)

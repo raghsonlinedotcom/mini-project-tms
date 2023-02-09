@@ -31,7 +31,7 @@ public class LeaveDetailsDAOJUnitTest
 	
 	static LeaveDetailBO leaveDetailBO;
 	static LeaveDetailsDAO leaveDetailsDAO; 
-	 private static int lastInsertedId;
+	private static int lastInsertedId;
 	
 	@BeforeAll
 	public static void prepareDAO()
@@ -49,15 +49,14 @@ public class LeaveDetailsDAOJUnitTest
 		LocalDateTime fromLdt = LocalDateTime.parse("2023-02-07T00:00:00");
 		Timestamp FromDate =java.sql.Timestamp.valueOf(fromLdt);
 		
-		leaveDetailBO.setEmpId(81);
+		leaveDetailBO.setEmpId(137);
 		leaveDetailBO.setManagerId(140);
 		leaveDetailBO.setFromDate(FromDate);
 		leaveDetailBO.setToDate(ToDate);
 		leaveDetailBO.setLeaveReason("Planned Leave");
 		leaveDetailBO.setAltContactNo("1234567890");
-		leaveDetailBO.setCreatedBy(81);
+		leaveDetailBO.setCreatedBy(137);
 		
-		//int lastInsertedId =0;
 		try
 		{
 			lastInsertedId = leaveDetailsDAO.createLeaveDetails(leaveDetailBO);
@@ -86,13 +85,13 @@ public class LeaveDetailsDAOJUnitTest
 		LocalDateTime fromLdt = LocalDateTime.parse("2023-02-07T00:00:00");
 		Timestamp FromDate =java.sql.Timestamp.valueOf(fromLdt);
 		
-		leaveDetailBO.setEmpId(81);
+		leaveDetailBO.setEmpId(137);
 		leaveDetailBO.setManagerId(140);
 		leaveDetailBO.setFromDate(FromDate);
 		leaveDetailBO.setToDate(ToDate);
 		leaveDetailBO.setLeaveReason("Planned Leave for a family trip");
 		leaveDetailBO.setAltContactNo("1234567890");
-		leaveDetailBO.setCreatedBy(81);
+		leaveDetailBO.setCreatedBy(137);
 		
 		logger.info("BeforeEach - LeaveDetailBO initialized - " + leaveDetailBO);
 			
@@ -112,21 +111,20 @@ public class LeaveDetailsDAOJUnitTest
 	{
 		logger.info("---After All Invoked---");
 		
-		int id = 1;
 		int recordsDeleted = 0;
 		
 		LeaveDetailBO leaveDetailBO = new LeaveDetailBO();
-		leaveDetailBO.setEmpId(id);
+		leaveDetailBO.setEmpId(lastInsertedId);
 		
 		try 
 		{
-			recordsDeleted = leaveDetailsDAO.deleteLeave(id);
+			recordsDeleted = leaveDetailsDAO.deleteLeave(lastInsertedId);
 			logger.info("recordsDeleted  : " + recordsDeleted);
-			logger.info("recordsDeleted with Id =" + id );
+			logger.info("recordsDeleted with Id =" + lastInsertedId );
 		} 
 		catch (Exception exception) 
 		{
-			logger.error("Exception while deleting  a Leave Record with the Id - " + id);
+			logger.error("Exception while deleting  a Leave Record with the Id - " + lastInsertedId);
 			logger.error("Error Message : " + exception.getMessage());
 			
 			if (AppUtil.isAppDevMode)
@@ -135,11 +133,10 @@ public class LeaveDetailsDAOJUnitTest
 			}
 		}
 		logger.info("leaveDetailsDAO Before setting it to Null : "+ leaveDetailsDAO);
-		
+		//Setting leaveDetailsDAO to Null.
 		leaveDetailsDAO = null;
 		logger.info("leaveDetailsDAO Afert Setting to Null : "+ leaveDetailsDAO);
 	}
-	
 	
 	@Test
 	@DisplayName("View My Team Leave Details")
@@ -158,7 +155,6 @@ public class LeaveDetailsDAOJUnitTest
 			if (AppUtil.isAppDevMode) {
 				exception.printStackTrace();
 			}
-			
 			fail("leaveDetailsTest() failed - " + exception.getMessage());
 		}
 		
@@ -174,7 +170,6 @@ public class LeaveDetailsDAOJUnitTest
 	{
 		logger.info("Order :" + 4);
 		logger.info("managerUpdateLeaveDetailsTest() invoked()");
-		
 		
 		try {
 			leaveDetailBO = leaveDetailsDAO.getLeaveDetailsById(lastInsertedId);
@@ -204,19 +199,16 @@ public class LeaveDetailsDAOJUnitTest
 				logger.error("Error Message : " + exception.getMessage());
 				if (AppUtil.isAppDevMode) {
 					exception.printStackTrace();
-				}
-				
+				}	
 				fail("managerUpdateLeaveDetailsTest() failed - " + exception.getMessage());
 			}
-		
 			logger.info(recordsUpdated);
 			assertTrue(recordsUpdated>0);
 		}
 		else
 		{
 			logger.info("No leave details are available to edit for the given id");
-		}
-		
+		}	
 	}
 	
 	@Test
@@ -245,9 +237,7 @@ public class LeaveDetailsDAOJUnitTest
 			
 			fail("myLeaveDetailsTest() failed - " + exception.getMessage());
 		}
-		
 		logger.info("Leave Details List from DAO is " + leaveDetailBOList);
-		logger.info(leaveDetailBOList);
 	}
 	
 	@Test
@@ -257,16 +247,15 @@ public class LeaveDetailsDAOJUnitTest
 	{
 		logger.info("Order :" + 3);
 		logger.info("---------updateLeaveDetailsTest() - Invoked-----------");
-		int id = 1;
 		
 		//Getting the Data From DB.
 		try 
 		{
-			leaveDetailBO = leaveDetailsDAO.getLeaveDetailsById(id);
+			leaveDetailBO = leaveDetailsDAO.getLeaveDetailsById(lastInsertedId);
 		} 
 		catch (Exception exception) 
 		{
-			logger.error("Exception occurred while fetching an leave record with the ID : " + id);
+			logger.error("Exception occurred while fetching an leave record with the ID : " + lastInsertedId);
 			logger.error("Error Message : " + exception.getMessage());
 
 			if (AppUtil.isAppDevMode) 
@@ -278,11 +267,12 @@ public class LeaveDetailsDAOJUnitTest
 		if(null!=leaveDetailBO)
 		{
 			int recordsUpdated = 0;
-			logger.info("Before update To Date :" + leaveDetailBO.getToDate());
+			
+			logger.info("Before update the ToDate Record :" + leaveDetailBO.getToDate());
+			
 			LocalDateTime ldt = LocalDateTime.parse("2023-02-07T00:00:00");
 			Timestamp Date =java.sql.Timestamp.valueOf(ldt);
-			//modify the values
-			leaveDetailBO.setUpdatedBy(140);
+			leaveDetailBO.setUpdatedBy(137);
 			leaveDetailBO.setToDate(Date);
 			leaveDetailBO.setLeaveReason("Want to Extend the Leave");
 			try 
@@ -302,7 +292,7 @@ public class LeaveDetailsDAOJUnitTest
 			}
 			logger.info("recordsUpdated  : " + recordsUpdated);
 			assertTrue(recordsUpdated>0);		
-			assertTrue(leaveDetailBO.getUpdatedBy() == 140);
+			assertTrue(leaveDetailBO.getUpdatedBy() == 137);
 			logger.info("Created Date :" + leaveDetailBO.getCreatedDate());
 			logger.info("Status :" + leaveDetailBO.getStatus());
 			assertTrue(leaveDetailBO.getStatus().equalsIgnoreCase("OPEN"));
@@ -344,4 +334,3 @@ public class LeaveDetailsDAOJUnitTest
 		assertNotNull(leaveDetailBO);
 	}
 }
-				
