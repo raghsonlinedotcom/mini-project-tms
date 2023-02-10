@@ -365,12 +365,13 @@
                        		<select class="form-select" aria-label=".select example" 
                        		id="managerId" name="managerId" required>
                        		<option disabled selected value> -- SELECT -- </option>
-                       		<option selected value="<%=managerId%>" > <%=managerId%></option>
                        			<%
                        				for(EmployeeBO managerBO : managerList)
                 						{
                        			%>
-                							<option value = "<%=managerBO.getEmpId()%>" > 
+                							<option value = "<%=managerBO.getEmpId()%>" 
+                									<%= (isAppDevMode && managerBO.getEmpId() == managerId) ? "selected" : "" %>
+                							> 
                 								<%=
                 									managerBO.getEmpId() + " | " + 
                 							        managerBO.getFirstName() + " " +
