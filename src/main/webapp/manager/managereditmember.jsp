@@ -37,15 +37,15 @@ function validate()
 	var pvs = document.getElementsByName('isActive');
 	var pv1 = document.getElementById("inactivationReason");
 	var pv0 = document.getElementById("reactivationReason");
-
-	if (pvs[0].checked){	 
-		   pv0.style.display='inline-block';
-		   pv1.style.visibility = 'hidden';
-		}
-	else {
-		   pv0.style.visibility = 'hidden';
-		   pv1.style.display='inline-block'; 
-	     }
+	
+	 if (pvs[0].checked) {
+	      pv1.style.pointerEvents = "none";
+	      pv0.style.pointerEvents = "auto";
+	    } 
+	 else  {
+	      pv0.style.pointerEvents = "none";
+	      pv1.style.pointerEvents = "auto";
+	  } 
 }
 </script>
  <link rel="stylesheet" href="<%=request.getContextPath()%>/inc/style.css"/>
@@ -354,7 +354,7 @@ function validate()
 					<tr>
 					    <td> InactivationReason</td>
 					    <td> 
-					   		<div id='inactivationReason' style ="display:none;"> 
+					   		<div id='inactivationReason' style="pointer-events: none;"> 
 						  	  <input type="text"  class="form-control"  id="inactivationReason" name="inactivationReason" 
 							   size="250" maxlength="250" value="${employeeBO.inactivationReason}" />
 								  <div id="inactivationReasonCondition" class="form-text" >
@@ -366,7 +366,7 @@ function validate()
 					<tr>
 					    <td>ReactivationReason  </td> 
 					    <td> 
-					  		 <div id='reactivationReason' style ="display:none;">
+					  		 <div id='reactivationReason' style="pointer-events: none;">
 						       <input type="text" class="form-control"  id="reactivationReason" name="reactivationReason"  
 							    size="250" maxlength="250" value="${employeeBO.reactivationReason}" />
 								 <div id="reactivationReasonCondition" class="form-text">
