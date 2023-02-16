@@ -151,8 +151,13 @@ public class LeaveDetailBO {
 	@Override
 	public String toString() 
 	{
-		return "LeaveDetailBO [" + "hashCode()=" + hashCode() + ", id=" + id + ", empId=" + empId + ", managerId="
-				+ managerId + ", leaveReason=" + leaveReason + ", status=" + status;
-
+		return "LeaveDetailBO [" + "hashCode()=" + hashCode() +
+								", id=" + id +
+								", empId=" + empId +
+								", managerId=" + managerId +
+								", leaveReason=" + leaveReason + 
+								", status=" + status +
+								", fromDate=" + fromDate +
+								", toDate=" + toDate;
 	}
 }

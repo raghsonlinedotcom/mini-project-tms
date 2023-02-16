@@ -192,7 +192,7 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 			
 			if(inactivatedDate1 == null || inactivatedDate1.trim().length() == 0)
 			{
-				logger.info("inactivatedDate1 is null" +inactivatedDate1);
+				logger.info("inactivatedDate1 is null : " +inactivatedDate1);
 			}
 			else
 			{
@@ -205,7 +205,7 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 			
 			if(reactivatedDate1 == null || reactivatedDate1.trim().length() == 0)
 			{
-				logger.info("reactivatedDate1 is null"+reactivatedDate1);
+				logger.info("reactivatedDate1 is null :"+reactivatedDate1);
 			}
 			else
 			{
@@ -218,15 +218,31 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		{
 			String reactivatedDate2 = request.getParameter("reactivatedDate");
 			logger.info("reactivatedDate2 for false:"+reactivatedDate2);
-			Timestamp reactivatedDate3 =java.sql.Timestamp.valueOf(reactivatedDate2);
-			employeeBO.setReactivatedDate(reactivatedDate3);
+			
+			if(reactivatedDate2 == null || reactivatedDate2.trim().length() == 0)
+			{
+				logger.info("reactivatedDate2 is null : "+ reactivatedDate2);
+			}
+			else
+			{
+				Timestamp reactivatedDate3 =java.sql.Timestamp.valueOf(reactivatedDate2);
+				employeeBO.setReactivatedDate(reactivatedDate3);
+			}	
 		}
 		else
 		{
 			String inactivatedDate2 = request.getParameter("inactivatedDate");
 			logger.info("inactivatedDate2 for true :"+inactivatedDate2);
-			Timestamp inactivatedDate3 =java.sql.Timestamp.valueOf(inactivatedDate2);
-			employeeBO.setInactivatedDate(inactivatedDate3);
+			
+			if(inactivatedDate2 == null || inactivatedDate2.trim().length() == 0)
+			{
+				logger.info("inactivatedDate2 is null :" +inactivatedDate2);
+			}
+			else
+			{
+				Timestamp inactivatedDate3 =java.sql.Timestamp.valueOf(inactivatedDate2);
+				employeeBO.setInactivatedDate(inactivatedDate3);
+			}
 		}
 	
 		if(validationError)

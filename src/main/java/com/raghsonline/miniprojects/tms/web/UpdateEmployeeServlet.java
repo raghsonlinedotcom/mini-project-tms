@@ -100,11 +100,9 @@ public class UpdateEmployeeServlet extends HttpServlet
 		logger.info("Param - officialEmail : [" + officialEmail + "]");
 		errorMsgUI = validateField(employeeBO, officialEmail, "officialEmail", errorMsgUI);
 		
-		
 		String primaryContactNo = request.getParameter("primaryContactNumber");
 		logger.info("Param - primaryContactNo : [" + primaryContactNo + "]");
 		errorMsgUI = validatePrimaryContactNoField(employeeBO, primaryContactNo, "primaryContactNo", errorMsgUI);
-		
 		
 		String secondaryContactNo = request.getParameter("secondaryContactNumber");
 		logger.info("Param - secondaryContactNo : [" + secondaryContactNo + "]");
@@ -114,23 +112,19 @@ public class UpdateEmployeeServlet extends HttpServlet
 		logger.info("Param - highestQualification : [" + highestQualification + "]");
 		errorMsgUI = validateField(employeeBO, highestQualification, "highestQualification", errorMsgUI);
 		
-		
 		String skillsets = request.getParameter("skillSets");
 		logger.info("Param - skillsets : [" + skillsets + "]");
 		errorMsgUI = validateField(employeeBO, skillsets, "skillsets", errorMsgUI);
-		
-	
+			
 		Date dateOfJoining = Date.valueOf(request.getParameter("doj"));
 		logger.info("Param - dateOfJoining : [" + dateOfJoining + "]");
 		errorMsgUI = validateField(employeeBO, dateOfJoining, "dateOfJoining", errorMsgUI);
-		
-		
+				
 		//Separate validation for Hobbies : as they are optional and max length is 100. 
 		//So length can be either 0 or 100
 		String hobbies = request.getParameter("hobbies");
 		logger.info("Param - hobbies : [" + hobbies + "]");
-		errorMsgUI = validateHobbiesField(employeeBO, hobbies, "hobbies", errorMsgUI);
-	
+		errorMsgUI = validateHobbiesField(employeeBO, hobbies, "hobbies", errorMsgUI);	
 		
 		String manageridStr = request.getParameter("managerId");
 		int managerid = manageridStr != null ? Integer.parseInt(manageridStr) : 0;
@@ -302,14 +296,13 @@ public class UpdateEmployeeServlet extends HttpServlet
 		{
 			case "id":
 			employeeBO.setId(value);
-			break;
-			
+				break;
 			case "empId":
 				employeeBO.setEmpId(value);
 				break;
 			case "updatedBy" :
 				employeeBO.setUpdatedBy(value);
-			
+				break;
 		}
 	}
 	
@@ -322,8 +315,7 @@ public class UpdateEmployeeServlet extends HttpServlet
 				break;
 			case "dateOfJoining":
 				employeeBO.setDateOfJoining(value);
-				break;
-			
+				break;	
 		}
 	}
 	
@@ -366,14 +358,13 @@ public class UpdateEmployeeServlet extends HttpServlet
 				break;
 			case "highestQualification" :
 				employeeBO.setHighestQualification(value);
+				break;
 			case "skillsets" :
 				employeeBO.setSkillsets(value);
+				break;
 			case "hobbies" :
 				employeeBO.setHobbies(value);
-			
-			
+				break;	
 		}
 	}
-	
-
 }

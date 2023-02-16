@@ -279,10 +279,10 @@ public class UpdateLeaveDetailsServlet extends HttpServlet
 	{
 		switch(fieldName) 
 		{
-			case "dateOfBirth":
+			case "fromDate":
 				leaveDetailBO.setFromDate(value);
 				break;
-			case "dateOfJoining":
+			case "toDate":
 				leaveDetailBO.setToDate(value);
 				break;	
 		}

@@ -79,15 +79,12 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		logger.info("Param - fromDate : [" + fromDateStr + "]");
 		Timestamp fromDate = timestampFromString(fromDateStr);
 		logger.info("Timestamp - fromDate : [" + fromDate + "]");
-		leaveDetailBO.setFromDate(fromDate);
 		errorMsgUI = validateField(leaveDetailBO, fromDate, "fromDate", errorMsgUI);
 		
-
 		String toDateStr = request.getParameter("toDate");
 		logger.info("Param - toDate : [" + toDateStr + "]");
 		Timestamp toDate = timestampFromString(toDateStr);
 		logger.info("Timestamp - toDate : [" + toDate + "]");
-		leaveDetailBO.setToDate(toDate);
 		errorMsgUI = validateField(leaveDetailBO, toDate, "toDate", errorMsgUI);
 
 		String leaveReason = String.valueOf(request.getParameter("leaveReason"));
@@ -104,7 +101,6 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		logger.info("Param - createdBy : [" + createdBy + "]");
 		errorMsgUI = validateField(leaveDetailBO, createdBy, "createdBy", errorMsgUI);
 
-
 		if (validationError) {
 			errorMsgUI += "</ul>";
 			request.setAttribute("errorMsgUI", errorMsgUI);
@@ -118,6 +114,8 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 		leaveDetailBO.setEmpId(empId);
 		logger.info("manager id before setting it in BO object " +managerId);
 		leaveDetailBO.setManagerId(managerId);
+		leaveDetailBO.setFromDate(fromDate);
+		leaveDetailBO.setToDate(toDate);
 		leaveDetailBO.setLeaveReason(leaveReason);
 		leaveDetailBO.setAltContactNo(altContactNo);
 		leaveDetailBO.setCreatedBy(createdBy);
@@ -274,13 +272,10 @@ public class CreateLeaveDetailsServlet extends HttpServlet {
 			logger.error(fieldName + " cannot be null");
 			errorMsgUI += addError(fieldName + " cannot be null");
 		}
-
 		setField(leaveDetailBO, fieldName, value);
-
 		return errorMsgUI;
 	}
 	
-
 	public void setField(LeaveDetailBO leaveDetailBO, String fieldName, String value) 
 	{
 		switch (fieldName) 

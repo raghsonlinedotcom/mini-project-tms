@@ -255,8 +255,7 @@
                        			<option value="${employeeBO.managerId}">${employeeBO.managerId}</option>
                        			<option id="1" value="0" disabled style= background-color:gray;>N/A</option>
                        			<option id="1" value="1" disabled style= background-color:gray;>Raghavan</option>
-                       		</select>
-								
+                       		</select>		
 						</td>
 					</tr>
 					<tr>
@@ -266,7 +265,7 @@
 				    <tr>
 					    <td> Created By </td>
 					    <td> 
-						    <input readonly  type="text" class="form-control"  id="createdBy" name="createdBy"  
+						    <input readonly type="text" class="form-control"  id="createdBy" name="createdBy"  
 								   value="${employeeBO.createdBy}"
 										required/>
 				     	</td>
@@ -278,7 +277,7 @@
 				    <tr>
 						<td> Updated By </td>
 						<td> 
-						    <input readonly  type="text" class="form-control"  id="updatedBy" name="updatedBy"  
+						    <input readonly type="text" class="form-control"  id="updatedBy" name="updatedBy"  
 								   value="${employeeBO.updatedBy}"
 										required/>
 				     	</td>
@@ -286,7 +285,6 @@
 							<tr>
 								<td colspan="2">
 									<input type="submit" name="Update" Value="Update"/>
-
 								</td>
 							</tr>			
 						</tbody>
