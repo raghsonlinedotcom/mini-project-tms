@@ -35,16 +35,18 @@ function validateForm() {
 function validate()
 {
 	var pvs = document.getElementsByName('isActive');
-	var pv1 = document.getElementById("inactivationReason");
-	var pv0 = document.getElementById("reactivationReason");
+	var inactivationReason = document.getElementById("inactivationReason");
+	var reactivationReason = document.getElementById("reactivationReason");
 	
 	 if (pvs[0].checked) {
-	      pv1.style.pointerEvents = "none";
-	      pv0.style.pointerEvents = "auto";
+		 inactivationReason.style.pointerEvents = "none";   
+	     reactivationReason.style.pointerEvents = "auto"; 
+	     reactivationReason.querySelector('input').style.backgroundColor = 'white';
 	    } 
 	 else  {
-	      pv0.style.pointerEvents = "none";
-	      pv1.style.pointerEvents = "auto";
+		 reactivationReason.style.pointerEvents = "none";
+		 inactivationReason.style.pointerEvents = "auto";
+		 inactivationReason.querySelector('input').style.backgroundColor = 'white';
 	  } 
 }
 </script>
@@ -356,7 +358,7 @@ function validate()
 					    <td> 
 					   		<div id='inactivationReason' style="pointer-events: none;"> 
 						  	  <input type="text"  class="form-control"  id="inactivationReason" name="inactivationReason" 
-							   size="250" maxlength="250" value="${employeeBO.inactivationReason}" />
+							   style= background-color:#CCCACA; size="250" maxlength="250" value="${employeeBO.inactivationReason}" />
 								  <div id="inactivationReasonCondition" class="form-text" >
     								InactivationReason is Mandatory if the isActive is false.
     							  </div>
@@ -368,7 +370,7 @@ function validate()
 					    <td> 
 					  		 <div id='reactivationReason' style="pointer-events: none;">
 						       <input type="text" class="form-control"  id="reactivationReason" name="reactivationReason"  
-							    size="250" maxlength="250" value="${employeeBO.reactivationReason}" />
+							    style= background-color:#CCCACA; size="250" maxlength="250" value="${employeeBO.reactivationReason}" />
 								 <div id="reactivationReasonCondition" class="form-text">
     								ReactivationReason is Mandatory if the isActive is true.
     						     </div>
