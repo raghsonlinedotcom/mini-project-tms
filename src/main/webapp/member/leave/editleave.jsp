@@ -199,8 +199,11 @@ function validateDate()
 								<td>
 									<select class="form-select" aria-label=".select example" name="status" 
 							          id="status" required>
-		                       		  	<option value="${leaveDetailBO.status}">${leaveDetailBO.status}</option>
-		                       		  	<option value="OPEN">OPEN</option>
+		                       		  	<option value="<%=leaveDetailBO.getStatus() %>"
+		                       		  			<%= (leaveDetailBO.getStatus() == "OPEN") ? "selected" : "" %>
+		                       		  	>
+		                       		  	<%=leaveDetailBO.getStatus() %>
+		                       		  	</option>
 					                    <option value="Canceled">Cancel Leave</option>
 					                </select>
 								</td>
