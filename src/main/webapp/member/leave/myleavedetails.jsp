@@ -82,7 +82,20 @@
 						</tr>
 						<tr>
 							<td>Updated By</td>
-							<td>${leaveDetailBO.updatedBy}</td>
+							<%
+								if(leaveDetailBO.getUpdatedBy()!=0)
+								{
+							%>
+									<td>${leaveDetailBO.updatedBy}</td>
+							<%
+								}
+								else
+								{
+							%>
+									<td></td>
+							<%
+								}
+							%>
 						</tr>
 						<%
 						 	System.out.println("leaveDetailBO :" + leaveDetailBO);
