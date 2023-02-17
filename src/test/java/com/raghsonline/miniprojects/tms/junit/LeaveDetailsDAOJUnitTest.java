@@ -141,7 +141,7 @@ public class LeaveDetailsDAOJUnitTest
 	@Test
 	@DisplayName("View My Team Leave Details")
 	@Order(1)
-	public void leaveDetailsTest()
+	public void viewMyTeamLeaveDetailsTest()
 	{
 		logger.info("Order :" + 1);
 		logger.info("leaveDetailsTest() invoked()");

@@ -4,6 +4,7 @@
 		<h1>View Leave Details</h1>
 		
 		<%
+				EmployeeBO employeeBO = (EmployeeBO)session.getAttribute("employeeBO");
 				LeaveDetailBO leaveDetailBO = (LeaveDetailBO) request.getAttribute("leaveDetailBO");
 					String message = (String) request.getAttribute("message");	
 					
@@ -87,8 +88,61 @@
 						</tr>
 						<tr>
 							<td>Updated By</td>
-							<td>${leaveDetailBO.updatedBy}</td>
+							<%
+								if(leaveDetailBO.getUpdatedBy()!=0)
+								{
+							%>
+									<td>${leaveDetailBO.updatedBy}</td>
+							<%
+								}
+								else
+								{
+							%>
+									<td></td>
+							<%
+								}
+							%>
 						</tr>
+						<%
+						 	System.out.println("leaveDetailBO :" + leaveDetailBO);
+							if(leaveDetailBO.getStatus().equalsIgnoreCase("OPEN"))
+							{
+						%>
+								<tr>
+								<% 
+									if(null!=managerInsession)
+									{
+								
+										if(leaveDetailBO.getStatus().equalsIgnoreCase("Open")&&
+												employeeBO.getEmpId()!=leaveDetailBO.getEmpId())
+										{
+											out.println("<td>" + "<a href='ManagerEditLeaveDetails?id=" + 
+											leaveDetailBO.getId() + "'>Edit " + "</a> "+  "</td>");
+										}
+										
+										if(leaveDetailBO.getStatus().equalsIgnoreCase("OPEN")&&
+												employeeBO.getEmpId()==leaveDetailBO.getEmpId())
+										{
+											out.println("<td>" + "<a href='EditLeave?id=" + 
+												leaveDetailBO.getId() + "'>Edit" + "</a> "+  "</td>");
+										}
+									}
+							
+									else
+									{
+										if(leaveDetailBO.getStatus().equalsIgnoreCase("OPEN")&&
+												employeeBO.getEmpId()==leaveDetailBO.getEmpId())
+										{
+											out.println("<td>" + "<a href='EditLeave?id=" + 
+												leaveDetailBO.getId() + "'>Edit" + "</a> "+  "</td>");
+										}
+									}
+								%>
+							
+							</tr>
+						<%
+							}
+						%>	
 					</tbody>
 				</table>
 		<%

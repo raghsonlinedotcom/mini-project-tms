@@ -197,11 +197,24 @@ function validate()
 					
 					<tr>
 						<td>Updated By<span class="required">*</span></td>
-						<td>
-							<input readonly class="form-control" 
-							id="updatedBy" name="updatedBy"  
-							value="${leaveDetailBO.updatedBy}" required />
-						</td>
+						<%
+							if(leaveDetailBO.getUpdatedBy()!=0)
+							{
+						%>
+								<td>
+									<input readonly class="form-control" 
+									id="updatedBy" name="updatedBy"  
+									value="${leaveDetailBO.updatedBy}" required />
+								</td>
+						<%
+							}
+							else
+							{
+						%>
+								<td></td>
+						<%
+							}
+						%>
 					</tr>
 					<tr>
 						<td colspan="2">
