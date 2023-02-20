@@ -74,7 +74,7 @@ public class LeaveDetailsDAOJUnitTest
 	}
 
 	@BeforeEach
-	public void prepareLeaveDetailB() 
+	public void prepareLeaveDetailBO() 
 	{	
 		logger.info("------- Before Each Invoked ---------");
 		
