@@ -71,6 +71,21 @@
 						</ul>							
 					</td>
 				</tr>
+				<tr>																												<tr>
+					<td>
+						Delete the remote origin branch references of Git in the Local Repository
+					</td>
+					<td>
+						<ul>
+							<li>
+								Delete the local reference to a remote branch in Git &rarr;
+								<a href="https://opensource.com/article/22/8/delete-local-reference-remote-branch-git">
+									delete local reference remotely
+								</a>
+							</li>
+						</ul>							
+					</td>
+				</tr>				
 			</tbody>
 		</table>
 	</div>

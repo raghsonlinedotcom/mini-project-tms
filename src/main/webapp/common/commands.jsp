@@ -39,10 +39,13 @@
 		<div class="row">
 			<div class="col-6">
 				<code>
-					
+					git remote prune origin [--dry-run]
 				</code>
 			</div>
 			<div class="col-6">
+				A git command to remove the references of the remote origin branches in the local repository.
+				An optional argument <code>--dry-run</code> will NOT actually <b>prune</b> or <b>remove</b> the references, but
+				it would indeed give a snapshot of what references will be pruned.
 			</div>
 		</div>				
 	</div>
