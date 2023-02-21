@@ -289,7 +289,48 @@
 							Jira Release Ref. for Release 6
 						</a>
 					</td>
-				</tr>																		
+				</tr>	
+				<tr>
+					<td>
+						7
+					</td>
+					<td>
+						7.0
+					</td>
+					<td>
+						2023-02-16
+					</td>
+					<td>
+						Sprint 7 - Leave Requests
+					</td>
+					<td>
+						Release 7
+					</td>
+					<td>
+						<ul>
+							<li>Leave Requests - Self</li>
+							<li>Leave Requests - Action by Manager</li>
+							<li>Profile Inactivation, Reactivation</li>
+							<li>Unit Test Cases</li>
+							<li>Bug Fixes</li>
+						</ul>
+					</td>
+					<td>
+						Incremental Version
+					</td>
+					<td>
+						<ul>
+							<li>
+								No new issues. All the previous issues still prevail.
+							</li>						
+						</ul>
+					</td>
+					<td>
+						<a href="https://raghsonlinedotcom.atlassian.net/projects/TMS/versions/10006/tab/release-report-all-issues">
+							Jira Release Ref. for Release 7
+						</a>
+					</td>
+				</tr>																					
 			</tbody>
 		</table>
 	</div>

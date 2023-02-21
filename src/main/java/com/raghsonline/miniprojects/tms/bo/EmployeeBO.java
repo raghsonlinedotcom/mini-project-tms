@@ -52,6 +52,14 @@ public class EmployeeBO {
 	private Timestamp updatedDate;
 	
 	private int updatedBy;
+	
+	private String inactivationReason;
+	
+	private String reactivationReason;
+	
+	private Timestamp inactivatedDate;
+	
+	private Timestamp reactivatedDate;
 
 	public EmployeeBO() {
 	}
@@ -266,6 +274,38 @@ public class EmployeeBO {
 		this.updatedBy = updatedBy;
 	}
 
+	public String getInactivationReason() {
+		return inactivationReason;
+	}
+
+	public void setInactivationReason(String inactivationReason) {
+		this.inactivationReason = inactivationReason;
+	}
+
+	public String getReactivationReason() {
+		return reactivationReason;
+	}
+
+	public void setReactivationReason(String reactivationReason) {
+		this.reactivationReason = reactivationReason;
+	}
+
+	public Timestamp getInactivatedDate() {
+		return inactivatedDate;
+	}
+
+	public void setInactivatedDate(Timestamp inactivatedDate) {
+		this.inactivatedDate = inactivatedDate;
+	}
+
+	public Timestamp getReactivatedDate() {
+		return reactivatedDate;
+	}
+
+	public void setReactivatedDate(Timestamp reactivatedDate) {
+		this.reactivatedDate = reactivatedDate;
+	}
+
 	@Override
 	public String toString() 
 	{
@@ -278,6 +318,7 @@ public class EmployeeBO {
 				+ ", officialEmail=" + officialEmail 
 				+ ", primaryContactNo="+  primaryContactNo
 				+ ", dateOfJoining=" + dateOfJoining
-				+ ", managerId=" + managerId;
+				+ ", managerId=" + managerId
+				+ ", isActive=" + active;
 	}	
 }

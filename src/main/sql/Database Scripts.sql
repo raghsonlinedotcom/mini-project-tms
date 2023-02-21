@@ -1,11 +1,11 @@
-----Dropping the existing TMS Database ---------
+-- ---- Dropping the existing TMS Database ---------
 DROP DATABASE TMS;
 
------Creating the TMS Database again-----
+-- --- Creating the TMS Database again -----
 CREATE DATABASE TMS;
 USE TMS;
 
----DDL Statements ----
+-- ----- DDL Statements ----
 CREATE TABLE EMPLOYEE (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     EMP_ID INT UNIQUE NOT NULL,
@@ -30,10 +30,15 @@ CREATE TABLE EMPLOYEE (
     CREATED_DATE TIMESTAMP NOT NULL default now(),
     CREATED_BY VARCHAR(20) NOT NULL DEFAULT "SYSTEM",
     UPDATED_DATE TIMESTAMP default now(),
-    UPDATED_BY INT  
+    UPDATED_BY INT,
+    INACTIVATION_REASON VARCHAR(250),
+    REACTIVATION_REASON VARCHAR(250),
+    INACTIVATED_DATE DATETIME,
+    REACTIVATED_DATE  DATETIME
+    
 );
 
----- Sample Values for Employee Table (DML) ---
+-- ---- Sample Values for Employee Table (DML) ------
 
 INSERT INTO EMPLOYEE(
 	EMP_ID, FIRST_NAME, LAST_NAME,DATE_OF_BIRTH, GENDER, 
@@ -51,6 +56,24 @@ VALUES (
 	"Training young freshers, Playing Cricket, Reading Books"
 );
 
+drop table LEAVE_DETAILS;
+   
+CREATE TABLE LEAVE_DETAILS (
+      ID INT AUTO_INCREMENT PRIMARY KEY,   
+      EMP_ID INT NOT NULL,
+      MANAGER_ID INT NOT NULL  DEFAULT 0,      
+      FROM_DATE DATETIME NOT NULL,
+      TO_DATE DATETIME NOT NULL,
+      LEAVE_REASON VARCHAR(100) NOT NULL,
+      STATUS VARCHAR(20) NOT NULL DEFAULT 'OPEN',
+      ACTION_COMMENT VARCHAR(100) NULL,
+      ALT_CONTACT_NO VARCHAR(10) NULL,
+      CREATED_DATE TIMESTAMP NOT NULL default now(),
+      CREATED_BY INT NOT NULL DEFAULT 0,
+      UPDATED_DATE TIMESTAMP default now(),
+      UPDATED_BY INT
+);
 
---- Retrieve Values --
+
+-- ---- Retrieve Values -------
 SELECT * FROM EMPLOYEE;

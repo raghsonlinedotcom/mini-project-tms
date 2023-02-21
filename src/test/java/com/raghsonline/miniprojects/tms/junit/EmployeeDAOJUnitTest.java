@@ -1,10 +1,13 @@
 package com.raghsonline.miniprojects.tms.junit;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -61,29 +64,29 @@ public class EmployeeDAOJUnitTest
 	public static void beforeAll()
 	{
 		logger.info("------- Before All Invoked ---------");
-		//  Conditionally insert Raghavan -record (EMP ID #140)
+		//  Conditionally insert Virat -record (EMP ID #200)
 		
 		employeeDAO = new EmployeeDAOImpl();
 		
 		EmployeeBO employeeBO = new EmployeeBO();
 
-		Date dob = new Date(1981-01-01);
-		Date doj = new Date(2022-05-9);
+		Date dob = new Date(1982-02-03);
+		Date doj = new Date(2022-06-9);
 
-		employeeBO.setEmpId(140);
-		employeeBO.setFirstName("Raghavan");
-		employeeBO.setLastName("Muthu");
+		employeeBO.setEmpId(200);
+		employeeBO.setFirstName("Virat");
+		employeeBO.setLastName("kholi");
 		employeeBO.setDateOfBirth(dob);
 		employeeBO.setGender('M');
-		employeeBO.setAadharId("123456789876");
+		employeeBO.setAadharId("112233445566");
 		employeeBO.setBloodGroup("B+ve");
-		employeeBO.setCity("Bengaluru");
-		employeeBO.setPersonalEmail("raghavan.muthu@gmail.com");
-		employeeBO.setOfficialEmail("raghavan.muthu@milvik.se");
-		employeeBO.setPassword("Raghavan@muthu");
-		employeeBO.setPrimaryContactNo("8095261616");
-		employeeBO.setSecondaryContactNo("9848022338");
-		employeeBO.setHighestQualification("MTech");
+		employeeBO.setCity("Delhi");
+		employeeBO.setPersonalEmail("virat.kholi@gmail.com");
+		employeeBO.setOfficialEmail("virat.kholi@outlook.com");
+		employeeBO.setPassword("Virat@18");
+		employeeBO.setPrimaryContactNo("8899776655");
+		employeeBO.setSecondaryContactNo("5577668844");
+		employeeBO.setHighestQualification("BTech");
 		employeeBO.setSkillsets("Java, MySQL, Spring, HTML, CSS, TOGAF");
 		employeeBO.setDateOfJoining(doj);
 		employeeBO.setHobbies("Training young freshers, Playing Cricket, Reading Books");
@@ -136,16 +139,9 @@ public class EmployeeDAOJUnitTest
 	public static void afterAll() 
 	{
 		logger.info("------- After All Invoked ---------");
-		//Conditionally "delete" Raghavan -record And
-		//Conditionally "insert" Raghavan -record (EMP ID #140)
+		//Conditionally "delete" Virat -record
 		
-		/* Purposefully do NOTHING as this record of Raghavan
-		   is being used in the other JUnit Test methods like
-		   LoginJUnitTest etc.,
-		 *;
-		
-		/*
-		int empId = 140;
+		int empId = 200;
 		int recordsDeleted = 0;
 		
 		EmployeeBO employeeBO = new EmployeeBO();
@@ -160,43 +156,6 @@ public class EmployeeDAOJUnitTest
 		catch (Exception exception) 
 		{
 			logger.error("Exception while deleting  an Employee with the EmpId - " + empId);
-			logger.error("Error Message : " + exception.getMessage());
-			
-			if (AppUtil.isAppDevMode)
-			{
-				exception.printStackTrace();
-			}
-		}
-		*/
-		
-		//though conceptually we should be deleting the data what we created,
-		//we are doing an update to keep one record active 
-		int empId = 140;
-		EmployeeBO employeeBOFromDB = new EmployeeBO();
-		
-		try {
-			employeeBOFromDB = employeeDAO.getEmployeeByEmpId(empId);
-		}catch (Exception exception) {
-			logger.error("Exception while getting an Employee with the EmpId - " + empId);
-			logger.error("Error Message : " + exception.getMessage());
-			
-			if (AppUtil.isAppDevMode)
-			{
-				exception.printStackTrace();
-			}
-		}
-		
-		employeeBOFromDB.setActive(true);
-		employeeBOFromDB.setUpdatedBy(140);
-		employeeBOFromDB.setUpdatedDate(new java.sql.Timestamp(System.currentTimeMillis()));
-		
-		int recordsUpdated = 0;
-		
-		try {
-			recordsUpdated = employeeDAO.updateEmployee(employeeBOFromDB);
-			logger.info("recordsUpdated : " + recordsUpdated);
-		}catch (Exception exception) {
-			logger.error("Exception while updating an Employee with the EmpId - " + empId);
 			logger.error("Error Message : " + exception.getMessage());
 			
 			if (AppUtil.isAppDevMode)
@@ -293,7 +252,7 @@ public class EmployeeDAOJUnitTest
 		employeeBO.setSkillsets("Java, TOGAF");
 		employeeBO.setDateOfJoining(doj);
 		employeeBO.setHobbies("Cycling, Coding");
-		employeeBO.setManagerId(140);
+		employeeBO.setManagerId(200);
 
 		return employeeBO;
 	}
@@ -448,7 +407,7 @@ public class EmployeeDAOJUnitTest
 	public void testEmployeeView() 
 	{
 		logger.info("----------- EmployeeViewJUnitTest - Invoked ------------");	
-		testEmployeeView(140);
+		testEmployeeView(200);
 	}
 	
 	public void testEmployeeView(int empId) 
@@ -551,7 +510,7 @@ public class EmployeeDAOJUnitTest
 	@DisplayName("Delete Employee by EmpId")
 	public void testEmployeeDeleteByEmpId() {
 		logger.info("EmployeeDeleteJUnitTest - Invoked");
-		testEmployeeDeleteByEmpId(140);
+		testEmployeeDeleteByEmpId(200);
 	}
 
 	public void testEmployeeDeleteByEmpId(int empId) {
@@ -579,7 +538,7 @@ public class EmployeeDAOJUnitTest
 	public void testManagerSelfView() 
 	{
 		logger.info("------------- ManagerSelfView JUnitTest - Invoked --------------");	
-		testManagerSelfView(140);
+		testManagerSelfView(200);
 	}
 	
 	public void testManagerSelfView(int empId) 
@@ -645,13 +604,12 @@ public class EmployeeDAOJUnitTest
 		}
 		logger.info("ManagerId :" + employeeBOFromDB.getManagerId());
 		assertNotNull(employeeBOFromDB);
-		assertTrue(employeeBOFromDB.getManagerId() == 140);
+		assertTrue(employeeBOFromDB.getManagerId() == 200);
 		java.util.Date time = new java.util.Date();
 		logger.info("Current Time :"+ time);
 		logger.info("Created Time :" + employeeBOFromDB.getCreatedDate());
 		assertTrue(employeeBOFromDB.getCreatedDate() !=  time );
 	}
-	
 	
 	@Test
 	@DisplayName("ManagerEditMember JUnitTest ")
@@ -660,9 +618,12 @@ public class EmployeeDAOJUnitTest
 		logger.info("----------- ManagerEditMemberJUnitTest - Invoked --------------");
 		
 		int recordsUpdated = 0;
+		LocalDateTime ldt = LocalDateTime.now();
+		Timestamp Date =java.sql.Timestamp.valueOf(ldt);
 		
 		//modify the values
-		employeeBO.setUpdatedBy(140);
+		employeeBO.setUpdatedBy(200);
+		employeeBO.setUpdatedDate(Date);
 		employeeBO.setHobbies(employeeBO.getHobbies() +  ", AWS, MicroServices");
 
 		try 
@@ -682,7 +643,72 @@ public class EmployeeDAOJUnitTest
 		
 		logger.info("recordsUpdated  : " + recordsUpdated);
 		assertTrue(recordsUpdated>0);		
-		assertTrue(employeeBO.getManagerId() == 140);
-		assertTrue(employeeBO.getUpdatedBy() == 140);
+		assertTrue(employeeBO.getManagerId() == 200);
+		assertTrue(employeeBO.getUpdatedBy() == 200);
+		java.util.Date time = new java.util.Date();
+		logger.info("Current Time :"+ time);
+		logger.info("UpdatedDate :" + employeeBO.getUpdatedDate());
+		assertTrue(employeeBO.getUpdatedDate() !=  time );
+		
+	}
+	
+	@Test
+	@DisplayName("ManagerEditEmployeeStatus JUnitTest ")
+	public void testManagerEditStatus() 
+	{
+		logger.info("----------- ManagerEditMemberStatusJUnitTest - Invoked --------------");
+		
+		//Getting the Data From DB.
+		try {
+			employeeBO = employeeDAO.getEmployeeByEmpId(81);
+		} catch (Exception exception) {
+			logger.error("Exception occurred while fetching an employee with the ID : " + 81);
+			logger.error("Error Message : " + exception.getMessage());
+
+			if (AppUtil.isAppDevMode) {
+				exception.getStackTrace();
+			}
+		}
+		
+		int recordsUpdated = 0;
+		LocalDateTime ldt = LocalDateTime.now();
+		Timestamp Date =java.sql.Timestamp.valueOf(ldt);
+		//modify the values
+		employeeBO.setUpdatedBy(200);
+		employeeBO.setActive(false);
+		employeeBO.setInactivationReason("HE LEFT THE COMPANY.");
+		employeeBO.setInactivatedDate(Date);
+		employeeBO.setReactivatedDate(null);
+		employeeBO.setReactivationReason(null);
+
+		try 
+		{
+			recordsUpdated = employeeDAO.managerEditMember(employeeBO);
+			logger.info("ID :" + employeeBO.getEmpId());
+			logger.info("EmployeeBO : " + employeeBO);
+		} 
+		catch (Exception exception) 
+		{
+			logger.error("Exception occurred while updating the data into the Database Table");
+			logger.error("Error Message : " + exception.getMessage());
+			if (AppUtil.isAppDevMode) 
+			{
+				exception.printStackTrace();
+			}
+		}
+		logger.info("recordsUpdated  : " + recordsUpdated);
+		assertTrue(recordsUpdated>0);		
+		assertTrue(employeeBO.getManagerId() == 200);
+		assertTrue(employeeBO.getUpdatedBy() == 200);
+		logger.info("Created Date :" + employeeBO.getCreatedDate());
+		logger.info("InactivatedDate   :"+ employeeBO.getInactivatedDate());
+		logger.info("ReactivatedDate   :"+ employeeBO.getReactivatedDate());
+		logger.info("InactivationReason :" + employeeBO.getInactivationReason());
+		logger.info("ReactivationReason :" + employeeBO.getReactivationReason());
+		assertTrue(employeeBO.getInactivationReason().equals("HE LEFT THE COMPANY."));
+		assertTrue(employeeBO.isActive() != true);
+		assertTrue(employeeBO.getInactivatedDate() != employeeBO.getCreatedDate());
+		assertNull(employeeBO.getReactivatedDate());
+		assertNull(employeeBO.getReactivationReason());
 	}
 }

@@ -212,9 +212,10 @@ public class EmployeeCreateServlet extends HttpServlet {
 		{
 			EmailConfigBO emailConfigBO = EmailConfigUtil.loadEmailConfigForTMS();
 			emailConfigBO.setEmailTo(employeeBO.getOfficialEmail());
+			boolean emailSent = false;
+			
 			try {
-				new EmailUtil().sendMail(emailConfigBO);
-				logger.info("Email has been successfully sent to [" + emailConfigBO.getEmailTo() + "]");
+				emailSent = new EmailUtil().sendMail(emailConfigBO);
 			} catch (AddressException addressException) {
 				logger.error("AddressException while sending an email to the employee");
 				String errorMsg2 = addressException.getMessage();
@@ -237,8 +238,14 @@ public class EmployeeCreateServlet extends HttpServlet {
 					missingConfigException.printStackTrace();
 				}
 			}
+			
+			if(emailSent) {
+				logger.info("Email has been successfully sent to [" + emailConfigBO.getEmailTo() + "]");	
+			} else {
+				logger.info("The email was not sent to the employee [" + emailConfigBO.getEmailTo() + "]");
+			}
 		}
-
+	
 		String message = null;
 		String url = null;
 

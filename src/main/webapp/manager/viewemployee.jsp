@@ -125,6 +125,22 @@
 							<td>Updated By</td>
 							<td>${employeeBO.updatedBy}</td>
 						</tr>	
+						<tr>
+						<td>InactivationReason</td>
+						<td>${employeeBO.inactivationReason}</td>
+						</tr>		
+			    	<tr>
+						<td>ReactivationReason</td>
+						<td>${employeeBO.reactivationReason}</td>
+						</tr>		
+						<tr>
+						<td>InactivatedDate</td>
+						<td>${employeeBO.inactivatedDate}</td>
+						</tr>		
+			    	<tr>
+						<td>ReactivatedDate</td>
+						<td>${employeeBO.reactivatedDate}</td>
+						</tr>		
 					</tbody>
 				</table>
 		<%

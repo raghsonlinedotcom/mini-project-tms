@@ -245,6 +245,10 @@ public class EmployeeDAOImpl implements EmployeeDAO
 				employeeBO.setCreatedBy(rs.getString("CREATED_BY"));
 				employeeBO.setUpdatedDate(rs.getTimestamp("UPDATED_DATE"));
 				employeeBO.setUpdatedBy(rs.getInt("UPDATED_BY"));
+				employeeBO.setInactivationReason(rs.getString("INACTIVATION_REASON"));
+				employeeBO.setReactivationReason(rs.getString("REACTIVATION_REASON"));
+				employeeBO.setInactivatedDate(rs.getTimestamp("INACTIVATED_DATE"));
+				employeeBO.setReactivatedDate(rs.getTimestamp("REACTIVATED_DATE"));
 				
 			}
 		} catch (SQLException sqlException) {
@@ -605,7 +609,8 @@ public class EmployeeDAOImpl implements EmployeeDAO
 		String sql = "UPDATE EMPLOYEE SET " + "FIRST_NAME=?, LAST_NAME=?, DATE_OF_BIRTH = ?,"
 				+ " GENDER =?, AADHAR_ID = ?, BLOOD_GROUP = ?, CITY=?, PERSONAL_EMAIL=?, OFFICIAL_EMAIL=?,"
 				+ " PRIMARY_CONTACT_NO=?, SECONDARY_CONTACT_NO=?, HIGHEST_QUALIFICATION=?, SKILLSETS =?,"
-				+ " DATE_OF_JOINING =?, HOBBIES = ?,IS_ACTIVE = ?,UPDATED_DATE=?, UPDATED_BY = ?"
+				+ " DATE_OF_JOINING =?, HOBBIES = ?,IS_ACTIVE = ?,UPDATED_DATE=?, UPDATED_BY = ?,"
+				+ " INACTIVATION_REASON=?, REACTIVATION_REASON=?, INACTIVATED_DATE=?, REACTIVATED_DATE=?"
 				+ " WHERE MANAGER_ID= ? AND EMP_ID = ?";
 
 		logger.info("SQL Query :: " + sql);
@@ -637,8 +642,12 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			pStmt.setBoolean(16, employeeBO.isActive());
 			pStmt.setTimestamp(17, employeeBO.getUpdatedDate());
 			pStmt.setInt(18, employeeBO.getUpdatedBy());
-			pStmt.setInt(19, employeeBO.getManagerId());
-			pStmt.setInt(20, employeeBO.getEmpId());
+			pStmt.setString(19, employeeBO.getInactivationReason());
+			pStmt.setString(20, employeeBO.getReactivationReason());
+			pStmt.setTimestamp(21, employeeBO.getInactivatedDate());
+			pStmt.setTimestamp(22, employeeBO.getReactivatedDate());
+			pStmt.setInt(23, employeeBO.getManagerId());
+			pStmt.setInt(24, employeeBO.getEmpId());
 			
 			recordsUpdated = pStmt.executeUpdate();
 			

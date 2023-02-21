@@ -310,7 +310,7 @@
 								id="secondaryContactNumber" 
 								name="secondaryContactNumber" 
 								value='<%= secondaryContactNumber %>'
-								placeholder="1234567890" size="10"  maxlength="10" >
+								placeholder="1234567890" size="10"  maxlength="10"/>
 						</td>
 					</tr>
 					<tr>
@@ -321,7 +321,7 @@
 								name="highestQualification" 
 								placeholder="MTech, MS, MBA etc.," required size="35" 
 								value='<%= highestQualification %>' 
-								maxlength="35">
+								maxlength="35"/>
 						</td>
 					</tr>
 					<tr>
@@ -351,7 +351,7 @@
                        		 	placeholder="Reading Books, Listening to Music, Playing Cricket etc.," 
                        		 	size="100" maxlength="100" 
                        		 	value='<%= hobbies %>'
-                       		 	aria-describedby="hobbiesHelp">
+                       		 	aria-describedby="hobbiesHelp"/>
 	    						<div id="hobbiesHelp" class="form-text">
 	    							Mention your extra curricular activities if any.
 	    						</div>
@@ -365,12 +365,13 @@
                        		<select class="form-select" aria-label=".select example" 
                        		id="managerId" name="managerId" required>
                        		<option disabled selected value> -- SELECT -- </option>
-                       		<option selected value="<%=managerId%>" > <%=managerId%></option>
                        			<%
                        				for(EmployeeBO managerBO : managerList)
                 						{
                        			%>
-                							<option value = "<%=managerBO.getEmpId()%>" > 
+                							<option value = "<%=managerBO.getEmpId()%>" 
+                									<%= (isAppDevMode && managerBO.getEmpId() == managerId) ? "selected" : "" %>
+                							> 
                 								<%=
                 									managerBO.getEmpId() + " | " + 
                 							        managerBO.getFirstName() + " " +

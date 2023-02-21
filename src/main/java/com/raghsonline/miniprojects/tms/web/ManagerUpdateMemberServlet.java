@@ -49,6 +49,7 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		logger.info("ManagerUpdateMemberServlet Servlet - doPost() invoked");
 		HttpSession session = request.getSession(true);
 		EmployeeBO employeeBOSession = (EmployeeBO) session.getAttribute("employeeBO");
+		logger.info("employeeBOSession :" + employeeBOSession);
 		
 		String errorMsgUI = "<ul>";
 		EmployeeBO employeeBO= new EmployeeBO();
@@ -62,6 +63,28 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		int empId = empIdStr != "" ? Integer.parseInt(empIdStr) : 0;
 		logger.info("Param - empId : [" + empId + "]");
 		errorMsgUI = validateField(employeeBO, empId, "empId", errorMsgUI);
+		
+		//Getting the Employee from DB
+		EmployeeBO employeeBOFromDB = new EmployeeBO();
+		EmployeeDAO employeeDAO1 = new EmployeeDAOImpl();
+		try 
+		{
+			employeeBOFromDB = employeeDAO1.getEmployeeByEmpId(empId);
+		} 
+		catch (Exception exception) 
+		{
+			logger.error("Exception occurred while reading the data from the Database Table");
+			logger.error("Message : " + exception.getMessage());
+			
+			if (AppUtil.isAppDevMode) 
+			{
+				exception.printStackTrace();
+			}
+		}
+		
+		logger.info("employeeBOFromDB :" + employeeBOFromDB);
+		Boolean Status = employeeBOFromDB.isActive();
+		logger.info("Active Satus From DB :" + Status);	
 		
 		String firstName = request.getParameter("firstName");
 		logger.info("Param - firstName : [" + firstName + "]");
@@ -124,7 +147,7 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		errorMsgUI = validateHobbiesField(employeeBO, hobbies, "hobbies", errorMsgUI);
 		
 		String isActiveStr = request.getParameter("isActive");
-		Boolean isActive = (Boolean) (isActiveStr != null ? Boolean.parseBoolean(isActiveStr) : false);
+		Boolean isActive = (Boolean) (isActiveStr != null ? Boolean.parseBoolean(isActiveStr) : true);
 		logger.info("Param - isActive: [" + isActive + "]");
 		employeeBO.setActive(isActive);
 		
@@ -141,6 +164,87 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		logger.info("Param - updatedBy : [" + updatedBy + "]");
 		errorMsgUI = validateField(employeeBO, updatedBy, "updatedBy", errorMsgUI);
 		
+		String inactivationReason = request.getParameter("inactivationReason");
+		String reactivationReason = request.getParameter("reactivationReason");
+		Timestamp inactivatedDate =java.sql.Timestamp.valueOf(ldt);
+		Timestamp reactivatedDate =java.sql.Timestamp.valueOf(ldt);
+		
+		if(isActive.equals(false) && Status.equals(true))
+		{
+			
+			logger.info("Param - inactivationReason : [" + inactivationReason + "]");
+			errorMsgUI = validateInactivationReasonField(employeeBO, inactivationReason, "inactivationReason", errorMsgUI);
+			employeeBO.setInactivatedDate(inactivatedDate);
+			logger.info("inactivatedDate :"+inactivatedDate);
+		} 
+		else if(isActive.equals(true) && Status.equals(false))
+		{
+			
+			logger.info("Param - reactivationReason : [" + reactivationReason + "]");
+			errorMsgUI = validateReactivationReasonField(employeeBO, reactivationReason, "reactivationReason", errorMsgUI);
+			employeeBO.setReactivatedDate(reactivatedDate);
+			logger.info("reactivatedDate :"+reactivatedDate);
+		}
+		else
+		{
+			String inactivatedDate1 = request.getParameter("inactivatedDate");
+			logger.info("inactivatedDate1 :"+inactivatedDate1);
+			
+			if(inactivatedDate1 == null || inactivatedDate1.trim().length() == 0)
+			{
+				logger.info("inactivatedDate1 is null : " +inactivatedDate1);
+			}
+			else
+			{
+			Timestamp inactivatedDate2 =java.sql.Timestamp.valueOf(inactivatedDate1);
+			employeeBO.setInactivatedDate(inactivatedDate2);
+			}
+			
+			String reactivatedDate1 = request.getParameter("reactivatedDate");
+			logger.info("reactivatedDate1 :"+ reactivatedDate1);
+			
+			if(reactivatedDate1 == null || reactivatedDate1.trim().length() == 0)
+			{
+				logger.info("reactivatedDate1 is null :"+reactivatedDate1);
+			}
+			else
+			{
+			Timestamp reactivatedDate2 =java.sql.Timestamp.valueOf(reactivatedDate1);
+			employeeBO.setReactivatedDate(reactivatedDate2);
+			}
+		}
+		
+		if(isActive.equals(false))
+		{
+			String reactivatedDate2 = request.getParameter("reactivatedDate");
+			logger.info("reactivatedDate2 for false:"+reactivatedDate2);
+			
+			if(reactivatedDate2 == null || reactivatedDate2.trim().length() == 0)
+			{
+				logger.info("reactivatedDate2 is null : "+ reactivatedDate2);
+			}
+			else
+			{
+				Timestamp reactivatedDate3 =java.sql.Timestamp.valueOf(reactivatedDate2);
+				employeeBO.setReactivatedDate(reactivatedDate3);
+			}	
+		}
+		else
+		{
+			String inactivatedDate2 = request.getParameter("inactivatedDate");
+			logger.info("inactivatedDate2 for true :"+inactivatedDate2);
+			
+			if(inactivatedDate2 == null || inactivatedDate2.trim().length() == 0)
+			{
+				logger.info("inactivatedDate2 is null :" +inactivatedDate2);
+			}
+			else
+			{
+				Timestamp inactivatedDate3 =java.sql.Timestamp.valueOf(inactivatedDate2);
+				employeeBO.setInactivatedDate(inactivatedDate3);
+			}
+		}
+	
 		if(validationError)
 		{
         	errorMsgUI += "</ul>";
@@ -170,6 +274,8 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		employeeBO.setHobbies(hobbies);
 		employeeBO.setActive(isActive);
 		employeeBO.setUpdatedBy(updatedBy);
+		employeeBO.setInactivationReason(inactivationReason);
+		employeeBO.setReactivationReason(reactivationReason);
 
 		String exceptionMsg = null;
 		int recordsUpdated = 0;
@@ -323,19 +429,47 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 		return errorMsgUI;
 	}
 	
+	public String validateInactivationReasonField(EmployeeBO employeeBO, String value,
+			String fieldName, String errorMsgUI)
+	{
+		if(value.trim().length()>250) 
+		{	
+			validationError = true;
+			logger.error(fieldName + " is in invalid format");			
+			errorMsgUI += addError(fieldName + "  can be optional when there is no Action performed or must contain 250 or fewer characters");
+		} 
+		
+		setField(employeeBO, fieldName, value);
+		return errorMsgUI;
+	}
+	
+	public String validateReactivationReasonField(EmployeeBO employeeBO, String value,
+			String fieldName, String errorMsgUI)
+	{
+		if(value.trim().length()>250) 
+		{	
+			validationError = true;
+			logger.error(fieldName + " is in invalid format");			
+			errorMsgUI += addError(fieldName + "  can be optional when there is no Action performed or must contain 250 or fewer characters");
+		} 
+		
+		setField(employeeBO, fieldName, value);
+		return errorMsgUI;
+	}
+	
 	public void setField(EmployeeBO employeeBO, String fieldName ,int value)
 	{
 		switch(fieldName) 
 		{
 			case "id":
 			employeeBO.setId(value);
-			break;
-			
+			    break;
 			case "empId":
 				employeeBO.setEmpId(value);
 				break;	
 			case "updatedBy" :
 				employeeBO.setUpdatedBy(value);	
+				break;
 		}
 	}
 	
@@ -391,11 +525,19 @@ public class ManagerUpdateMemberServlet extends HttpServlet
 				break;
 			case "highestQualification" :
 				employeeBO.setHighestQualification(value);
+				break;
 			case "skillsets" :
 				employeeBO.setSkillsets(value);
+				break;
 			case "hobbies" :
 				employeeBO.setHobbies(value);
-			
+				break;
+			case "inactivationReason" :
+				employeeBO.setInactivationReason(value);
+				break;
+			case "reactivationReason" :
+				employeeBO.setReactivationReason(value);
+				break;
 		}
 	}
 }

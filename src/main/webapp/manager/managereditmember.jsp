@@ -1,11 +1,63 @@
 <%@page import="com.raghsonline.miniprojects.tms.bo.EmployeeBO"%>
 <%@include file="../inc/header.jsp" %>
+<script type="text/javascript">
+var flag = false;
+window.addEventListener("load", function() {
+  document.getElementById("isActiveTrue").addEventListener("click", function() {
+    flag = true;
+    validateForm();
+  });
+  document.getElementById("isActiveFalse").addEventListener("click", function() {
+    flag = true;
+    validateForm();
+  });
+});
+function validateForm() {
+  var isActive = document.forms["UpdateForm"]["isActive"].value;
+  var reactivationReason = document.forms["UpdateForm"]["reactivationReason"].value;
+  var inactivationReason = document.forms["UpdateForm"]["inactivationReason"].value;
+  console.log(inactivationReason);
+
+  if (!flag) {
+    return true;
+    } 
+   else {
+	    if (isActive == "false" && inactivationReason == "") {
+	      alert("Please specify the reason for inactivation");
+	      return false;
+	    } 
+	    if (isActive == "true" && reactivationReason == "") {
+	      alert("Please specify the reason for reactivation");
+	      return false;
+	    }
+	  }
+}
+function validate()
+{
+	var pvs = document.getElementsByName('isActive');
+	var inactivationReason = document.getElementById("inactivationReason");
+	var reactivationReason = document.getElementById("reactivationReason");
+	
+	 if (pvs[0].checked) {
+		 inactivationReason.style.pointerEvents = "none";   
+	     reactivationReason.style.pointerEvents = "auto"; 
+	     reactivationReason.querySelector('input').style.backgroundColor = 'white';
+	    } 
+	 else  {
+		 reactivationReason.style.pointerEvents = "none";
+		 inactivationReason.style.pointerEvents = "auto";
+		 inactivationReason.querySelector('input').style.backgroundColor = 'white';
+	  } 
+}
+</script>
  <link rel="stylesheet" href="<%=request.getContextPath()%>/inc/style.css"/>
 		<h1>Edit Profile</h1>
 		
 		<%
 			EmployeeBO employeeBO = (EmployeeBO) request.getAttribute("employeeBO");
-			
+		    boolean isActiveFromDB = employeeBO.isActive();
+		    System.out.println("isActiveFromDB :"+isActiveFromDB);
+		    
 			if(null==employeeBO) {
 				employeeBO = (EmployeeBO) session.getAttribute("employeeBO");	
 			}		
@@ -72,7 +124,8 @@
 		<%		
 			} else {
 		%>	
-				<form id="updateForm" name="UpdateForm" action="<%=request.getContextPath()%>/ManagerUpdateMember" method="post">
+				<form id="updateForm" name="UpdateForm" onsubmit="return validateForm()"
+				action="<%=request.getContextPath()%>/ManagerUpdateMember"  method="post">
 					<table class="table table-striped table-hover table-bordered 
 					table-responsive caption-top">
 						
@@ -85,14 +138,14 @@
 								</td>		
 								</tr>
 								<tr>
-								<td>EmployeeId</td>
+								<td>EmployeeId<span class="required">*</span></td>
 								<td>
 									${employeeBO.empId}
 									<input type="hidden"  name="empId"  value="${employeeBO.empId}"/>
 								</td>		
 								</tr> 
 							<tr>
-								<td>First Name</td>
+								<td>First Name<span class="required">*</span></td>
 								<td>
 									<input type="text" class="form-control"  id="firstName" name="firstName"  
 										placeholder="Your FirstName" value="${employeeBO.firstName}"
@@ -100,7 +153,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Last Name</td>
+								<td>Last Name<span class="required">*</span></td>
 								<td>
 									<input type="text" class="form-control"  id="lastName" name="lastName"  
 										placeholder="Your LastName" value="${employeeBO.lastName}"
@@ -108,7 +161,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Date Of Birth</td>
+								<td>Date Of Birth<span class="required">*</span></td>
 								<td>
 									<input type="date" class="form-control"  id="dob" name="dob" 
 										min="1960-01-01" max="2004-01-01"  
@@ -117,7 +170,7 @@
 								</td>
 							</tr>
 						<tr>
-						<td>Gender</td>
+						<td>Gender<span class="required">*</span></td>
 						<td>
 						<input  type="radio" name="gender" id="genderM" value="M" 
 									<%
@@ -134,7 +187,7 @@
                      </td>
 					 </tr>
 							<tr>
-								<td>AadharId </td>
+								<td>AadharId<span class="required">*</span></td>
 								<td>
 										<input type="number" class="form-control" id="aadharId" name="aadharId" size="12" 
 										placeholder="Your AadharId" 
@@ -142,7 +195,7 @@
 								</td>
 							</tr>
 							<tr>
-						<td> BloodGroup </td>
+						<td> BloodGroup<span class="required">*</span></td>
 						<td>
 							<select class="form-select" aria-label=".select example" name="bloodGroup" id="bloodGroup" required>
                        		  	<option value="${employeeBO.bloodGroup}">${employeeBO.bloodGroup}</option>
@@ -159,7 +212,7 @@
 						</td>
 					<tr>
 					<tr>
-						<td>City</td>
+						<td>City<span class="required">*</span></td>
 						<td>
 							<input type="text" class="form-control"  
 	                    	id="city" name="city" placeholder="city" 
@@ -168,7 +221,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>PersonalEmail</td>
+						<td>PersonalEmail<span class="required">*</span></td>
 						<td>
 							<input type="Email" class="form-control" 
 	                    	id="persoalEmail" name="personalEmail" 
@@ -178,7 +231,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>OfficialEmail</td>
+						<td>OfficialEmail<span class="required">*</span></td>
 						<td>
 							<input type="Email" class="form-control" 
 	                    id="officialEmail" name="officialEmail" 
@@ -187,7 +240,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Primary Contact Number </td>
+						<td>Primary Contact Number<span class="required">*</span></td>
 						<td>
 							<input type="tel" class="form-control" 
 								id="primaryContactNumber" 
@@ -198,7 +251,7 @@
 						</td>
 					</tr>
 						<tr>
-						<td>Secondary Contact Number </td>
+						<td>Secondary Contact Number</td>
 						<td>
 							<input type="tel" class="form-control" 
 								id="secondaryContactNumber" 
@@ -208,7 +261,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Highest Qualification</td>
+						<td>Highest Qualification<span class="required">*</span></td>
 						<td>
 							<input type="text" class="form-control" 
 								id="highestQualification" 
@@ -218,7 +271,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Skill Sets</td>
+						<td>Skill Sets<span class="required">*</span></td>
 						<td>
 							<textarea class="form-control" rows="4" cols="50"  
 								id="skillSets" name="skillSets" placeholder="your skill set" maxlength="100"								  
@@ -227,7 +280,7 @@
 					</tr>
 					
 					<tr>
-						<td>Date Of Joining </td>
+						<td>Date Of Joining<span class="required">*</span></td>
 						<td>
 							<input type="date" class="form-control" 
 								id="doj" name="doj"  value="${employeeBO.dateOfJoining}"
@@ -247,16 +300,16 @@
 	    						</div>
 						</td>
 					</tr>
-				<tr>
-						<td>Is Active</td>
+				  <tr>
+						<td>Is Active<span class="required">*</span></td>
 						<td>
-						<input  type="radio" name="isActive" id="isActive" value="true" 
+						<input  type="radio" name="isActive" id="isActiveTrue" onClick="validate()" value="true" 
 									<%
                                         if(employeeBO.isActive()==true) {
                                             out.println(" checked");
                                         }
                                     %>>True
-						<input type="radio" name="isActive" id="isActive" value="false"
+						<input type="radio" name="isActive" id="isActiveFalse" onClick="validate()" value="false"
 									<%
                                         if(employeeBO.isActive()==false) {
                                             out.println(" checked");
@@ -265,7 +318,7 @@
                      </td>
 					 </tr>	
 					<tr>
-						<td> Manager Id </td>
+						<td> Manager Id<span class="required">*</span></td>
 						<td>
 							<select class="form-select" aria-label=".select example" style= background-color:#CCCACA; 
                        			id="managerId" name="managerId"required>
@@ -300,10 +353,47 @@
 										required/>
 				     	</td>
 					</tr>
+					<tr>
+					    <td> InactivationReason</td>
+					    <td> 
+					   		<div id='inactivationReason' style="pointer-events: none;"> 
+						  	  <input type="text"  class="form-control"  id="inactivationReason" name="inactivationReason" 
+							   style= background-color:#CCCACA; size="250" maxlength="250" value="${employeeBO.inactivationReason}" />
+								  <div id="inactivationReasonCondition" class="form-text" >
+    								InactivationReason is Mandatory if the isActive is false.
+    							  </div>
+    						</div>
+				     	</td>			    
+					</tr> 
+					<tr>
+					    <td>ReactivationReason  </td> 
+					    <td> 
+					  		 <div id='reactivationReason' style="pointer-events: none;">
+						       <input type="text" class="form-control"  id="reactivationReason" name="reactivationReason"  
+							    style= background-color:#CCCACA; size="250" maxlength="250" value="${employeeBO.reactivationReason}" />
+								 <div id="reactivationReasonCondition" class="form-text">
+    								ReactivationReason is Mandatory if the isActive is true.
+    						     </div>
+							 </div>	 
+				     	</td>
+					</tr>
+			    	<tr>
+						<td>InactivatedDate</td>
+						<td>
+							<input readonly type="datetime" class="form-control" id="inactivatedDate" name="inactivatedDate"  
+								value="${employeeBO.inactivatedDate}"required >	
+						</td>
+					</tr>		
+			    	 <tr>
+						<td>ReactivatedDate</td>
+						<td>
+							<input readonly type="datetime" class="form-control" id="reactivatedDate" name="reactivatedDate"  
+								value="${employeeBO.reactivatedDate}"required >
+						</td>
+					  </tr>			
 							<tr>
 								<td colspan="2">
-									<input type="submit" name="Update" Value="Update"/>
-
+									<input type="submit" name="Update"   Value="Update"  />
 								</td>
 							</tr>			
 						</tbody>

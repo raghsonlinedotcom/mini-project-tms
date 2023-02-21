@@ -104,6 +104,21 @@ public class EmailUtil
 	public boolean sendMail(EmailConfigBO emailConfigBO) 
 		throws AddressException, MessagingException, MissingConfigException
     {
+		/* TMS-113 - Changes -- Start */
+		boolean isSenderEmailDummy = null!=emailConfigBO && 
+				emailConfigBO.getEmailTo().endsWith("Office.com");
+		
+		if(!emailConfigBO.canSendEmail()) {
+			logger.info("***** Email Sending flag has been turned off!!! ***** ");
+			return false;
+		}
+		
+		if(isSenderEmailDummy) {
+			logger.info("***** No email is sent, because the recipient seems to be dummy ***** ");
+			return false;
+		}
+		/* TMS-113 - Changes -- END */
+		
 		boolean mailSent = false;
 		
 		Properties prop = new Properties();

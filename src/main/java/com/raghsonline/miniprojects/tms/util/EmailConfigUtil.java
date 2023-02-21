@@ -17,6 +17,8 @@ public class EmailConfigUtil
 	
 	public static final String KEY_EMAIL_BODY = "email.body";
 	
+	public static final String KEY_FLAG_EMAIL_SEND = "flag.email.send";
+	
 	private static final String KEY_SUFFIX_TEST = ".test";
 	
 	private static final String KEY_SUFFIX_TMS = ".tms";
@@ -42,8 +44,18 @@ public class EmailConfigUtil
 		emailConfigBO.setEmailSubject(PropertyUtil.getEmailPropertyValue(KEY_EMAIL_SUBJECT + key));
 		emailConfigBO.setEmailBody(PropertyUtil.getEmailPropertyValue(KEY_EMAIL_BODY + key));
 		
+		emailConfigBO.setSendEmail(canSendEmail());
+				
 		logger.info("EmailConfigBO populated successfully!, emailConfigBO = " + emailConfigBO);
 		
 		return emailConfigBO;
+	}
+	
+	public static boolean canSendEmail()
+	{
+		String flagEmailSend = PropertyUtil.getEmailPropertyValue(KEY_FLAG_EMAIL_SEND);
+		boolean canSendEmail = null!=flagEmailSend && flagEmailSend.equalsIgnoreCase("Y");
+		
+		return canSendEmail;
 	}
 }

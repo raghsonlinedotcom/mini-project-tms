@@ -1,4 +1,4 @@
-package com.raghsonline.miniprojects.tms.web;
+package com.raghsonline.miniprojects.tms.web.leave;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,23 +9,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.raghsonline.miniprojects.tms.bo.EmployeeBO;
-import com.raghsonline.miniprojects.tms.dao.EmployeeDAO;
-import com.raghsonline.miniprojects.tms.dao.EmployeeDAOImpl;
+import com.raghsonline.miniprojects.tms.bo.LeaveDetailBO;
+import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAO;
+import com.raghsonline.miniprojects.tms.dao.LeaveDetailsDAOImpl;
 import com.raghsonline.miniprojects.tms.util.AppUtil;
 
 /**
  * Servlet implementation class ManagerEditMemberServlet
  */
-@WebServlet({ "/ManagerEditMemberServlet", "/ManagerEditMember" })
+@WebServlet({ "/ManagerEditLeaveDetailsServlet", "/ManagerEditLeaveDetails" })
 
-public class ManagerEditMemberServlet extends HttpServlet 
+public class ManagerEditLeaveDetailsServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
 	
 	Logger logger = Logger.getLogger(this.getClass());
        
-    public ManagerEditMemberServlet() 
+    public ManagerEditLeaveDetailsServlet() 
     {
         super();
     }
@@ -37,20 +37,20 @@ public class ManagerEditMemberServlet extends HttpServlet
 	throws ServletException,
 	IOException 
 	{
-		System.out.println("ManagerEditMemberServlet - doGet() invoked");
+		logger.info("ManagerEditLeaveDetailsServlet - doGet() invoked");
 
-		int empId = 0;
-		String empIdStr = request.getParameter("empId");
+		int id = 0;
+		String idStr = request.getParameter("id");
 		
-		if(null!=empIdStr && empIdStr.trim().length()>0) 
+		if(null!=idStr && idStr.trim().length()>0) 
 		{
-			empId = Integer.parseInt(empIdStr);
+			id = Integer.parseInt(idStr);
 		}
-		EmployeeBO employeeBO = new EmployeeBO();
-		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+		LeaveDetailBO leaveDetailBO = new LeaveDetailBO();
+		LeaveDetailsDAO leaveDetailsDAO = new LeaveDetailsDAOImpl();
 		try 
 		{
-			employeeBO = employeeDAO.getEmployeeByEmpId(empId);
+			leaveDetailBO = leaveDetailsDAO.getLeaveDetailsById(id);
 		} 
 		catch (Exception exception) 
 		{
@@ -61,14 +61,15 @@ public class ManagerEditMemberServlet extends HttpServlet
 			{
 				exception.printStackTrace();
 			}
+			
 		}
-		logger.info("EmployeeBO object from the database is " + employeeBO);
+		logger.info("LeaveDetailBO object from the database is " + leaveDetailBO);
 		
 		// 2. Store it in a way where the data is accessible in the JSP
-		request.setAttribute("employeeBO", employeeBO);
+		request.setAttribute("leaveDetailBO", leaveDetailBO);
 
 		// 3. Forward / Delegate the control/flow the required JSP Page
-		request.getRequestDispatcher("/manager/managereditmember.jsp").forward(request, response);
+		request.getRequestDispatcher("/manager/editleavedetails.jsp").forward(request, response);
 	}
 
 }
